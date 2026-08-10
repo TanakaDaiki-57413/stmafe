@@ -23,6 +23,9 @@ class User < ApplicationRecord
   # 通知
   has_many :notifications
 
+  # プロフィール画像をユーザーレコードに添付
+  has_one_attached :profile_image
+
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
