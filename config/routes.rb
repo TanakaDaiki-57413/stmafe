@@ -1,15 +1,27 @@
 Rails.application.routes.draw do
   #管理者側のルーティング
   namespace :admin do
+    # トップページ(教材リクエスト一覧画面)
     root to: "homes#top"
 
+    # 教材リクエスト詳細画面・データ更新
     resources :requests, only: [ :show, :update ]
+
+    # カテゴリ一覧・編集画面 各データ処理
     resources :categories, only: [ :index, :edit, :create, :update ]
+
+    # タグ一覧・編集画面 各データ処理
     resources :tags, only: [ :index, :edit, :create, :update ]
+
+    # ユーザー各画面 データ更新
     resources :users, only: [ :index, :show, :edit, :update ]
+
+    # 教材各画面 各データ処理 addは教材追加画面
     resources :materials, only: [ :index, :show, :edit, :create, :update, :destroy ] do
       get :add, on: :collection
     end
+
+    # レビュー各画面 データ削除
     resources :reviews, only: [ :index, :show, :destroy ]
   end
 
