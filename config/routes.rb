@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
-  resource :session
-  resources :passwords, param: :token
+  # 管理者ログイン
+  get "admin/sign_in", to: "admin/sessions#new"
+  post "admin/sign_in", to: "admin/sessions#create"
+  delete "admin/sign_out", to: "admin/sessions#destroy"
+
+  # ユーザーログイン/ログアウト
+  get "users/sign_in", to: "public/sessions#new"
+  post "users/sign_in", to: "public/sessions#create"
+  delete "users/sign_out", to: "public/sessions#destroy"
+
+  # ユーザー新規登録
+  get "users/sign_up", to: "public/registrations#new"
+  post "users", to: "public/registrations#create"
+
   #管理者側のルーティング
   namespace :admin do
     # トップページ(教材リクエスト一覧画面)
@@ -32,7 +44,7 @@ Rails.application.routes.draw do
     root to: "homes#top"
 
     #検索画面
-    get "serach", to: "searches#search"
+    get "search", to: "searches#search"
 
     #ユーザー編集画面・データ更新
     get   "users/profile/edit", to: "users#edit"
