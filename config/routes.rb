@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
   #管理者側のルーティング
   namespace :admin do
     # トップページ(教材リクエスト一覧画面)
