@@ -10,6 +10,7 @@ class CreateMaterials < ActiveRecord::Migration[8.1]
       t.date :release_date, null: false
       t.string :isbn_number, null: false
       t.float :average_level, null: false, default: 0.0
+      t.string :study_level, null: false
       t.timestamps
     end
   end
