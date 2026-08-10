@@ -12,4 +12,51 @@ Rails.application.routes.draw do
     end
     resources :reviews, only: [ :index, :show, :destroy ]
   end
+
+  #ユーザー側のルーティング
+  scope module: :public do
+    root to: "homes#top"
+
+    #検索画面
+    get "serach", to: "searches#search"
+
+    #ユーザー編集画面・データ更新
+    get   "users/profile/edit", to: "users#edit"
+    patch "users/profile",      to: "users#update"
+
+    #ユーザー退会確認画面・データ更新
+    get   "users/unsubscribe",  to: "users#unsubscribe"
+    patch "users/withdraw",     to: "users#withdraw"
+
+    # ユーザー一覧・詳細など
+    resources :users, param: :public_uid, only:[ :index, :show] do
+
+      # フォロー周り
+      resource :relationships, only: [:create, :destroy]
+
+      get "followings" => "relationships#followings"
+      get "followers" => "relationships#followers"
+
+      # お気に入り一覧
+      get "bookmarking" => "users#bookmarking"
+
+      # レビュー一覧
+      get "reviewing" => "users#reviewing"
+    end
+
+    # 教材一覧・詳細
+    resources :materials, only: [ :index, :show] do
+      # レビュー編集画面・各データ処理
+      resources :reviews, only: [ :edit, :create, :update, :destroy]
+    end
+
+    # 通知
+    resources :notifications, only: [ :update ]
+
+    # 教材リクエスト 各画面・各データ処理
+    resources :requests, only: [ :new, :index, :show, :create, :destroy] do
+      get "confirm", to: "requests#confirm"
+    end
+
+  end
 end
