@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_10_124305) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_10_134345) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_10_124305) do
 
   create_table "materials", force: :cascade do |t|
     t.string "author", null: false
-    t.float "average_level", default: 0.0, null: false
+    t.float "average_raiting", default: 0.0, null: false
     t.string "body", null: false
     t.integer "category_id", null: false
     t.datetime "created_at", null: false

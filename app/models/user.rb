@@ -26,6 +26,8 @@ class User < ApplicationRecord
   # プロフィール画像をユーザーレコードに添付
   has_one_attached :profile_image
 
+  # enum設定
+  enum :active_status, { valid: 0, invalid: 1, prohibited: 2 }
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
