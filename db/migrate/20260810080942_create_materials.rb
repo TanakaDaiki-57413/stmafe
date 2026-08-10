@@ -7,7 +7,7 @@ class CreateMaterials < ActiveRecord::Migration[8.1]
       t.string :author, null: false
       t.string :publisher, null: false
       t.integer :price, null: false
-      t.datetime :release_date, null: false
+      t.date :release_date, null: false
       t.string :isbn_number, null: false
       t.float :average_level, null: false, default: 0.0
       t.timestamps
