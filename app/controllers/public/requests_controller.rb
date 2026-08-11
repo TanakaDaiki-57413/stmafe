@@ -1,4 +1,4 @@
-class Public::RequestsController < ApplicationController
+class Public::RequestsController < Public::ApplicationController
   # リクエスト申請画面
   def new
   end

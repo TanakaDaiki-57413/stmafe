@@ -1,4 +1,4 @@
-class Public::ReviewsController < ApplicationController
+class Public::ReviewsController < Public::ApplicationController
   # レビュー編集画面
   def edit
   end

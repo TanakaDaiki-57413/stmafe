@@ -1,2 +1,95 @@
-<h1>Public::Registrations#new</h1>
-<p>Find me in app/views/public/registrations/new.html.erb</p>
+<div class="container py-5">
+  <div class="ms-5 mb-4">
+    <%= render "layouts/error", obj: @user %>
+    <%= render "layouts/flash" %>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <h2 class="mb-4">新規会員登録</h2>
+      <%= form_with model: @user,
+                    url: user_registration_path do |form| %>
+
+        <div class="mb-3">
+          <%= form.label :nickname, "ニックネーム", class: "form-label" %>
+          <%= form.text_field :nickname,
+                              required: true,
+                              class: "form-control w-50"%>
+        </div>
+
+
+        <div class="mb-3">
+          <%= form.label :email_address, "メールアドレス", class: "form-label" %>
+          <%= form.email_field :email_address,
+                               required: true,
+                               class: "form-control w-50"%>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :password, "パスワード※6文字以上", class: "form-label" %>
+          <%= form.password_field :password,
+                                  required: true,
+                                  class: "form-control w-50"%>
+        </div>
+
+        <div class="mb-4">
+          <%= form.label :password_confirmation,
+                         "パスワード（確認用）",
+                         class: "form-label" %>
+
+          <%= form.password_field :password_confirmation,
+                                  required: true,
+                                  class: "form-control w-50"%>
+        </div>
+
+        <div class="form-check mb-3">
+          <%= form.check_box :terms_of_service,
+                class: "form-check-input" %>
+
+          <%= form.label :terms_of_service,
+                "利用規約に同意する",
+                class: "form-check-label" %>
+        </div>
+
+        <%= form.submit "新規登録",
+                        class: "btn btn-success px-5" %>
+      <% end %>
+    </div>
+    <div class="col-5">
+
+      <h2 class="mb-4">利用規約</h2>
+
+      <div class="card">
+        <div class="card-body"
+             style="height: 450px, overflow-y: auto;">
+          <h5 class="fw-bold mb-3">STMAFEをご利用いただく前に、
+             以下の利用規約をご確認ください。
+          </h5>
+
+          <h5>第1条（総則）</h5>
+          <p>
+            本規約は、STMAFEが提供するサービスの利用条件を定めるものです。
+          </p>
+
+          <h5>第2条（会員登録）</h5>
+          <p>
+            会員登録を希望するユーザーは、本規約に同意した上で登録するものとします。
+          </p>
+
+          <h5>第3条（禁止事項）</h5>
+          <p>
+            ユーザーは、本サービスの利用にあたり、他のユーザーに迷惑をかける行為をしてはいけません。
+          </p>
+
+          <h5>第4条（レビューについて）</h5>
+          <p>
+            投稿するレビューは、他のユーザーが教材を選択する際の参考となる情報として扱われます。
+          </p>
+
+          <h5>第5条（アカウントについて）</h5>
+          <p>
+            ユーザーが本規約に違反した場合、または当社がサービスの利用を不適切と判断した場合、当社は事前に通知することなく、当該ユーザーのアカウントの利用を停止、制限または削除することができます。
+          </p>
+
+        </div>
+  </div>
+</div>

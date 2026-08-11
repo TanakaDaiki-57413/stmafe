@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
   # 管理者ログイン
-  get "admin/sign_in", to: "admin/sessions#new"
-  post "admin/sign_in", to: "admin/sessions#create"
-  delete "admin/sign_out", to: "admin/sessions#destroy"
+  get "admin/sign_in", to: "admin/sessions#new", as: :new_admin_session
+  post "admin/sign_in", to: "admin/sessions#create", as: :admin_session
+  delete "admin/sign_out", to: "admin/sessions#destroy", as: :destroy_admin_session
 
   # ユーザーログイン/ログアウト
-  get "users/sign_in", to: "public/sessions#new"
-  post "users/sign_in", to: "public/sessions#create"
-  delete "users/sign_out", to: "public/sessions#destroy"
+  get "users/sign_in", to: "public/sessions#new", as: :new_user_session
+  post "users/sign_in", to: "public/sessions#create", as: :user_session
+  delete "users/sign_out", to: "public/sessions#destroy", as: :destroy_user_session
 
   # ユーザー新規登録
-  get "users/sign_up", to: "public/registrations#new"
-  post "users", to: "public/registrations#create"
+  get "users/sign_up", to: "public/registrations#new", as: :new_user_registration
+  post "users", to: "public/registrations#create",as: :user_registration
 
   # 管理者側のルーティング
   namespace :admin do

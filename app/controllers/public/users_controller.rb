@@ -1,4 +1,6 @@
-class Public::UsersController < ApplicationController
+class Public::UsersController < Public::ApplicationController
+  allow_unauthenticated_access only: %i[index show bookmariking reviewing]
+
   # ユーザー一覧画面
   def index
   end
