@@ -1,2 +1,322 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container-fluid">
+  <div class="row align-items-center py-5">
+    <div class="col-5">
+      <h1 class="fw-bold text-center">
+        あなたにぴったりの<br>
+        IT教材が見つかる
+      </h1>
+
+      <p class="text-secondary text-center fs-5">
+        ITエンジニア向き学習者のためのレビューサイト<br>
+        現役エンジニアや学習者のリアルな声を参考に<br>
+        最適な教材を見つけましょう
+      </p>
+    </div>
+    <div class="col-6 text-center">
+      <%= image_tag "12260_color.svg",
+                    class: "img-fluid", 
+                    alt: "img" %>
+    </div>
+  </div>
+</div>
+
+<!-- 検索エリア -->
+<section class="position-relative mt-n4">
+  <div class="container">
+
+    <div class="bg-white rounded shadow-sm p-4">
+
+      <div class="row g-3">
+
+        <%# <!-- キーワード --> %>
+        <div class="col-lg-4">
+
+          <%= label_tag :keyword,
+                        "キーワード",
+                        class: "form-label small fw-bold" %>
+
+          <%= text_field_tag :keyword,
+                             nil,
+                             class: "form-control",
+                             placeholder: "教材名・技術・著者名など" %>
+
+        </div>
+
+
+          <!-- カテゴリ -->
+        <div class="col-lg-2">
+
+          <%= label_tag :category,
+                        "カテゴリ",
+                        class: "form-label small fw-bold" %>
+
+          <%= select_tag :category,
+                         options_for_select([
+                           ["すべて", ""],
+                           ["プログラミング", "programming"],
+                           ["Web開発", "web"],
+                           ["インフラ", "infrastructure"]
+                         ]),
+                         class: "form-select" %>
+
+        </div>
+
+
+        <!-- 言語・分野 -->
+        <div class="col-lg-2">
+
+          <%= label_tag :genre,
+                        "言語・分野",
+                        class: "form-label small fw-bold" %>
+
+          <%= select_tag :genre,
+                         options_for_select([
+                           ["すべて", ""],
+                           ["Ruby", "ruby"],
+                           ["Python", "python"],
+                           ["JavaScript", "javascript"],
+                           ["AWS", "aws"],
+                           ["Docker", "docker"]
+                         ]),
+                         class: "form-select" %>
+
+        </div>
+
+
+          <!-- レベル -->
+        <div class="col-lg-2">
+
+          <%= label_tag :level,
+                        "レベル",
+                        class: "form-label small fw-bold" %>
+
+          <%= select_tag :level,
+                         options_for_select([
+                           ["すべて", ""],
+                           ["初心者", "beginner"],
+                           ["中級者", "intermediate"],
+                           ["上級者", "advanced"]
+                         ]),
+                         class: "form-select" %>
+
+        </div>
+
+
+        <!-- 検索ボタン -->
+        <div class="col-lg-2 d-flex align-items-end">
+
+          <%= button_tag type: "submit",
+                         class: "btn btn-primary w-100" do %>
+            <i class="fa-solid fa-magnifying-glass me-1"></i>
+            検索する
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+    <!-- 人気のキーワード -->
+    <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+      <span class="small text-secondary">
+        人気のキーワード：
+      </span>
+      <%= link_to "Ruby", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "Rails", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "Python", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "AWS", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "Docker", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "JavaScript", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "SQL", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+      <%= link_to "Linux", "#",
+                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+    </div>
+  </div>
+</section>
+<section class="py-5">
+
+  <div class="container">
+
+    <div class="row g-4">
+
+      <!-- ======================
+           新着レビュー
+      ======================= -->
+
+      <div class="col-lg-8">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+          <h2 class="h5 fw-bold mb-0">
+            <i class="fa-regular fa-square-check me-2"></i>
+            新着レビュー
+          </h2>
+
+          <%= link_to "もっと見る",
+                      "#",
+                      class: "small text-decoration-none" %>
+
+        </div>
+
+
+        <!-- レビュー一覧 -->
+
+        <div class="row g-3">
+
+          <% 4.times do %>
+
+            <div class="col-md-6 col-xl-3">
+
+              <div class="card h-100 shadow-sm border-0">
+
+                <!-- 教材画像 -->
+
+                <%= image_tag "default-image.jpg",
+                                class: "card-img-top p-3",
+                                alt: "教材画像" %>
+
+
+                <div class="card-body">
+
+                  <h3 class="h6 fw-bold">
+                    タイトル
+                  </h3>
+
+                  <p class="small text-secondary mb-2">
+                    著者名
+                  </p>
+
+
+                  <!-- 星 -->
+
+                  <div class="small text-warning mb-2">
+
+                    ★★★★★
+
+                    <span class="text-secondary">
+                      4.6
+                    </span>
+
+                  </div>
+
+                  <span class="badge text-bg-light text-primary">
+                    カテゴリー
+                  </span>
+
+
+                  <p class="small text-secondary mt-3 mb-0">
+                    本文
+                  </p>
+
+                </div>
+
+
+                <!-- 投稿者 -->
+
+                <div class="card-footer bg-white border-0">
+
+                  <small class="text-secondary">
+                    <i class="fa-solid fa-user me-1"></i>
+                    ユーザー名
+                  </small>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+
+      <!-- ======================
+           人気教材
+      ======================= -->
+
+      <div class="col-lg-4">
+
+        <div class="bg-white rounded shadow-sm p-3">
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h2 class="h6 fw-bold mb-0">
+              <i class="fa-solid fa-ranking-star me-2"></i>
+              人気教材
+            </h2>
+
+          </div>
+            
+          <%# テストデータ %>
+          <% matelial = [
+            ["1", "リーダブルコード", "4.6"],
+            ["2", "達人に学ぶDB設計", "4.4"],
+            ["3", "AWS認定資格テキスト", "4.2"],
+            ["4", "スッキリわかるJava入門", "4.0"],
+            ["5", "図解解説 SQLのしくみ", "3.9"]
+          ] %>
+
+
+          <% matelial.each do |rank, title, score| %>
+
+            <div class="d-flex align-items-center py-2 border-bottom">
+
+              <!-- 順位 -->
+
+              <div class="fw-bold text-secondary me-3">
+                <%= rank %>
+              </div>
+
+
+              <!-- 教材名 -->
+
+              <div class="flex-grow-1">
+
+                <div class="small fw-bold">
+                  <%= title %>
+                </div>
+
+              </div>
+
+
+              <!-- 評価 -->
+
+              <div class="small text-warning">
+
+                ★★★★★
+
+                <span class="text-secondary">
+                  <%= score %>
+                </span>
+
+                /div>
+
+            </div>
+
+          <% end %>
+
+
+          <div class="text-end mt-3">
+
+            <%= link_to "もっと見る",
+                        "#",
+                        class: "small text-decoration-none" %>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
