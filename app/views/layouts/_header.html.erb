@@ -36,10 +36,19 @@
       
        <%# グローバルナビゲーション %>
       <div class="col-6  d-flex align-items-center justify-content-evenly">
-        <%= link_to "教材を探す", materials_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
-        <%= link_to "ユーザーを探す", users_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
-        <%= link_to "新規登録", users_sign_up_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
-        <%= link_to "ログイン", users_sign_in_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+        <% if authenticated_user? %>
+          <%= link_to "教材を探す", materials_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+          <%= link_to "ユーザーを探す", users_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+          <%= button_to "ログアウト",
+              destroy_user_session_path,
+              method: :delete,
+              class: "btn btn-link text-decoration-none text-dark fs-5 fw-bold" %>
+        <% else %>
+          <%= link_to "教材を探す", materials_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+          <%= link_to "ユーザーを探す", users_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+          <%= link_to "新規登録", new_user_registration_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
+        <% end %>
       </div>
     </div>
   </div>

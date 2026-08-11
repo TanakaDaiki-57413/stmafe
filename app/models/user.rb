@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  before_validation :normalize_email
+  before_validation :generate_public_uid, on: :create
+
   # --アソシエーション
   # 認証機能
   has_secure_password
@@ -27,7 +30,35 @@ class User < ApplicationRecord
   has_one_attached :profile_image
 
   # enum設定
-  enum :active_status, { valid: 0, invalid: 1, prohibited: 2 }
+  enum :active_status, { status_valid: 0, status_invalid: 1, status_prohibited: 2 }
 
-  normalizes :email_address, with: ->(e) { e.strip.downcase }
+  # 仮想属性の追加
+  attr_accessor :terms_of_service
+
+  # バリデーション
+  validates :terms_of_service, acceptance: true
+  
+  validates :nickname, presence:true
+
+  validates :email_address,
+            presence: true,
+            uniqueness: { case_sensitive: true },
+            format: { with: URI::MailTo::EMAIL_REGEXP }
+
+
+  validates :password,
+            length: { minimum: 6 },
+            allow_nil: true
+
+
+  private
+  # メールアドレス入力時空白の消去
+  def normalize_email
+    self.email_address = email_address.to_s.strip
+  end
+
+  # ユーザーデータ生成時に公開用IDカラムにランダムな文字列を格納
+  def generate_public_uid
+    self.public_uid ||= SecureRandom.urlsafe_base64(8)
+  end
 end

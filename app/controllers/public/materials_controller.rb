@@ -1,4 +1,5 @@
-class Public::MaterialsController < ApplicationController
+class Public::MaterialsController < Public::ApplicationController
+   allow_unauthenticated_access only: %i[index show]
   # 教材一覧画面
   def index
   end

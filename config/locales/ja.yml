@@ -3,9 +3,9 @@ ja:
   enums:
     user:
       active_status:
-        valid: "有効"
-        invalid: "無効" 
-        prohibited: "禁止"
+        status_valid: "有効"
+        status_invalid: "無効" 
+        status_prohibited: "禁止"
     request:
       progress_status:
         in_progress: "対応中"
@@ -57,6 +57,10 @@ ja:
         email_address: "メールアドレス"
         introduction: "自己紹介文"
         nickname: "ニックネーム"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+        terms_of_service: "利用規約"
+
 
   date:
     abbr_day_names:
@@ -136,7 +140,7 @@ ja:
   errors:
     format: "%{attribute}%{message}"
     messages:
-      accepted: を受諾してください
+      accepted: に同意してください
       blank: を入力してください
       confirmation: と%{attribute}の入力が一致しません
       empty: を入力してください

@@ -7,16 +7,17 @@ class Public::SessionsController < Public::ApplicationController
   end
 
   def create
-    if user = User.authenticate_by(params.permit(:email_address, :password))
+    Rails.logger.debug params.to_unsafe_h
+    if user = User.authenticate_by(params.require(:user).permit(:email_address, :password))
       start_new_session_for user
-      redirect_to after_authentication_url
+      redirect_to after_authentication_url ,notice: "ログインに成功しました"
     else
-      redirect_to new_session_path, alert: "メールアドレスまたはパスワードが正しくありません"
+      redirect_to new_user_session_path, alert: "メールアドレスまたはパスワードが正しくありません"
     end
   end
 
   def destroy
     terminate_session
-    redirect_to new_session_path
+    redirect_to root_path ,notice: "ログアウトに成功しました"
   end
 end
