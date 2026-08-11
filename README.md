@@ -22,8 +22,11 @@ ITに特化した書籍を評価できるレビューサイト
 後ほど作成中
 
 # 開発環境
-・OS：Linux(CentOS)<br>
+・OS: Windows<br>
 ・言語：HTML,CSS,JavaScript,Ruby,SQL<br>
 ・フレームワーク：Ruby on Rails<br>
 ・JSライブラリ：jQuery<br>
-・IDE：Cloud9
+・IDE：VSCODE
+
+# 使用素材
+・ソコスト様 リンク先：https://soco-st.com/

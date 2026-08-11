@@ -19,7 +19,7 @@ class Public::UsersController < ApplicationController
   def bookmariking
   end
 
-  #レビュー一覧画面
+  # レビュー一覧画面
   def reviewing
   end
 

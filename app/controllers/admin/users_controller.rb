@@ -14,5 +14,4 @@ class Admin::UsersController < ApplicationController
   # ユーザー情報編集処理
   def update
   end
-
 end
