@@ -11,7 +11,7 @@ class Public::RegistrationsController <  Public::ApplicationController
 
 
     if @user.save
-      redirect_to root_path,
+      redirect_to new_user_session_path,
                   notice: "会員登録が完了しました"
     else
       render :new, status: :unprocessable_entity

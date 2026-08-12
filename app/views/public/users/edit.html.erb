@@ -1,2 +1,96 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<div class="container w-50 mx-auto">
+  <div class="row mt-4 mb-4 border-bottom">
+    <%# プロフィール設定・退会リンクdiv %>
+    <div class="row align-items-center">
+
+      <div class="col">
+        <h5 class="px-3 py-2 fs-3">プロフィール設定</h5>
+      </div>
+
+      <div class="col text-end">
+          <%= link_to "退会はこちらから", users_unsubscribe_path%>
+      </div>
+    </div>
+  </div>
+
+  <%= render "layouts/flash" %>
+  <%= render "layouts/error" ,obj: @user %>
+
+  <%= form_with model: @user,
+                url: users_profile_path,
+                method: :patch do |form| %>
+
+    <%# プロフィール画像保存 %>
+    <div class="row">
+      <% if @user.persisted? && @user.profile_image.attached? %>
+        <div>
+          <%= image_tag @user.get_profile_image(150,150),
+                        class: "img-fluid border object-fit-contain" %>
+        </div>
+      <% end %>
+
+      <span class="text-decoration-underline">現在のプロフィール画像</span>
+
+      <div class="mt-4 mb-4 col-8">
+        <p class="mb-1">新しいプロフィール画像</p>
+        <%= form.file_field :profile_image,
+                            accept: "image/*",
+                            class: "form-control" %>
+      </div>
+    </div>
+
+    <%# ニックネーム入力フォーム %>
+    <div class="row mb-4 mt-3 align-items-center">
+      <div class="col-8">
+        <%= form.label :nickname, "ニックネーム", class: "form-label mb-1" %>
+
+        <%= form.text_field :nickname,
+                            required: true,
+                            class: "form-control",
+                            placeholder: "ニックネーム名" %>
+
+      </div>
+
+    </div>
+
+    <%# 自己紹介入力フォーム %>
+    <div class="row mb-4">
+      <div class="col-8">
+        <%= form.label :introduction, "自己紹介文", class: "form-label mb-1" %>
+
+        <%= form.text_area :introduction,
+                            class: "form-control",
+                            size: "30x3",
+                            placeholder: "自己紹介文" %>
+
+      </div>
+
+    </div>
+    
+    <%# メールアドレス入力フォーム %>
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-8">
+        <%= form.label :email_address, "メールアドレス", class: "form-label mb-1" %>
+
+        <%= form.text_field :email_address,
+                            required: true,
+                            class: "form-control",
+                            placeholder: "メールアドレス" %>
+      </div>
+    </div>
+
+    <%# 更新・キャンセルボタン %>
+    <div class="row mt-4 mb-4 d-flex justify-content-evenly">
+      <div class="col-3">
+        <%= form.submit "更新",
+                        class: "btn btn-success px-4" %>
+      </div>
+
+      <div class="col-6 mb-4">
+        <%= link_to "キャンセル",
+                    user_path(current_user.public_uid),
+                    class: "btn btn-danger px-4" %>
+      </div>
+    </div>
+  <% end %>
+</div>
