@@ -3,7 +3,8 @@ class Public::UsersController < Public::ApplicationController
 
   # ユーザー一覧画面
   def index
-    @users = User.all
+    # 利用中ユーザーを取得かつN+1問題防止のためプロフィール画像を事前に読込
+    @users = User.status_valid.with_attached_profile_image
   end
 
   # ユーザー詳細画面
