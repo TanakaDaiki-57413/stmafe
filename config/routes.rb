@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # ユーザー新規登録
   get "users/sign_up", to: "public/registrations#new", as: :new_user_registration
-  post "users", to: "public/registrations#create",as: :user_registration
+  post "users", to: "public/registrations#create", as: :user_registration
 
   # 管理者側のルーティング
   namespace :admin do

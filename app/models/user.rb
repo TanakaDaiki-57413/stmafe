@@ -37,8 +37,8 @@ class User < ApplicationRecord
 
   # バリデーション
   validates :terms_of_service, acceptance: true
-  
-  validates :nickname, presence:true
+
+  validates :nickname, presence: true, length: { maximum: 20 }
 
   validates :email_address,
             presence: true,
@@ -50,6 +50,22 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             allow_nil: true
 
+  validates :introduction, length: { maximum: 512 }
+
+
+  # 画像表示処理
+  def get_profile_image(width, height)
+    unless profile_image.attached?
+      file_path = Rails.root.join("app/assets/images/default-image.jpg")
+      profile_image.attach(io: File.open(file_path), filename: "default-image.jpg", content_type: "image/jpeg")
+    end
+    profile_image.variant(resize_to_fill: [ width, height ]).processed
+  end
+
+  # active_statusの値を返す処理
+  def login_available?
+    status_invalid?
+  end
 
   private
   # メールアドレス入力時空白の消去

@@ -36,13 +36,78 @@
       
        <%# グローバルナビゲーション %>
       <div class="col-6  d-flex align-items-center justify-content-evenly">
+
+        <%# ログインユーザーの場合 %>
         <% if authenticated_user? %>
           <%= link_to "教材を探す", materials_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
           <%= link_to "ユーザーを探す", users_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
-          <%= button_to "ログアウト",
-              destroy_user_session_path,
-              method: :delete,
-              class: "btn btn-link text-decoration-none text-dark fs-5 fw-bold" %>
+
+          <%# 教材リクエスト用ドロップダウン %>
+          <div class="dropdown"> 
+
+            <button class="btn dropdown-toggle dropdown-mark-none no-border fs-5 fw-bold" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+              教材リクエスト
+            </button> 
+
+            <ul class="dropdown-menu"> 
+              <li> <%= link_to "申請", new_request_path, class: "dropdown-item" %> </li> 
+              <li> <%= link_to "履歴", requests_path, class: "dropdown-item" %> </li>
+            </ul> 
+          </div>
+
+          <%# 通知用ドロップダウン %>
+          <div class="dropdown">
+            <button
+              class="btn dropdown-toggle dropdown-mark-none no-border"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+
+              <i class="fa-regular fa-envelope fs-4"></i>
+
+              <% if @notifications.present? %>
+                <span class="badge bg-danger">
+                  <%= @notifications.count %>
+                </span>
+              <% end %>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+
+              <% if @notifications.present? %>
+                <% @notifications.each do |notification| %>
+                  <li>
+                    <%= link_to notification.message,
+                                notification_path(notification),
+                                class: "dropdown-item" %>
+                  </li>
+                <% end %>
+              <% else %>
+                <li>
+                  <span class="dropdown-item-text">通知はありません</span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <%# ユーザー用ドロップアウト %>
+          <div class="dropdown"> 
+
+            <button class="btn dropdown-toggle no-border fs-4" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+              <%= image_tag current_user.get_profile_image(25,25), class:"rounded-circle" %> 
+              <%= truncate(current_user.nickname, length: 6, omission: ".") %> 
+            </button> 
+
+            <ul class="dropdown-menu"> 
+              <li> <%= link_to "マイページ", user_path(current_user.public_uid), class: "dropdown-item" %> </li> 
+              <li> <%= button_to "ログアウト",
+                       destroy_user_session_path,
+                       method: :delete,
+                       class: "dropdown-item text-decoration-none text-dark" %></li>
+            </ul> 
+          </div>
+        
+        <%# ゲストユーザーの場合 %>
         <% else %>
           <%= link_to "教材を探す", materials_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>
           <%= link_to "ユーザーを探す", users_path, class: "text-decoration-none text-dark fs-5 fw-bold" %>

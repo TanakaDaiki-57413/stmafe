@@ -14,3 +14,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.dropdown-mark-none::after {
+  display: none;
+}
+
+.no-border {
+  border: none;
+}

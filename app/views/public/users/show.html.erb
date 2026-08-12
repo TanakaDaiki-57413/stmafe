@@ -1,2 +1,73 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<div class="container w-75 mx-auto mt-5">
+  <div class="w-50"><%= render "layouts/flash" %></div>
+  <%# ユーザープロフィール %>
+  <div class="card px-3 py-3">
+    <div class="row">
+
+      <%# プロフィール画像 %>
+      <div class="col-3">
+          <%= image_tag @user.get_profile_image(150,150),class:"rounded-circle"%>
+      </div>
+
+      <div class="col-9">
+
+        <%# ユーザー名/プロフィール設定ボタン %>
+        <div class="row">
+
+          <div class="col">
+            <h1><%= @user.nickname %></h1>
+          </div>
+
+          <% if @user == current_user %>
+            <div class="col">
+              <div class="text-end">
+                <%=  link_to "プロフィール設定", users_profile_edit_path, class:"btn btn-success px-3 py-2" %> 
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+
+        <%# 自己紹介文 %>
+        <div class="row">
+          <div class="col-8">
+            <% if @user.introduction.blank? %>
+              <p class="text-secondary mt-2">自己紹介文は設定されていません</p>
+            <% elsif @user.introduction %>
+              <p class="text-secondary mt-2"><%= @user.introduction %></p>
+            <% else %>
+              <p class="text-secondary mt-2">自己紹介文は設定されていません</p>
+            <% end %>
+          </div>
+        </div>
+        
+        <%# レビュー数/お気に入り数/フォロー数/フォロワー数 %>
+        <div class="row mt-3">
+          <div class="col">
+            <i class="fa-regular fa-square-check text-primary"></i>
+            レビュー数:
+            <%= @user.reviews.count %>
+          </div>
+
+          <div class="col">
+            <i class="fa-solid fa-bookmark text-primary"></i>
+            お気に入り数: 
+            <%= @user.bookmarks.count %>
+          </div>
+
+          <div class="col">
+           <i class="fa-solid fa-users text-primary"></i>
+            フォロー:
+            <%= @user.followings.count %>
+          </div>
+
+          <div class="col">
+            <i class="fa-solid fa-users text-primary"></i>
+            フォロワー:
+             <%= @user.followers.count %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

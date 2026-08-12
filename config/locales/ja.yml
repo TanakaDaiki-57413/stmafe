@@ -3,9 +3,9 @@ ja:
   enums:
     user:
       active_status:
-        status_valid: "有効"
-        status_invalid: "無効" 
-        status_prohibited: "禁止"
+        status_valid: "利用中"
+        status_invalid: "退会" 
+        status_prohibited: "利用停止"
     request:
       progress_status:
         in_progress: "対応中"
