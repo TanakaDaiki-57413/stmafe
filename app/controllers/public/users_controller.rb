@@ -31,7 +31,7 @@ class Public::UsersController < Public::ApplicationController
   def update
     @user = User.find(current_user.id)
     if @user.update(user_params)
-      redirect_to user_path(@user.public_uid) ,notice: "更新に成功しました"
+      redirect_to user_path(@user.public_uid), notice: "更新に成功しました"
     else
       render :edit, status: :unprocessable_entity
     end
