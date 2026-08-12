@@ -3,6 +3,7 @@ class Public::UsersController < Public::ApplicationController
 
   # ユーザー一覧画面
   def index
+    @users = User.all
   end
 
   # ユーザー詳細画面
