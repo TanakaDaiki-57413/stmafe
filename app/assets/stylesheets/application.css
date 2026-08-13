@@ -22,3 +22,11 @@
 .no-border {
   border: none;
 }
+
+
+/* 575px以下の際に適用される設定 */
+@media screen and (max-width:575px) {
+  header .d-sm-or-sm-none {
+    display: none !important;
+  }
+}
