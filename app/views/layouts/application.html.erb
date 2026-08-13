@@ -25,6 +25,29 @@
 
   <body>
     <%= render "layouts/header" %>
+
+    <%# 検索 %>
+    <div class="d-md-none d-flex w-75 mx-auto mt-3">
+
+      <select class="form-select w-auto flex-shrink-0">
+        <option value="">選択</option>
+        <option value="user">ユーザー</option>
+        <option value="material">教材</option>
+      </select>
+
+      <input
+        class="form-control"
+        type="text"
+        placeholder="キーワードで検索">
+
+      <button
+        class="btn btn-primary flex-shrink-0"
+        type="button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+
+    </div>
+
     <main><%= yield %></main>
     <%= render "layouts/footer" %>
 
