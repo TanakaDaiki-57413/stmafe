@@ -24,7 +24,7 @@
 }
 
 
-/* スマートフォンサイズ（425px）以下の際に適用される設定 */
+/* 575px以下の際に適用される設定 */
 @media screen and (max-width:575px) {
   header .d-sm-or-sm-none {
     display: none !important;
