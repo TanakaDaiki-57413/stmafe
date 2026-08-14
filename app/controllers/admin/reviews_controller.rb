@@ -1,4 +1,4 @@
-class Admin::ReviewsController < ApplicationController
+class Admin::ReviewsController < Admin::ApplicationController
   # レビュー管理一覧画面
   def index
   end

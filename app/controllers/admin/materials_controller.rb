@@ -1,4 +1,4 @@
-class Admin::MaterialsController < ApplicationController
+class Admin::MaterialsController < Admin::ApplicationController
   # 教材管理一覧画面
   def index
   end
