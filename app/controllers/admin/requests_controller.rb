@@ -1,4 +1,4 @@
-class Admin::RequestsController < ApplicationController
+class Admin::RequestsController < Admin::ApplicationController
   # 教材リクエスト詳細画面
   def show
   end

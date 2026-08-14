@@ -1,4 +1,4 @@
-class Admin::TagsController < ApplicationController
+class Admin::TagsController < Admin::ApplicationController
   # タグ 一覧画面
   def index
   end
