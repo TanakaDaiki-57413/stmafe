@@ -1,7 +1,7 @@
 class CreateMaterials < ActiveRecord::Migration[8.1]
   def change
     create_table :materials do |t|
-      t.references :category, null: false, foreign_key: true
+      t.references :category, null: false, foreign_key: true, type: :bigint
       t.string :title, null: false
       t.string :body, null: false
       t.string :author, null: false

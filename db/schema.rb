@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_111617) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_15_071848) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -49,9 +49,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_111617) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "material_id", null: false
+    t.bigint "material_id", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["material_id"], name: "index_bookmarks_on_material_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
@@ -65,8 +65,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_111617) do
 
   create_table "material_tags", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "material_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "material_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "updated_at", null: false
     t.index ["material_id"], name: "index_material_tags_on_material_id"
     t.index ["tag_id"], name: "index_material_tags_on_tag_id"
@@ -74,9 +74,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_111617) do
 
   create_table "materials", force: :cascade do |t|
     t.string "author", null: false
-    t.float "average_raiting", default: 0.0, null: false
+    t.float "average_rating", default: 0.0, null: false
     t.string "body", null: false
-    t.integer "category_id", null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.string "isbn_number", null: false
     t.integer "price", null: false
@@ -91,10 +91,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_111617) do
   create_table "notifications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.boolean "is_read", default: false, null: false
-    t.integer "notifiable_id", null: false
+    t.bigint "notifiable_id", null: false
     t.string "notifiable_type", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
@@ -115,29 +115,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_111617) do
     t.text "reply"
     t.string "title", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "content", null: false
     t.datetime "created_at", null: false
-    t.integer "material_id", null: false
+    t.bigint "material_id", null: false
     t.float "rate", null: false
     t.integer "study_time", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["material_id"], name: "index_reviews_on_material_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "admin_id"
+    t.bigint "admin_id"
     t.datetime "created_at", null: false
     t.string "ip_address"
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["admin_id"], name: "index_sessions_on_admin_id"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
