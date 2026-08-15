@@ -11,8 +11,9 @@ class Public::RegistrationsController <  Public::ApplicationController
 
 
     if @user.save
-      redirect_to new_user_session_path,
-                  notice: "会員登録が完了しました"
+      start_new_session_for @user
+      redirect_to after_authentication_url,
+                  notice: "ログインに成功しました"
     else
       render :new, status: :unprocessable_entity
     end
