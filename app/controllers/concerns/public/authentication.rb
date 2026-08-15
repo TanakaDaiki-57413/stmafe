@@ -42,7 +42,7 @@ module Public::Authentication
     end
 
     def after_authentication_url
-      session.delete(:return_to_after_authenticating) || root_url
+      session.delete(:return_to_after_authenticating) || user_path(Current.user.public_uid)
     end
 
     def start_new_session_for(user)
