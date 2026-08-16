@@ -4,4 +4,18 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  # ヘッダーの判定用
+  helper_method :current_user
+  helper_method :current_admin
+
+  private
+
+  def current_user
+    Current.user
+  end
+
+  def current_admin
+    Current.admin
+  end
 end
