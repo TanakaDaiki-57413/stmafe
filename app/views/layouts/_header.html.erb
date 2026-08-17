@@ -198,19 +198,19 @@
           <% elsif current_admin %>
             
             <%# 管理機能ドロップダウン %>
-            <div class="dropdown flex-shrink-0">
+            <div class="dropdown">
 
                 <button
-                  class="btn dropdown-toggle no-border fs-6 text-nowrap"
+                  class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false">
                   
-                  <p>管理機能</p>
+                  <span>管理機能</span>
 
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end px-2">
 
                   <li>
                     <%= link_to "教材管理", admin_materials_path %>
@@ -221,7 +221,7 @@
                   </li>
 
                   <li>
-                    ユーザー管理
+                    <%= link_to "ユーザ管理", admin_users_path %>
                   </li>
 
                   <li>
@@ -233,19 +233,19 @@
             </div>
 
             <%# 登録機能ドロップダウン %>
-            <div class="dropdown flex-shrink-0">
+            <div class="dropdown">
 
                 <button
-                  class="btn dropdown-toggle no-border fs-6 text-nowrap"
+                  class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false">
                   
-                  <p>登録機能</p>
+                  <span>登録機能</span>
 
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end px-2">
 
                   <li>
                     <%= link_to "教材登録", add_admin_materials_path %>
