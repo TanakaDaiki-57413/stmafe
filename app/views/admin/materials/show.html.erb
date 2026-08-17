@@ -1,2 +1,70 @@
-<h1>Admin::Materials#show</h1>
-<p>Find me in app/views/admin/materials/show.html.erb</p>
+<%= render "layouts/flash" %>
+<div class="container">
+  <div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <%= image_tag @material.get_cover_image(100,100) %>
+
+        <div class="card-title px-1">
+          <h3><%= @material.title %></h3>
+        </div>
+
+        <div class="card-subtitle small mb-2 px-1">
+          <span>著者：</span>
+          <%= @material.author %><br>
+          <span>出版社：</span>
+          <%= @material.publisher%>
+        </div>
+
+        <div class="card-body">
+          <span class="border-bottom border-dark">見出し</span><br>
+          <span class="small"><%= @material.body %></span>
+        </div>
+
+        <div class="card-text px-1">
+          <span>カテゴリ：</span>
+          <%= @material.category.name%><br>
+
+          <span>レベル：</span>
+          <%= @material.study_level %><br>
+
+          <span>価格(税込)：</span>
+          <%= @material.price %>円<br>
+
+          <span>発売日：</span>
+          <%= @material.release_date%><br>
+
+
+          <span>ISBN番号：</span>
+          <%= @material.isbn_number%><br>
+        </div>
+
+        <div class="card-footer">
+          <span>平均評価：</span>
+          <%= @material.average_rating %><br>
+          <div class="d-flex flex-wrap">
+            <% @material.material_tags.each do | tags | %>
+              <div class="bg-primary text-light small me-1 rounded-4 px-2 mb-1 mt-1">
+                <%= tags.tag.name %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex  mt-1">
+        <%= link_to "編集", edit_admin_material_path(@material), class:"btn btn-success w-100" %>
+      </div>
+
+      <div class>
+        <%= link_to "削除", 
+            admin_material_path(@material), 
+            class:"btn btn-danger w-100 mt-2", 
+            data: { 
+              turbo_method: :delete,
+              turbo_confirm: "本当に削除しますか？"
+            }%>
+      </div>
+    </div>
+  </div>
+</div>

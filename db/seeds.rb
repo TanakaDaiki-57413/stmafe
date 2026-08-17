@@ -79,4 +79,51 @@ Admin.find_or_create_by!(email_address: ENV.fetch("ADMIN_EMAIL")) do |admin|
   admin.password_confirmation = ENV.fetch("ADMIN_PASSWORD")
 end
 
+tags = [
+  "Ruby",
+  "Ruby on Rails",
+  "JavaScript",
+  "TypeScript",
+  "HTML",
+  "CSS",
+  "Bootstrap",
+  "SQL",
+  "MySQL",
+  "PostgreSQL",
+  "Git",
+  "GitHub",
+  "Linux",
+  "AWS",
+  "Docker",
+  "API",
+  "REST API",
+  "Web開発",
+  "フロントエンド",
+  "バックエンド",
+  "データベース",
+  "セキュリティ",
+  "テスト",
+  "オブジェクト指向",
+  "アルゴリズム",
+  "初心者向け",
+  "入門",
+  "実践向け",
+  "資格対策",
+  "ポートフォリオ",
+  "React",
+  "Vue.js",
+  "Node.js",
+  "Python",
+  "PHP",
+  "Java",
+  "C#",
+  "CI/CD",
+  "クラウド",
+  "アジャイル開発"
+]
+
+tags.each do |name|
+  Tag.find_or_create_by!(name: name)
+end
+
 puts "seedの実行が完了しました"
