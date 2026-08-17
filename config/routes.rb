@@ -22,10 +22,10 @@ Rails.application.routes.draw do
     resources :requests, only: [ :show, :update ]
 
     # カテゴリ一覧・編集画面 各データ処理
-    resources :categories, only: [ :index, :edit, :create, :update ]
+    resources :categories, only: [ :index, :edit, :create, :update, :destroy ]
 
     # タグ一覧・編集画面 各データ処理
-    resources :tags, only: [ :index, :edit, :create, :update ]
+    resources :tags, only: [ :index, :edit, :create, :update, :destroy ]
 
     # ユーザー各画面 データ更新
     resources :users, only: [ :index, :show, :edit, :update ]

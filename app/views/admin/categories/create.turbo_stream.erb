@@ -1,0 +1,7 @@
+<%= turbo_stream.append "categories" do %>
+  <%= render "category", category: @category %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <%= render "layouts/flash" %>
+<% end %>
