@@ -1,3 +1,3 @@
-<%= tag.div(flash[:alert], class: "alert alert-danger") if flash[:alert] %>
+<%= tag.div(flash[:alert], class: "alert alert-danger", id: "alert-msg") if flash[:alert] %>
 
-<%= tag.div(flash[:notice], class: "alert alert-success") if flash[:notice] %>
+<%= tag.div(flash[:notice], class: "alert alert-success", id: "alert-msg") if flash[:notice] %>

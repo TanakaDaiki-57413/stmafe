@@ -1,0 +1,7 @@
+<%= turbo_stream.append "tags" do %>
+  <%= render "tag", tag: @tag %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= render "layouts/flash" %>
+<% end %>
