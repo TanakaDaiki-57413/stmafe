@@ -1,2 +1,36 @@
-<h1>Admin::Categories#index</h1>
-<p>Find me in app/views/admin/categories/index.html.erb</p>
+<div class="container">
+  <div id="flash">
+    <%= render "layouts/flash" %>
+  </div>
+  
+  <%= render "layouts/error", obj: @category %>
+
+  <div class="row">
+    <h1>カテゴリ一覧追加</h1>
+  </div>
+
+  <div class="row">
+    <%= form_with model: @category, url:admin_categories_path do |form| %>
+      <%= form.label :name, "カテゴリ名" %>
+      <%= form.text_field :name %>
+      <%= form.submit "追加"%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>カテゴリ名</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="categories">
+        <% @categories.each do |category| %>
+          <%= render "category", category: category %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

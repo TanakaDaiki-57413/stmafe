@@ -1,2 +1,40 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<%= render "layouts/flash" %>
+<div class="container">
+  <div class="row g-3">
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <%= image_tag @user.get_profile_image(100,100) %>
+        
+        <%# メールアドレス %>
+        <div class="card-title px-1">
+          <h3><%= @user.nickname %></h3>
+          <p>メールアドレス：<%= @user.email_address %></p>
+        </div>
+
+        <%# レビュー数/フォロー数/フォロワー数 %>
+        <div class="card-subtitle small mb-2 px-1 text-primary fw-bold">
+          レビュー数<%= @user.reviews.count%> |
+          フォロー数<%= @user.followings.count %> |
+          フォロワー数<%= @user.followers.count %>
+        </div>
+
+        <%# 自己紹介文 %>
+        <div class="card-body">
+          <%= @user.introduction %>
+        </div>
+
+        <%# ステータス・編集ボタン %>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          ステータス：<%= @user.active_status_i18n %>
+          
+          <%# ステータスが利用中/利用停止だった時表示する %>
+          <% if !(@user.active_status_i18n == "退会") %>
+            <%= link_to "編集", edit_admin_user_path(@user), class:"btn btn-success text-end" %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

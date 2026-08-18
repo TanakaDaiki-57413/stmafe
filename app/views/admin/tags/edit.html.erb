@@ -1,2 +1,13 @@
-<h1>Admin::Tags#edit</h1>
-<p>Find me in app/views/admin/tags/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <%= form_with model:@tag, 
+                  url:admin_tag_path,
+                  method: :patch do |form| %>
+
+      <%= form.label :name ,"タグ名" %>
+      <%= form.text_field :name%>
+      <%= form.submit "更新" %>
+    <% end %>
+    <%= link_to "キャンセル" ,admin_tags_path %>
+  </div>
+</div>

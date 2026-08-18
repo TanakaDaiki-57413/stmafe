@@ -33,6 +33,7 @@ ja:
         isbn_number: "ISBN"
         average_level: "平均レベル"
         study_level: "レベル"
+        category : カテゴリ
 
       category:
         name: "カテゴリ名"

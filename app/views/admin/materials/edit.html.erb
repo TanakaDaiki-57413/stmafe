@@ -1,2 +1,96 @@
-<h1>Admin::Materials#edit</h1>
-<p>Find me in app/views/admin/materials/edit.html.erb</p>
+<div class="container w-50 mx-auto">
+  <%= render "layouts/error" ,obj: @material %>
+  <div class="row">
+    <%= form_with model: @material, 
+                  url: admin_material_path(@material),
+                  method: :patch do |form| %>
+
+      <%# 画像保存 %>
+      <div>
+        <% if @material.persisted? && @material.cover_image.attached? %>
+          <div>
+            <%= image_tag @material.get_cover_image(150,150),
+                          class: "img-fluid border object-fit-contain" %>
+          </div>
+        <% end %>
+
+        <span class="text-decoration-underline">現在の表紙</span><br>
+
+        <%= form.label :cover_image, "表紙" %>
+        <%= form.file_field :cover_image,
+                            accept: "image/*",
+                            class: "form-control" %>
+      </div>
+
+      <div>
+        <%= form.label :title, "教材名" %>
+        <%= form.text_field :title%>
+      </div>
+
+      <div>
+        <%= form.label :author, "著者" %>
+        <%= form.text_field :author %>
+      </div>
+
+      <div>
+        <%= form.label :publisher, "出版社" %>
+        <%= form.text_field :publisher %>
+      </div>
+    
+      <div>
+        <%= form.label :body, "教材説明文" %>
+        <%= form.text_area :body %>
+      </div>
+
+      <div>
+        <%= form.label :price, "税込価格" %>
+        <%= form.text_field :price %>
+      </div>
+
+      <div>
+        <%= form.label :release_date, "発売日"%>
+        <%= form.date_field :release_date %>
+      </div>
+
+      <div>
+        <%= form.label :isbn_number, "ISBN番号" %>
+        <%= form.text_field :isbn_number %>
+      </div>
+
+      <div>
+        <span>カテゴリ</span>
+        <%= form.collection_select(
+          :category_id,
+          Category.all,
+          :id,
+          :name,
+          { prompt: "カテゴリーを選択してください" }
+        )%> 
+      </div>
+
+      <div>
+        <span>タグ</span>
+        <div class="overflow-auto border border-dark px-1 py-1 d-flex flex-wrap" style="height:120px;">
+          <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
+            <div class="me-3">
+              <%= tag.check_box %>
+              <%= tag.label %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      
+      <div>
+        <%= form.label :study_level, "レベル" %>
+        <%= form.select :study_level, ["初級", "中級", "上級"] %>
+      </div>
+
+      <div>
+        <%= form.submit "登録する"%>
+      </div>
+
+      
+    <% end %>
+
+  </div>
+<div>

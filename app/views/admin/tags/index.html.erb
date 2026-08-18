@@ -1,2 +1,36 @@
-<h1>Admin::Tags#index</h1>
-<p>Find me in app/views/admin/tags/index.html.erb</p>
+<div class="container">
+  <div id="flash">
+    <%= render "layouts/flash" %>
+  </div>
+  
+  <%= render "layouts/error", obj: @tag %>
+
+  <div class="row">
+    <h1>タグ一覧・追加</h1>
+  </div>
+
+  <div class="row">
+    <%= form_with model: @tag, url:admin_tags_path do |form| %>
+      <%= form.label :name, "タグ名" %>
+      <%= form.text_field :name %>
+      <%= form.submit "追加"%>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>タグ名</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tags">
+        <% @tags.each do |tag| %>
+          <%= render "tag", tag: tag %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

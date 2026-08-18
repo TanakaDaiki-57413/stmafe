@@ -1,0 +1,6 @@
+<%= turbo_stream.remove "tag_#{@tag.id}" do %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <%= render "layouts/flash" %>
+<% end %>

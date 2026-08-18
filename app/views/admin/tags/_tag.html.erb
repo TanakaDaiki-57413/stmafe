@@ -1,0 +1,12 @@
+<tr id="tag_<%= tag.id %>">
+  <td><%= tag.name %></td>
+  <td>
+    <%= link_to "編集",
+                edit_admin_tag_path(tag) %>
+  </td>
+  <td>
+    <%= button_to "削除",
+                  admin_tag_path(tag),
+                  method: :delete %>
+  </td>
+</tr>
