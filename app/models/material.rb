@@ -13,7 +13,7 @@ class Material < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   validates :publisher, presence: true
-  validates :price, presence: true
+  validates :price, presence: true,  numericality: { only_integer: true }
   validates :release_date, presence: true
   validates :isbn_number, presence: true, uniqueness: true
 
