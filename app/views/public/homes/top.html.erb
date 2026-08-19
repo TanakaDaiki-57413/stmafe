@@ -30,89 +30,79 @@
       <div class="row g-3">
 
         <%# <!-- キーワード --> %>
-        <div class="col-lg-4">
+          <%= search_form_for @q, url: materials_path, class:"d-flex g-2" do |f| %>
+            <div class="col-lg-4 me-2">
+              <%= f.label :title_or_author_or_publisher_cont, "キーワード",
+                     class: "form-label small fw-bold" %>
 
-          <%= label_tag :keyword,
-                        "キーワード",
-                        class: "form-label small fw-bold" %>
+              <%= f.text_field :title_or_author_or_publisher_cont,
+                    class:"form-control",
+                    placeholder: "教材名/著者名/出版社" %>
+            </div>
 
-          <%= text_field_tag :keyword,
-                             nil,
-                             class: "form-control",
-                             placeholder: "教材名・技術・著者名など" %>
+            <!-- カテゴリ -->
+            <div class="col-lg-2 me-2">
+    
+              <%= label_tag :category,
+                            "カテゴリ",
+                            class: "form-label small fw-bold" %>
+    
+              <%= select_tag :category,
+                             options_for_select([
+                               ["すべて", ""],
+                               ["プログラミング", "programming"],
+                               ["Web開発", "web"],
+                               ["インフラ", "infrastructure"]
+                             ]),
+                             class: "form-select" %>
+    
+            </div>
 
-        </div>
+            <!-- タグ -->
+            <div class="col-lg-2 me-2">
 
+              <%= label_tag :genre,
+                            "タグ",
+                            class: "form-label small fw-bold" %>
 
-          <!-- カテゴリ -->
-        <div class="col-lg-2">
+              <%= select_tag :genre,
+                             options_for_select([
+                               ["すべて", ""],
+                               ["Ruby", "ruby"],
+                               ["Python", "python"],
+                               ["JavaScript", "javascript"],
+                               ["AWS", "aws"],
+                               ["Docker", "docker"]
+                             ]),
+                             class: "form-select" %>
 
-          <%= label_tag :category,
-                        "カテゴリ",
-                        class: "form-label small fw-bold" %>
+            </div>
 
-          <%= select_tag :category,
-                         options_for_select([
-                           ["すべて", ""],
-                           ["プログラミング", "programming"],
-                           ["Web開発", "web"],
-                           ["インフラ", "infrastructure"]
-                         ]),
-                         class: "form-select" %>
+            <!-- レベル -->
+            <div class="col-lg-2 me-2">
 
-        </div>
+              <%= label_tag :level,
+                            "レベル",
+                            class: "form-label small fw-bold" %>
 
+              <%= select_tag :level,
+                             options_for_select([
+                               ["すべて", ""],
+                               ["初心者", "beginner"],
+                               ["中級者", "intermediate"],
+                               ["上級者", "advanced"]
+                             ]),
+                             class: "form-select" %>
 
-        <!-- 言語・分野 -->
-        <div class="col-lg-2">
+            </div>
 
-          <%= label_tag :genre,
-                        "言語・分野",
-                        class: "form-label small fw-bold" %>
+            <div class="col-lg-2 d-flex align-items-end">
+              <%= f.submit "検索する" ,class:"btn btn-primary w-100"%>
 
-          <%= select_tag :genre,
-                         options_for_select([
-                           ["すべて", ""],
-                           ["Ruby", "ruby"],
-                           ["Python", "python"],
-                           ["JavaScript", "javascript"],
-                           ["AWS", "aws"],
-                           ["Docker", "docker"]
-                         ]),
-                         class: "form-select" %>
-
-        </div>
-
-
-          <!-- レベル -->
-        <div class="col-lg-2">
-
-          <%= label_tag :level,
-                        "レベル",
-                        class: "form-label small fw-bold" %>
-
-          <%= select_tag :level,
-                         options_for_select([
-                           ["すべて", ""],
-                           ["初心者", "beginner"],
-                           ["中級者", "intermediate"],
-                           ["上級者", "advanced"]
-                         ]),
-                         class: "form-select" %>
-
-        </div>
-
-
-        <%# 検索ボタン %>
-        <div class="col-lg-2 d-flex align-items-end">
-
-          <%= button_tag type: "submit",
-                         class: "btn btn-primary w-100" do %>
-            <i class="fa-solid fa-magnifying-glass me-1"></i>
-            検索する
+      
           <% end %>
 
-        </div>
+        
       </div>
     </div>
     <%# 人気のキーワード %>

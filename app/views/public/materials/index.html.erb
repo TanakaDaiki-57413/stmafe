@@ -17,12 +17,28 @@
   </div>
   <div class="row">
     <div class="col-md-3 border border-dark">
+      <%= search_form_for @q, url: materials_path do |f| %>
+      
+        <div>
+          <%= f.label :title_cont, "教材名" %>
+          <%= f.text_field :title_cont %>
+        </div>
+      
+      
+        <%= f.submit "検索" %>
+      
+      <% end %>
     </div>
 
     <div class="col-md-9 d-flex">
       <div class="row g-3">
         <% @materials.each do |material| %>
-          <div class="col-md-3 col-sm-6">
+          <% if @materials.count == 1%>
+            <%# 検索結果が1件のみの場合、レイアウト崩れが起きるので処置 %>
+            <div class="col-md-4">
+          <% else%>
+            <div class="col-md-3 col-sm-6">
+          <% end%>
             <%= link_to material_path(material),class:"text-decoration-none" do%>
               <div class="card h-100 px-1">
                 <%= image_tag material.get_cover_image(100,100),

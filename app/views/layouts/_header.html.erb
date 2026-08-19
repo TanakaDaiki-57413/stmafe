@@ -52,26 +52,9 @@
         </div>
 
         <%# 検索 %>
-        <div class="d-flex flex-grow-1" style="max-width: 450px;">
-
-          <select class="form-select w-auto flex-shrink-0">
-            <option value="">選択</option>
-            <option value="user">ユーザー</option>
-            <option value="material">教材</option>
-          </select>
-
-          <input
-            class="form-control"
-            type="text"
-            placeholder="キーワードで検索">
-
-          <button
-            class="btn btn-primary flex-shrink-0"
-            type="button">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-
-        </div>
+        <% unless current_admin %>
+          <%= render "public/searches/form" %>
+        <% end %>
 
         <%# グローバルナビゲーション %>
         <div class="d-flex align-items-center gap-3 ms-auto flex-nowrap">

@@ -40,4 +40,29 @@ class Material < ApplicationRecord
       return 0
     end
   end
+
+  # ransackで検索を許可するカラム名を指定
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+    author
+    average_rating
+    body
+    category_id
+    isbn_number
+    price
+    publisher
+    release_date
+    study_level
+    title
+    ]
+  end
+
+  # ransackで検索を許可するアソシエーションを指定
+  def self.ransackable_associations(auth_object = nil)
+     %w[
+    category
+    material_tags
+    tags
+    ]
+  end
 end

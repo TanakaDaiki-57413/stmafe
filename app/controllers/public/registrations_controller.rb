@@ -1,5 +1,5 @@
 class Public::RegistrationsController <  Public::ApplicationController
-   allow_unauthenticated_access only: %i[new create]
+  allow_unauthenticated_access only: %i[new create]
   # ユーザー新規登録画面
   def new
     @user = User.new

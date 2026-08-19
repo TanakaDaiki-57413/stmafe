@@ -2,7 +2,10 @@ class Admin::UsersController < Admin::ApplicationController
   before_action :set_one_user, only: [ :edit, :update ]
   # ユーザー管理一覧画面
   def index
-    @users = User.with_attached_profile_image
+    # 検索結果を@qに格納 該当書籍の画像を事前に取得
+    # @params[:q]に値が無い状態だとUser情報全取得
+    @q = User.ransack(params[:q])
+    @users = @q.result.with_attached_profile_image
   end
 
   # ユーザー管理詳細画面

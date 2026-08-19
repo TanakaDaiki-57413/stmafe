@@ -67,6 +67,22 @@ class User < ApplicationRecord
     status_invalid?
   end
 
+  # ransackで検索を許可するカラムを指定
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      active_status
+      email_address
+      nickname
+    ]
+  end
+
+  # ransackで検索を許可するアソシエーションを指定
+  def self.ransackable_associations(auth_object = nil)
+     %w[
+    sessions
+    ]
+  end
+
   private
   # メールアドレス入力時空白の消去
   def normalize_email
