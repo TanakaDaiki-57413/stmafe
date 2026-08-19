@@ -1,0 +1,6 @@
+<div class="w-50 mt-3" style="margin-left:8em"><%= render "layouts/flash" %></div>
+<% if @model == "user" %>
+  <%= render "user", users: @search_result %>
+<% elsif @model == "material" %>
+  <%= render "material", materials: @search_result %>
+<%end%>

@@ -1,5 +1,5 @@
 class Public::RelationshipsController < Public::ApplicationController
-   allow_unauthenticated_access only: %i[followings followers]
+  allow_unauthenticated_access only: %i[followings followers]
   # フォロー一覧画面
   def followings
   end

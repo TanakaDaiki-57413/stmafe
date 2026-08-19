@@ -3,8 +3,10 @@ class Admin::MaterialsController < Admin::ApplicationController
 
   # 教材管理一覧画面
   def index
-    # Material.all + 事前に表紙画像を取得
-    @materials = Material.with_attached_cover_image
+    # 検索結果を@qに該当書籍の画像を事前に取得
+    # @params[:q]に値が無い状態だと、Material情報全取得
+    @q = Material.ransack(params[:q])
+    @materials = @q.result.with_attached_cover_image
   end
 
   # 教材管理詳細画面

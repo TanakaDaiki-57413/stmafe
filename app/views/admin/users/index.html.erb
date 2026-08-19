@@ -1,5 +1,15 @@
 <div class="container w-75 mx-auto">
   <h1>ユーザ管理</h1>
+  <%= search_form_for @q, url: admin_users_path, class:"d-flex" do |f| %>
+      
+    <div class="me-1">
+      <%= f.label :nickname_or_email_address_cont, "ユーザー検索" %>
+      <%= f.text_field :nickname_or_email_address_cont, placeholder:"ニックネームorメアド" %>
+    </div>
+  
+    <%= f.submit "検索" %>
+      
+  <% end %>
   <table class="table table-hover">
     <thead>
       <tr>
