@@ -1,2 +1,40 @@
-<h1>Admin::Reviews#index</h1>
-<p>Find me in app/views/admin/reviews/index.html.erb</p>
+
+<div class="container w-75">
+  <%= render "layouts/flash" %>
+  <h1>レビュー管理</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr class="text-nowrap">
+        <th>レビュー教材</th>
+        <th>タイトル</th>
+        <th>レビュー内容</th>
+        <th>レビュー者</th>
+        <th>学習時間</th>
+        <th>評価</th>
+        <th>作成日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td>
+            <%= link_to admin_review_path(review) do %>
+              <%= image_tag review.material.get_cover_image(50,50) %>
+            <% end %>
+          </td>
+          <td><%= link_to review.material.title,
+                                admin_review_path(review) %></td>
+          <td class="text-break"><%= truncate(review.content,length:64) %> </td>
+          <td>
+            <%= link_to admin_user_path(review.user) do%>
+              <%= review.user.nickname %>
+            <% end%>
+          </td>
+          <td><%= review.study_time %>時間</td>
+          <td><%= review.rate %></td>
+          <td><%= review.created_at.strftime("%Y/%m/%d") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

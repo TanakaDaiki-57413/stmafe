@@ -103,7 +103,7 @@
         </div>
 
 
-        <!-- 検索ボタン -->
+        <%# 検索ボタン %>
         <div class="col-lg-2 d-flex align-items-end">
 
           <%= button_tag type: "submit",
@@ -115,7 +115,7 @@
         </div>
       </div>
     </div>
-    <!-- 人気のキーワード -->
+    <%# 人気のキーワード %>
     <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
       <span class="small text-secondary">
         人気のキーワード：
@@ -145,10 +145,7 @@
 
     <div class="row g-4">
 
-      <!-- ======================
-           新着レビュー
-      ======================= -->
-
+      <%# 新着レビュー %>
       <div class="col-lg-8">
 
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -159,25 +156,22 @@
           </h2>
 
           <%= link_to "もっと見る",
-                      "#",
+                      materials_path,
                       class: "small text-decoration-none" %>
 
         </div>
 
 
-        <!-- レビュー一覧 -->
-
+        <%# レビュー一覧  %>
         <div class="row g-3">
 
-          <% 4.times do %>
+          <% @reviews.each do |review| %>
 
             <div class="col-md-6 col-xl-3">
 
               <div class="card h-100 shadow-sm border-0">
 
-                <!-- 教材画像 -->
-
-                <%= image_tag "default-image.jpg",
+                <%= image_tag review.material.cover_image,
                                 class: "card-img-top p-3",
                                 alt: "教材画像" %>
 
@@ -185,45 +179,45 @@
                 <div class="card-body">
 
                   <h3 class="h6 fw-bold">
-                    タイトル
+                    <%= review.material.title %>
                   </h3>
 
                   <p class="small text-secondary mb-2">
-                    著者名
+                    <%= review.material.author%>
                   </p>
 
 
-                  <!-- 星 -->
-
+                  <%# 評価 %>
                   <div class="small text-warning mb-2">
 
                     ★★★★★
 
                     <span class="text-secondary">
-                      4.6
+                      <%= review.rate %>
                     </span>
 
                   </div>
 
                   <span class="badge text-bg-light text-primary">
-                    カテゴリー
+                    <%= review.material.category.name%>
                   </span>
 
 
                   <p class="small text-secondary mt-3 mb-0">
-                    本文
+                    <%= review.content %>
                   </p>
 
                 </div>
 
 
-                <!-- 投稿者 -->
-
+                <%# 投稿者  %>
                 <div class="card-footer bg-white border-0">
 
                   <small class="text-secondary">
+                    学習時間:<%= review.study_time%>時間<br>
                     <i class="fa-solid fa-user me-1"></i>
-                    ユーザー名
+                    <%= review.user.nickname%>
+                    
                   </small>
 
                 </div>
@@ -239,10 +233,7 @@
       </div>
 
 
-      <!-- ======================
-           人気教材
-      ======================= -->
-
+      <%# 人気教材 %>
       <div class="col-lg-4">
 
         <div class="bg-white rounded shadow-sm p-3">
@@ -308,7 +299,7 @@
           <div class="text-end mt-3">
 
             <%= link_to "もっと見る",
-                        "#",
+                        materials_path,
                         class: "small text-decoration-none" %>
 
           </div>

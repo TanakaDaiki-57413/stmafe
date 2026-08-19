@@ -1,2 +1,169 @@
-<h1>Public::Materials#show</h1>
-<p>Find me in app/views/public/materials/show.html.erb</p>
+<div class="container mt-4">
+  <%= render "layouts/flash" %>
+  <%= render "layouts/error", obj:@new_review %>
+  <%# 教材情報row %>
+  <div class="row">
+
+    <div class="col-md-2 col-sm-12 card rounded-0">
+      <%= image_tag @material.cover_image,
+            class:"img-fluid py-4"%>
+
+      <div class="card-footer bg-white">
+        <div class="text-warning mt-3 text-nowrap"> 
+          <h5><%= @material.average_rating %> ★★★★★</h5>  
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7 col-sm-12 card rounded-0 px-4 py-2">
+      <div class="card-title">
+        <h3><%= @material.title %></h3>
+      </div>
+
+      <div class="card-subtitle text-secondary mb-1">
+        著者： <%= @material.author %>
+        <span>|  出版社：<%= @material.publisher %></span>
+      </div>
+      
+
+      
+      <div class="d-flex align-items-center mt-1">
+        <% @material.material_tags.each do |hit| %>
+          <span class="bg-light text-primary  badge me-2"><%= hit.tag.name %></span>
+        <% end %>
+      </div>
+      
+      <div class="card-body ">
+        <p><%= @material.body %></p>
+      </div>
+
+      <div class="card-text">
+        <div class="d-flex justify-content-end">
+          <p class="border rounded px-4 py-2 fs-5 bg-light">
+            <i class="fa-solid fa-bookmark text-primary"></i>
+            お気に入りに追加
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-12 card rounded-0 py-2">
+      <div class="card-title">
+        <h6>教材の基本情報</h6>
+      </div>
+      <div class="card-text">
+        <table class="table small">
+          <tbody>
+            <tr>
+              <td class="text-end">発売日：</td>
+              <td><%= @material.release_date.strftime("%Y年%m月%d日")  %></td>
+            </tr>
+            <tr>
+              <td class="text-end">価格(税込)：</td>
+              <td><%= @material.price %>円</td>
+            </tr>
+            <tr>
+              <td class="text-end">レベル：</td>
+              <td><%= @material.study_level %></td>
+            </tr>
+            <tr>
+              <td class="text-end">カテゴリ：</td>
+              <td><%= @material.category.name %></td>
+            </tr>
+            <tr>
+              <td class="text-end">学習時間(平均)：</td>
+              <td><%= @material.calc_avg_studytime %>時間</td>
+            </tr>
+            <tr>
+              <td class="text-end">ISBN番号：</td>
+              <td><%= @material.isbn_number%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <%# レビュー一覧/コメントrow %>
+  <div class="row">
+    <%# レビュー一覧 %>
+    <div class="col-md-9 no-border">
+      <h2>レビュー一覧(<%=@material.reviews.count%>)</h2>
+      <% @reviews.each do |reviewer| %>
+        <div class="row py-3 border-top">
+
+          <%# レビュワーの名前・画像 %>
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <%= link_to user_path(reviewer.user.public_uid),class:"text-decoration-none" do %>
+              <%= image_tag reviewer.user.get_profile_image(50,50),class:"rounded-circle"%>
+              <%= reviewer.user.nickname %>さん
+            <% end %>
+          </div>
+
+          <%# レビュー内容 %>
+          <div class="col-9 d-flex flex-wrap">
+
+            <div class="w-50">
+              <span class="text-warning">★★★★★</span>
+            </div>
+
+            <div class="w-50 text-end text-secondary">
+              <span>学習時間：<%= reviewer.study_time %>時間</span> 
+              <span class="ms-4"><%= reviewer.created_at.strftime("%Y年%m月%d日")%></span>
+            </div>
+
+            <div class="w-100 px-2 mt-3 mb-5 text-break">
+              <p><%= reviewer.content %></p>
+            </div>
+
+            <%# 投稿本人の時に表示 %>
+            <% if reviewer.user = current_user %>
+              <div class="w-100 text-end">
+                <%= link_to "編集",  edit_material_review_path(@material,reviewer, return_to: request.fullpath) ,class:"btn btn-success"%>
+                <%= link_to "削除", material_review_path(@material,reviewer) ,
+                                  class:"btn btn-danger",
+                                  data: { 
+                                    turbo_method: :delete,
+                                    turbo_confirm: "本当に削除しますか？"
+                                  }%>
+              </div>
+            <% end %>
+          </div>
+          
+        </div>      
+      <% end %>
+    </div>
+    <%# コメント %>
+    <div class="col-md-3 card py-3">
+      <h2>レビュー作成</h2>
+      <%# ログインしている状態なら %>
+      <% if current_user %>
+        <%= form_with model:@new_review, 
+                      url: material_reviews_path(@material) do |form| %>
+
+          <div class="mt-3">
+            <%= form.label :study_time, "学習時間 ※時間単位で入力", class:"fw-bold" %><br>
+            <%= form.text_field :study_time ,class:"form-control mt-2", placeholder:"例: 100"%>
+          </div>
+
+          <div class="mt-3">
+            <%= form.label :content, "レビュー内容" , class:"fw-bold" %><br>
+            <%= form.text_area :content ,
+                               class: "form-control mt-2",
+                               style: "height: 250px;" %>
+          </div>
+
+          <div class="mt-4 text-end">
+            <%= form.submit "レビューを作成する", class:"w-100, btn btn-primary"%>
+          </div>
+        <% end %>
+      <%# 未ログイン状態なら %>
+      <% else %>
+        <div class="d-flex justify-content-center align-items-center">
+          こちらの機能はログイン後にご使用可能です
+        </div>
+      <% end%>
+                  
+    </div>
+  </div>
+</div>

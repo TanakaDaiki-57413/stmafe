@@ -26,4 +26,18 @@ class Material < ApplicationRecord
     end
     cover_image.variant(resize_to_fill: [ width, height ]).processed
   end
+
+  # レビュワーの平均学習時間を求める
+  def calc_avg_studytime
+    unless reviews.blank?
+      total_time = 0
+      reviews.each do |reviewer|
+        total_time += reviewer.study_time
+      end
+      avg_study_time = total_time / reviews.count
+      return avg_study_time
+    else
+      return 0
+    end
+  end
 end

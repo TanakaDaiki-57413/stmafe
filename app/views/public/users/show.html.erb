@@ -70,4 +70,43 @@
       </div>
     </div>
   </div>
+  <div class="row mt-5">
+    <div class="col-4">
+      <h5>最近のレビュー</h5>
+    </div>
+
+    <div class="col-4 text-end text-primary">
+      <%= link_to "すべて見る", user_reviewing_path(@user.public_uid) %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 border rounded-3">
+      <% @reviews.each do |review| %>
+        <div class="row">
+          <div class="col-4 border-bottom">
+            <%= link_to material_path(review.material) do %>
+              <%= image_tag review.material.get_cover_image(150,150),
+                  class:"img-fluid" %>
+            <% end %>
+          </div>
+          <div class="col-8 py-3 d-inline-block border-bottom">
+            <div class="w-100">
+              <%= link_to review.material.title, material_path(review.material) ,class:"fs-4 text-decoration-none" %>
+            </div>
+            <div>
+              <span class="text-warning me-5">★★★★★ <%= review.rate %></span>
+              <span>学習時間：<%= review.study_time %>時間</span>
+            </div>
+            <div class="mt-2 mx-1">
+              <p><%= truncate(review.content ,length:50 ) %></p>
+            </div>
+            <div class="text-end text-secondary">
+              <%= review.created_at.strftime("%Y年%m月%d日")%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  
 </div>

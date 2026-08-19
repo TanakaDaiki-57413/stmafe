@@ -1,4 +1,4 @@
-<%= render "layouts/flash" %>
+<div class="w-50 mt-3" style="margin-left:8em"><%= render "layouts/flash" %></div>
 <div class="container">
   <div class="row g-3">
     <div class="col-md-6 col-xl-3">
@@ -34,7 +34,50 @@
 
         </div>
       </div>
-
     </div>
+
+    <div class="col-md-6 col-xl-9">
+      <h3><%= @user.nickname %>さんのレビュー一覧</h3>
+      <% @user.reviews.each do |reviewer| %>
+        <div class="row py-3 border-top">
+
+          <%# レビューした教材 %>
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <%= image_tag reviewer.material.get_cover_image(200,200),class:"img-fluid"%>
+          </div>
+
+          <%# レビュー内容 %>
+          <div class="col-9 d-flex flex-wrap">
+            <div class="w-100 fs-5 fw-bold">
+              <%= reviewer.material.title %>
+            </div>
+
+            <div class="w-50">
+              <span class="text-warning">★★★★★</span>
+            </div>
+
+            <div class="w-50 text-end text-secondary">
+              <span>学習時間：<%= reviewer.study_time %>時間</span> 
+              <span class="ms-4"><%= reviewer.created_at.strftime("%Y年%m月%d日")%></span>
+            </div>
+
+            <div class="w-100 px-2 mt-3 mb-5 text-break">
+              <span><%= reviewer.content %></span>
+            </div>
+
+
+            <div class="w-100 text-end">
+              <%= link_to "削除", admin_review_path(reviewer,) ,
+                          class:"btn btn-danger",
+                          data: { 
+                            turbo_method: :delete,
+                            turbo_confirm: "本当に削除しますか？"
+                          }%>
+            </div>
+          </div>
+          
+        </div>      
+      <% end %>
+    </div>      
   </div>
 </div>
