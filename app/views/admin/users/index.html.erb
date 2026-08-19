@@ -18,7 +18,7 @@
               <%= image_tag user.get_profile_image(50,50) %>
             <% end %>
           </td>
-          <td><%= user.nickname %></td>
+          <td><%= link_to user.nickname, admin_user_path(user) %></td>
           <td><%= user.email_address %></td>
           <td><%= user.created_at.strftime("%Y/%m/%d") %></td>
           <td><%= user.active_status_i18n%></td>

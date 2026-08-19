@@ -1,5 +1,6 @@
-<%= render "layouts/flash" %>
+<div class="w-50 mt-3" style="margin-left:8em"><%= render "layouts/flash" %></div>
 <div class="container w-75 mx-auto">
+  <h1>教材管理</h1>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -21,7 +22,9 @@
                 <%= image_tag material.get_cover_image(50,50) %>
               <% end %>
             </td>
-            <td><%= material.title %></td>
+            <td><%= link_to material.title,
+                         admin_material_path(material) %>
+            </td>
             <td><%= material.author %></td>
             <td><%= material.publisher %></td>
             <td><%= material.category.name%></td>

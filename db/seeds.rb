@@ -319,7 +319,7 @@ materials.each do |data|
   data[:tags].each do |tag_name|
     tag = Tag.find_or_create_by!(name: tag_name)
 
-    MaterialTag.create!(
+    MaterialTag.find_or_create_by!(
       material: material,
       tag: tag
     )

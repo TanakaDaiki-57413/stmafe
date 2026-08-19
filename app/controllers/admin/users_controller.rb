@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_action :set_one_user, only: [ :show, :edit, :update ]
+  before_action :set_one_user, only: [ :edit, :update ]
   # ユーザー管理一覧画面
   def index
     @users = User.with_attached_profile_image
@@ -7,6 +7,8 @@ class Admin::UsersController < Admin::ApplicationController
 
   # ユーザー管理詳細画面
   def show
+    @user = User.includes(:reviews)
+                 .find(params[:id])
   end
 
   # ユーザー管理編集画面

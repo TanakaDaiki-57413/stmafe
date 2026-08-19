@@ -10,6 +10,10 @@ class Public::UsersController < Public::ApplicationController
   # ユーザー詳細画面
   def show
     @user = User.find_by(public_uid: params[:public_uid])
+    @reviews = Review.includes(:material)
+                      .where(user_id: @user.id)
+                      .order(id: :desc)
+                      .first(3)
   end
 
   # プロフィール編集画面
@@ -27,6 +31,11 @@ class Public::UsersController < Public::ApplicationController
 
   # レビュー一覧画面
   def reviewing
+    @user = User.find_by(public_uid: params[:user_public_uid])
+    @reviews = Review.includes(:material)
+                      .where(user_id: @user.id)
+                      .order(id: :desc)
+
   end
 
   # ユーザープロフィール編集内容の更新処理

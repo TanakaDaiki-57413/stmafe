@@ -1,0 +1,79 @@
+<div class="container mt-3">
+  <%= render "layouts/error", obj:@review %>
+  <div class="row g-3">
+    <div class="col-md-4 col-sm-12">
+      <div class="card">
+        <%= image_tag @material.get_cover_image(100,100) %>
+
+        <div class="card-title px-1">
+          <h3><%= @material.title %></h3>
+        </div>
+
+        <div class="card-subtitle small mb-2 px-1">
+          <span>著者：</span>
+          <%= @material.author %><br>
+          <span>出版社：</span>
+          <%= @material.publisher%>
+        </div>
+
+        <div class="card-body">
+          <span class="small"><%= @material.body %></span>
+        </div>
+
+        <div class="card-text px-1 py-2">
+          <span>カテゴリ：</span>
+          <%= @material.category.name%><br>
+
+          <span>レベル：</span>
+          <%= @material.study_level %><br>
+
+          <span>価格(税込)：</span>
+          <%= @material.price %>円<br>
+
+          <span>発売日：</span>
+          <%= @material.release_date%><br>
+
+
+          <span>ISBN番号：</span>
+          <%= @material.isbn_number%><br>
+        </div>
+
+        <div class="card-footer">
+          <span>平均評価：</span>
+          <%= @material.average_rating %><br>
+          <div class="d-flex flex-wrap">
+            <% @material.material_tags.each do | tags | %>
+              <div class="bg-primary text-light small me-1 rounded-4 px-2 mb-1 mt-1">
+                <%= tags.tag.name %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-12 mx-auto">
+      <h1>レビュー編集</h1>
+      <%= form_with model:@review, 
+          url:material_review_path(@material,@review ,return_to: @return_to),
+          method: :patch do |form| %>
+
+        <div class="mt-3">
+          <%= form.label :study_time, "学習時間 ※時間単位で入力", class:"fw-bold" %><br>
+          <%= form.text_field :study_time ,class:"form-control mt-2", placeholder:"例: 100"%>
+        </div>
+
+        <div class="mt-3">
+          <%= form.label :content, "レビュー内容" , class:"fw-bold" %><br>
+          <%= form.text_area :content ,
+                             class: "form-control mt-2",
+                             style: "height: 250px;" %>
+        </div>
+
+        <div class="mt-4 text-end">
+          <%= form.submit "編集内容を保存", class:"w-100, btn btn-success"%>
+        </div>
+      
+      <% end %>
+    </div>
+  </div>
+</div>
