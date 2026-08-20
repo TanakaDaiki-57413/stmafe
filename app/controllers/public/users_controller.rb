@@ -56,7 +56,7 @@ class Public::UsersController < Public::ApplicationController
       user.update!(active_status: 1,
                   email_address: "withdrawn_#{user.id}@example.com",
                   nickname: "退会済みユーザー")
-
+      user.requests.destroy_all
       user.bookmarks.destroy_all
       user.notifications.destroy_all
       user.relationships.destroy_all
