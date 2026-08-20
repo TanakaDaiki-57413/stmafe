@@ -27,6 +27,7 @@ class Admin::MaterialsController < Admin::ApplicationController
      @material = Material.new(material_params)
 
     if @material.save
+      request_isbn_exists_and_create
       redirect_to admin_materials_path , notice: "データの登録に成功しました"
     else
       render :add, status: :unprocessable_entity
@@ -69,5 +70,16 @@ class Admin::MaterialsController < Admin::ApplicationController
 
   def set_one_material
     @material = Material.find(params[:id])
+  end
+
+  # リクエスト教材と登録教材のISBNが一致したならステータスを自動で追加済に変更
+  def request_isbn_exists_and_create
+    requests = Request.where(isbn_number: @material.isbn_number )
+    unless requests.blank?
+      requests.each do |request_record|
+        request_record.update(reply: "リクエストありがとうございます。教材の追加をしたのでご確認お願いします",
+                              progress_status: 2)
+      end
+    end
   end
 end

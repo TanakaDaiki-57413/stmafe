@@ -1,2 +1,71 @@
-<h1>Public::Requests#new</h1>
-<p>Find me in app/views/public/requests/new.html.erb</p>
+<div class="container w-50 mx-auto">
+  <%= render "layouts/flash" %>
+  <%= render "layouts/error" ,obj: @request %>
+  <div class="row mt-4 mb-4">
+    <div class="row align-items-center">
+
+      <div class="col-md-8 border-bottom">
+        <h5 class="px-3 py-2 fs-3">教材リクエスト申請</h5>
+      </div>
+
+    </div>
+  </div>
+  <%= form_with model: @request,
+                url:   requests_confirm_path,
+                method: :post,
+                data: { turbo: false } do |form| %>
+
+    <%# リクエスト教材名入力フォーム %>
+    <div class="row mb-4 mt-3">
+      <div class="col-8">
+        <%= form.label :title, "リクエスト教材名", class: "form-label mb-1" %>
+
+        <%= form.text_field :title,
+                            required: true,
+                            class: "form-control",
+                            placeholder: "教材名" %>
+      </div>
+    </div>
+
+    <%# 著者入力フォーム %>
+    <div class="row mb-4">
+      <div class="col-8">
+        <%= form.label :author, "著者", class: "form-label mb-1" %>
+        <%= form.text_field :author,
+                            class: "form-control",
+                            placeholder: "著者名" %>
+      </div>
+    </div>
+    
+    <%# 出版社入力フォーム %>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <%= form.label :publisher, "出版社", class: "form-label mb-1" %>
+        <%= form.text_field :publisher,
+                            required: true,
+                            class: "form-control",
+                            placeholder: "出版社" %>
+      </div>
+    </div>
+
+    <%# ISBN番号入力フォーム %>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <%= form.label :isbn_number, "ISBN番号 ※ハイフンなし", class: "form-label mb-1" %>
+
+        <%= form.text_field :isbn_number,
+                            required: true,
+                            class: "form-control",
+                            placeholder: "1234567891234(13桁)" %>
+      </div>
+    </div>
+
+    <%# 確認ボタン %>
+    <div class="row mt-4 mb-4">
+      <div class="col-md-8 text-end">
+        <%= form.submit "確認へ",
+                        class: "btn btn-success px-5" %>
+      </div>
+    </div>
+  <% end %>
+</div>

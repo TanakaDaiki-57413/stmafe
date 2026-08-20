@@ -1,2 +1,105 @@
-<h1>Public::Requests#show</h1>
-<p>Find me in app/views/public/requests/show.html.erb</p>
+<div class="container w-50 mx-auto">
+  <%= render "layouts/flash" %>
+  <%= render "layouts/error" ,obj: @request %>
+  <div class="row mt-4 mb-4">
+    <div class="row align-items-center">
+
+      <div class="col-md-8 border-bottom">
+        <h5 class="px-3 py-2 fs-3">リクエスト履歴詳細</h5>
+      </div>
+
+    </div>
+  </div>
+  <%= form_with model: @request,
+                url:   request_path,
+                method: :delete,
+                data: { turbo: false } do |form| %>
+
+    <div class="row mb-4 mt-3">
+      <div class="col-8">
+        <p>申請日：<%= @request.created_at.strftime("%Y/%m/%d")%></p>
+      </div>
+    </div>
+
+    <%# リクエスト教材名入力フォーム %>
+    <div class="row mb-4 mt-3">
+      <div class="col-8">
+        <%= form.label :title, "リクエスト教材名", class: "form-label mb-1" %>
+
+        <%= form.text_field :title,
+                            required: true,
+                            readonly: true,
+                            class: "form-control" %>
+      </div>
+    </div>
+
+    <%# 著者入力フォーム %>
+    <div class="row mb-4">
+      <div class="col-8">
+        <%= form.label :author, "著者", class: "form-label mb-1" %>
+        <%= form.text_field :author,
+                            class: "form-control",
+                            readonly: true %>
+      </div>
+    </div>
+    
+    <%# 出版社入力フォーム %>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <%= form.label :publisher, "出版社", class: "form-label mb-1" %>
+        <%= form.text_field :publisher,
+                            required: true,
+                            readonly: true,
+                            class: "form-control" %>
+      </div>
+    </div>
+
+    <%# ISBN番号入力フォーム %>
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <%= form.label :isbn_number, "ISBN番号", class: "form-label mb-1" %>
+
+        <%= form.text_field :isbn_number,
+                            required: true,
+                            readonly: true,
+                            class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-8">
+        <%= form.label :progress_status, "進行ステータス", class: "form-label mb-1" %>
+
+        <%= form.text_field :progress_status_i18n,
+                            required: true,
+                            readonly: true,
+                            class: "form-control" %>
+      </div>
+    </div>
+
+    <%# 管理者コメントが存在するときに表示 %>
+    <% unless @request.reply.blank? %>
+      <div class="row mb-3">
+        <div class="col-md-8">
+          <%= form.label :reply, "管理者コメント", class: "form-label mb-1" %>
+
+          <%= form.text_area :reply,
+                              required: true,
+                              readonly: true,
+                              class: "form-control" %>
+        </div>
+      </div>
+    <% end %>
+
+    <%# 申請取消ボタン %>
+    <%# 進行ステータスが対応中のみ表示 %>
+    <% if @request.progress_status_i18n == "対応中"%>
+      <div class="row mt-4 mb-4">
+        <div class="col-md-8 text-end">
+          <%= form.submit "申請取消",
+                          class: "btn btn-danger px-5" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

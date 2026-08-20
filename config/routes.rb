@@ -78,9 +78,10 @@ Rails.application.routes.draw do
     # 通知
     resources :notifications, only: [ :update ]
 
+    get "requests/confirm", to: "requests#new"
+    post "requests/confirm", to: "requests#confirm"
+    
     # 教材リクエスト 各画面・各データ処理
-    resources :requests, only: [ :new, :index, :show, :create, :destroy ] do
-      get "confirm", to: "requests#confirm"
-    end
+    resources :requests, only: [ :new, :index, :show, :create, :destroy ] 
   end
 end

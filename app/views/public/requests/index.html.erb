@@ -1,2 +1,30 @@
-<h1>Public::Requests#index</h1>
-<p>Find me in app/views/public/requests/index.html.erb</p>
+<div class="container w-75 mt-4">
+  <%= render "layouts/flash" %>
+  <h1>リクエスト履歴</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr class="text-nowrap">
+        <th>リクエスト教材名</th>
+        <th>著者</th>
+        <th>出版社</th>
+        <th>ISBN</th>
+        <th>申請日</th>
+        <th>進行ステータス</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @requests.each do |request| %>
+        <tr>
+          <td><%= request.title%></td>
+          <td><%= request.author%></td>
+          <td><%= request.publisher%></td>
+          <td><%= request.isbn_number%></td>
+          <td><%= request.created_at.strftime("%Y/%m/%d")%></td>
+          <td><%= request.progress_status_i18n %></td>
+          <td><%= link_to "詳細", request_path(request) ,class:"btn btn-success"%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
