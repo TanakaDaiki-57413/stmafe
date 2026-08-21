@@ -70,6 +70,7 @@
       </div>
     </div>
   </div>
+  <%# 最近のレビュー %>
   <div class="row mt-5">
     <div class="col-4">
       <h5>最近のレビュー</h5>
@@ -79,7 +80,7 @@
       <%= link_to "すべて見る", user_reviewing_path(@user.public_uid) %>
     </div>
   </div>
-
+  <%# ユーザーの新着レビューを3件表示 %>
   <div class="row">
     <div class="col-md-8 border rounded-3">
       <% @reviews.each do |review| %>

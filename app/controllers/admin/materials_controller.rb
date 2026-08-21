@@ -28,7 +28,7 @@ class Admin::MaterialsController < Admin::ApplicationController
 
     if @material.save
       request_isbn_exists_and_create
-      redirect_to admin_materials_path , notice: "データの登録に成功しました"
+      redirect_to admin_materials_path, notice: "データの登録に成功しました\n\n" + @number_of_request_changes
     else
       render :add, status: :unprocessable_entity
     end
@@ -81,5 +81,6 @@ class Admin::MaterialsController < Admin::ApplicationController
                               progress_status: 2)
       end
     end
+    @number_of_request_changes = "リクエスト教材の変更件数は#{requests.count}件です"
   end
 end

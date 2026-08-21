@@ -290,10 +290,10 @@
 
         <%# ロゴ %>
         <div class="flex-grow-1">
-          <%= link_to root_path, class: "text-decoration-none text-dark" do %>
+         
 
-            <div class="d-flex align-items-center">
-
+          <div class="d-flex align-items-center">
+            <%= link_to root_path, class: "text-decoration-none text-dark" do %>
               <i class="fa-solid fa-book-open fs-2 text-primary"></i>
 
               <div class="ms-2 text-nowrap">
@@ -305,10 +305,13 @@
                   ITレビュー教材サイト
                 </div>
               </div>
+            <% end %>
 
-            </div>
-
-          <% end %>
+            <%# 検索 %>
+            <% unless current_admin %>
+              <%= render "public/searches/form" %>
+            <% end %>
+          </div>
         </div>
         <% if current_user %>
 
@@ -394,23 +397,119 @@
 
 
         <%# ハンバーガーボタン %>
-        <button
-          class="btn p-1"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mobileMenu"
-          aria-expanded="false"
-          aria-controls="mobileMenu">
+        <%# ユーザーで表示 %>
+        <% unless current_admin %>
+          <button
+            class="btn p-1"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#UserMenu"
+            aria-expanded="false"
+            aria-controls="UserMenu">
 
-          <i class="fa-solid fa-bars fs-3"></i>
+            <i class="fa-solid fa-bars fs-3"></i>
 
-        </button>
+          </button>
+        <%# 管理者で表示 %>
+        <% else %>
+          <button
+            class="btn p-1"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#AdminMenu"
+            aria-expanded="false"
+            aria-controls="AdiminMenu">
+
+            <i class="fa-solid fa-bars fs-3"></i>
+
+          </button>
+        <% end %>
 
       </div>
 
 
       <%# ハンバーガーメニュー %>
-      <div class="collapse mt-3" id="mobileMenu">
+      <%# 管理者用 %>
+      <div class="collapse mt-3" id="AdminMenu">
+
+        <div class="d-flex flex-column gap-3 border-top pt-3">
+
+          <%# 管理機能ドロップダウン %>
+          <div class="dropdown">
+
+            <button
+              class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+                  
+              <span>管理機能</span>
+
+            </button>
+
+              <ul class="dropdown-menu dropdown-menu-end px-2">
+
+                <li>
+                  <%= link_to "教材管理", admin_materials_path %>
+                </li>
+
+                <li>
+                  <%= link_to "レビュー管理", admin_reviews_path %>
+                </li>
+
+                <li>
+                  <%= link_to "ユーザ管理", admin_users_path %>
+                </li>
+
+                <li>
+                  <%= link_to "リクエスト管理", admin_root_path %>
+                </li>
+
+              </ul>
+
+            </div>
+
+            <%# 登録機能ドロップダウン %>
+            <div class="dropdown">
+
+                <button
+                  class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  
+                  <span>登録機能</span>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end px-2">
+
+                  <li>
+                    <%= link_to "教材登録", add_admin_materials_path %>
+                  </li>
+
+                  <li>
+                    <%= link_to "カテゴリ登録", admin_categories_path %>
+                  </li>
+
+                  <li>
+                    <%= link_to "タグ登録", admin_tags_path %>
+                  </li>
+
+                </ul>
+
+            </div>
+
+            <%= button_to "ログアウト",
+                  destroy_admin_session_path,
+                  method: :delete,
+                  class: "dropdown-item ms-3" %>
+
+      </div>
+
+      <%# ハンバーガーメニュー %>
+      <%# ユーザー用 %>
+      <div class="collapse mt-3" id="UserMenu">
 
         <div class="d-flex flex-column gap-3 border-top pt-3">
 

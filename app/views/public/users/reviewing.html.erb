@@ -3,11 +3,11 @@
   <div class="row">
     <%# レビュー一覧 %>
     <div class="col-md-9 no-border">
-      <h2><%= @user.nickname %>さんのレビュー一覧</h2>
+      <h2> <%= link_to @user.nickname, user_path(@user.public_uid) %>さんのレビュー一覧</h2>
       <% @reviews.each do |reviewer| %>
         <div class="row py-3 border-top">
 
-          <%# レビュワーの名前・画像 %>
+          <%# レビュー教材画像 %>
           <div class="col-3 d-flex justify-content-center align-items-center">
             <%= link_to material_path(reviewer.material),class:"text-decoration-none" do %>
               <%= image_tag reviewer.material.get_cover_image(200,200),class:"img-fluid"%>
@@ -35,7 +35,7 @@
             </div>
 
             <%# 投稿本人の時に表示 %>
-            <% if reviewer.user = current_user %>
+            <% if reviewer.user == current_user %>
               <div class="w-100 text-end">
                 <%= link_to "編集",  edit_material_review_path(reviewer.material,reviewer,return_to: request.fullpath) ,class:"btn btn-success"%>
                 <%= link_to "削除", material_review_path(reviewer.material,reviewer) ,

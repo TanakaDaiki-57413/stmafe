@@ -21,11 +21,12 @@
       
         <div>
           <%= f.label :title_cont, "教材名" %>
-          <%= f.text_field :title_cont %>
+          <%= f.text_field :title_cont, class:"w-100" %>
         </div>
       
-      
-        <%= f.submit "検索" %>
+        <div class="text-end mt-2">
+          <%= f.submit "検索" %>
+        </div>     
       
       <% end %>
     </div>

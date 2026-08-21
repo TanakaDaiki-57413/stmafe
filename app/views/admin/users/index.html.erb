@@ -1,39 +1,41 @@
 <div class="container w-75 mx-auto">
-  <h1>ユーザ管理</h1>
-  <%= search_form_for @q, url: admin_users_path, class:"d-flex" do |f| %>
-      
-    <div class="me-1">
-      <%= f.label :nickname_or_email_address_cont, "ユーザー検索" %>
-      <%= f.text_field :nickname_or_email_address_cont, placeholder:"ニックネームorメアド" %>
-    </div>
-  
-    <%= f.submit "検索" %>
-      
-  <% end %>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>プロフィール画像</th>
-        <th>ニックネーム</th>
-        <th>メールアドレス</th>
-        <th>作成日</th>
-        <th>ステータス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
+  <div class="col-12">
+    <h1>ユーザ管理</h1>
+    <%= search_form_for @q, url: admin_users_path, class:"d-flex" do |f| %>
+        
+      <div class="me-1">
+        <%= f.label :nickname_or_email_address_cont, "ユーザー検索" %>
+        <%= f.text_field :nickname_or_email_address_cont, placeholder:"ニックネームorメアド" %>
+      </div>
+    
+      <%= f.submit "検索" %>
+        
+    <% end %>
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td>
-            <%= link_to admin_user_path(user) do %>
-              <%= image_tag user.get_profile_image(50,50) %>
-            <% end %>
-          </td>
-          <td><%= link_to user.nickname, admin_user_path(user) %></td>
-          <td><%= user.email_address %></td>
-          <td><%= user.created_at.strftime("%Y/%m/%d") %></td>
-          <td><%= user.active_status_i18n%></td>
+          <th>プロフィール画像</th>
+          <th>ニックネーム</th>
+          <th>メールアドレス</th>
+          <th>作成日</th>
+          <th>ステータス</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= link_to admin_user_path(user) do %>
+                <%= image_tag user.get_profile_image(50,50) %>
+              <% end %>
+            </td>
+            <td><%= link_to user.nickname, admin_user_path(user) %></td>
+            <td><%= user.email_address %></td>
+            <td><%= user.created_at.strftime("%Y/%m/%d") %></td>
+            <td><%= user.active_status_i18n%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
