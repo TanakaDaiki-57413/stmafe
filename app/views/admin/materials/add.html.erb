@@ -1,55 +1,56 @@
 <div class="container w-50 mx-auto">
   <%= render "layouts/error" ,obj: @material %>
   <div class="row">
+    <h1>教材登録</h1>
     <%= form_with model: @material, 
                   url: admin_materials_path do |form| %>
 
       <%# 画像保存 %>
-      <div>
+      <div class="mt-4">
 
-        <p>表紙</p>
+        <%= form.label :cover_image, "表紙", class:"bg-success text-white px-2 rounded mb-1" %>
         <%= form.file_field :cover_image,
                             accept: "image/*",
                             class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :title, "教材名" %>
-        <%= form.text_field :title%>
+      <div class="mt-4">
+        <%= form.label :title, "教材名", class:"bg-success text-white px-2 rounded mb-1" %>
+        <%= form.text_field :title ,class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :author, "著者" %>
-        <%= form.text_field :author %>
+      <div class="mt-4">
+        <%= form.label :author, "著者", class:"bg-success text-white px-2 rounded mb-1" %>
+        <%= form.text_field :author, class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :publisher, "出版社" %>
-        <%= form.text_field :publisher %>
+      <div class="mt-4">
+        <%= form.label :publisher, "出版社", class:"bg-success text-white px-2 rounded mb-1" %>
+        <%= form.text_field :publisher, class: "form-control" %>
       </div>
     
-      <div>
-        <%= form.label :body, "教材説明文" %>
-        <%= form.text_area :body %>
+      <div class="mt-4">
+        <%= form.label :body, "教材説明文", class:"bg-success text-white px-2 rounded mb-1" %>
+        <%= form.text_area :body, class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :price, "価格(税込)" %>
-        <%= form.text_field :price %>
+      <div class="mt-4">
+        <%= form.label :price, "価格(税込)", class:"bg-success text-white px-2 rounded mb-1" %>
+        <%= form.text_field :price, class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :release_date, "発売日"%>
-        <%= form.date_field :release_date %>
+      <div class="mt-4">
+        <%= form.label :release_date, "発売日", class:"bg-success text-white px-2 rounded mb-1"%>
+        <%= form.date_field :release_date, class: "form-control" %>
       </div>
 
-      <div>
-        <%= form.label :isbn_number, "ISBN番号" %>
-        <%= form.text_field :isbn_number %>
+      <div class="mt-4">
+        <%= form.label :isbn_number, "ISBN番号", class:"bg-success text-white px-2 rounded mb-1" %>
+        <%= form.text_field :isbn_number, class: "form-control" %>
       </div>
 
-      <div>
-        <span>カテゴリ</span>
+      <div class="mt-4">
+        <%= form.label :category_id, "カテゴリ", class:"bg-primary text-white px-2 rounded mb-1" %>
         <%= form.collection_select(
           :category_id,
           Category.all,
@@ -59,8 +60,13 @@
         )%> 
       </div>
 
-      <div>
-        <span>タグ</span>
+      <div class="mt-4">
+        <%= form.label :study_level, "レベル" , class:"bg-primary text-white px-2 rounded mb-1"%>
+        <%= form.select :study_level, ["初級", "中級", "上級"] %>
+      </div>
+
+      <div class="mt-4">
+        <%= form.label :tag_id, "タグ", class:"bg-primary text-white px-2 rounded mb-1" %>
         <div class="overflow-auto border border-dark px-1 py-1 d-flex flex-wrap" style="height:120px;">
           <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
             <div class="me-3">
@@ -71,13 +77,8 @@
         </div>
       </div>
       
-      <div>
-        <%= form.label :study_level, "レベル" %>
-        <%= form.select :study_level, ["初級", "中級", "上級"] %>
-      </div>
-
-      <div>
-        <%= form.submit "登録する"%>
+      <div class="text-end mt-3">
+        <%= form.submit "登録する", class:"px-3"%>
       </div>
 
       

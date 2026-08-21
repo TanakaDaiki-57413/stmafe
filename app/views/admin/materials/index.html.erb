@@ -1,17 +1,21 @@
 <div class="w-50 mt-3" style="margin-left:8em"><%= render "layouts/flash" %></div>
 <div class="container w-75 mx-auto">
-  <h1>教材管理</h1>
-  <%= search_form_for @q, url: admin_materials_path, class:"d-flex" do |f| %>
-      
-    <div class="me-1">
-      <%= f.label :title_or_author_or_publisher_cont, "キーワード検索" %>
-      <%= f.text_field :title_or_author_or_publisher_cont, placeholder:"タイトル/著者名/出版社" %>
-    </div>
-  
-    <%= f.submit "検索" %>
-      
-  <% end %>
-    <table class="table table-hover">
+  <div class="col-12">
+    <h1>教材管理</h1>
+    <%= search_form_for @q, url: admin_materials_path, class:"d-flex align-items-center" do |f| %>
+
+      <div class="w-50">
+        <%= f.label :title_or_author_or_publisher_cont, "キーワード検索" %>
+        <%= f.text_field :title_or_author_or_publisher_cont, placeholder:"タイトル/著者名/出版社" %>
+        <%= f.submit "検索" %>
+      </div>
+
+      <div class="w-50 text-end">
+        <%= link_to "教材登録へ", add_admin_materials_path, class:"text-decoration-none btn btn-success px-1"%>
+      </div>
+
+    <% end %>
+    <table class="table table-hover mt-2">
       <thead>
         <tr>
           <th>表紙</th>
@@ -23,7 +27,7 @@
           <th>平均評価</th>
         </tr>
       </thead>
-     
+
       <tbody>
          <% @materials.each do |material| %>
           <tr>
@@ -44,4 +48,5 @@
         <% end %>
       </tbody>
     </table>
+  </div>
 </div>

@@ -26,17 +26,13 @@
   </head>
 
   <body>
-    <%= render "layouts/header" %>
+  
+    <div class="footerFixed">
+      <%= render "layouts/header" %>
 
-    <%# 検索 %>
-    <% unless current_admin %>
-      <div class="d-md-none d-flex w-75 mx-auto mt-3">
-        <%= render "public/searches/form" %>
-      </div>
-    <% end %>
-
-    <main><%= yield %></main>
-    <%= render "layouts/footer" %>
+      <main class="mb-5"><%= yield %></main>
+      <%= render "layouts/footer" %>
+    </div>
 
     
   </body>

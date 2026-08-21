@@ -1,6 +1,6 @@
 class Tag < ApplicationRecord
   # アソシエーション
-  has_many :material_tags
+  has_many :material_tags, dependent: :destroy
   has_many :materials, through: :material_tags
 
   # バリデーション
