@@ -326,4 +326,18 @@ materials.each do |data|
   end
 end
 
+# レビュー テストレビューを10件作成
+target_materials = Material.all.shuffle.first(10)
+study_times = [50, 100, 150, 200 ]
+target_materials.each do |target_material| 
+  reviewer = User.all.shuffle.first
+  Review.create!(
+    user_id: reviewer.id,
+    material_id: target_material.id,
+    content: "テストレビュー",
+    rate: 0.0,
+    study_time: study_times.sample
+  )
+end
+
 puts "seedの実行が完了しました"
