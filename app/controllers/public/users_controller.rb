@@ -61,6 +61,7 @@ class Public::UsersController < Public::ApplicationController
       user.notifications.destroy_all
       user.relationships.destroy_all
       user.reverse_of_relationships.destroy_all
+      user.profile_image.purge
     end
 
     terminate_session
