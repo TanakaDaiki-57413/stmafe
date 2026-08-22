@@ -413,55 +413,39 @@
 
 
         <%# ハンバーガーボタン %>
-        <%# ユーザーで表示 %>
-        <% unless current_admin %>
-          <button
-            class="btn p-1"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#UserMenu"
-            aria-expanded="false"
-            aria-controls="UserMenu">
+        <button
+          class="btn p-1"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mobileMenu"
+          aria-expanded="false"
+          aria-controls="mobileMenu">
 
-            <i class="fa-solid fa-bars fs-3"></i>
+          <i class="fa-solid fa-bars fs-3"></i>
 
-          </button>
-        <%# 管理者で表示 %>
-        <% else %>
-          <button
-            class="btn p-1"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#AdminMenu"
-            aria-expanded="false"
-            aria-controls="AdiminMenu">
+        </button>
 
-            <i class="fa-solid fa-bars fs-3"></i>
-
-          </button>
-        <% end %>
 
       </div>
 
-
       <%# ハンバーガーメニュー %>
-      <%# 管理者用 %>
-      <div class="collapse mt-3" id="AdminMenu">
+      <div class="collapse mt-3" id="mobileMenu">
 
         <div class="d-flex flex-column gap-3 border-top pt-3">
 
-          <%# 管理機能ドロップダウン %>
-          <div class="dropdown">
+          <% if current_admin %>
+            <%# 管理機能ドロップダウン %>
+            <div class="dropdown">
 
-            <button
-              class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-                  
-              <span>管理機能</span>
+              <button
+                class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
 
-            </button>
+                <span>管理機能</span>
+
+              </button>
 
               <ul class="dropdown-menu dropdown-menu-end px-2">
 
@@ -488,31 +472,31 @@
             <%# 登録機能ドロップダウン %>
             <div class="dropdown">
 
-                <button
-                  class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
+              <button
+                class="btn dropdown-toggle no-border fs-6 text-nowrap dropdown-mark-none"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
                   
-                  <span>登録機能</span>
+                <span>登録機能</span>
 
-                </button>
+              </button>
 
-                <ul class="dropdown-menu dropdown-menu-end px-2">
+              <ul class="dropdown-menu dropdown-menu-end px-2">
 
-                  <li>
-                    <%= link_to "教材登録", add_admin_materials_path %>
-                  </li>
+                <li>
+                  <%= link_to "教材登録", add_admin_materials_path %>
+                </li>
 
-                  <li>
-                    <%= link_to "カテゴリ登録", admin_categories_path %>
-                  </li>
+                <li>
+                  <%= link_to "カテゴリ登録", admin_categories_path %>
+                </li>
 
-                  <li>
-                    <%= link_to "タグ登録", admin_tags_path %>
-                  </li>
+                <li>
+                  <%= link_to "タグ登録", admin_tags_path %>
+                </li>
 
-                </ul>
+              </ul>
 
             </div>
 
@@ -521,28 +505,20 @@
                   method: :delete,
                   class: "dropdown-item ms-3" %>
 
-      </div>
+          <% elsif current_user %>
 
-      <%# ハンバーガーメニュー %>
-      <%# ユーザー用 %>
-      <div class="collapse mt-3" id="UserMenu">
+            <%= link_to "教材を探す",
+                materials_path,
+                class: "dropdown-item mt-2 text-decoration-none text-dark fs-6 fw-bold" %>
 
-        <div class="d-flex flex-column gap-3 border-top pt-3">
-
-          <%= link_to "教材を探す",
-              materials_path,
-              class: "text-decoration-none text-dark fs-6 fw-bold" %>
-
-          <%= link_to "ユーザーを探す",
-              users_path,
-              class: "text-decoration-none text-dark fs-6 fw-bold" %>
-
-          <% if current_user %>
+            <%= link_to "ユーザーを探す",
+                users_path,
+                class: "dropdown-item mt-2 text-decoration-none text-dark fs-6 fw-bold" %>
 
             <div class="dropdown">
 
               <button
-                class="btn dropdown-toggle dropdown-mark-none no-border p-0 fs-6 fw-bold"
+                class="btn dropdown-toggle dropdown-mark-none no-border p-0 fs-6 fw-bold mt-2"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -570,22 +546,26 @@
             </div>
 
           <% else %>
+            <%= link_to "教材を探す",
+                materials_path,
+                class: "dropdown-item text-decoration-none text-dark fs-6 fw-bold" %>
+
+            <%= link_to "ユーザーを探す",
+                users_path,
+                class: "dropdown-item mt-2 text-decoration-none text-dark fs-6 fw-bold" %>
 
             <%= link_to "新規登録",
                 new_user_registration_path,
-                class: "text-decoration-none text-dark fs-6 fw-bold" %>
+                class: "dropdown-item mt-2 text-decoration-none text-dark fs-6 fw-bold" %>
 
             <%= link_to "ログイン",
                 new_user_session_path,
-                class: "text-decoration-none text-dark fs-6 fw-bold" %>
+                class: "dropdown-item mt-2 text-decoration-none text-dark fs-6 fw-bold" %>
 
           <% end %>
 
         </div>
-
       </div>
-
     </div>
   </div>
-
 </header>
