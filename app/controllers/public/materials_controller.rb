@@ -6,6 +6,10 @@ class Public::MaterialsController < Public::ApplicationController
 
     @materials = @q.result.with_attached_cover_image
 
+    if @q.result.blank?
+      flash.now[:alert] = "検索結果がありませんでした"
+    end
+
   end
 
   # 教材詳細画面

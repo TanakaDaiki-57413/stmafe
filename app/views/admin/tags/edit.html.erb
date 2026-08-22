@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row">
+    <h1>タグ編集</h1>
+  </div>
+  <div class="row mt-2 d-flex">
     <%= form_with model:@tag, 
                   url:admin_tag_path,
                   method: :patch do |form| %>
 
       <%= form.label :name ,"タグ名" %>
       <%= form.text_field :name%>
-      <%= form.submit "更新" %>
+      <%= form.submit "更新",class:"me-2" %>
+      <%= link_to "キャンセル" ,admin_tags_path %>
     <% end %>
-    <%= link_to "キャンセル" ,admin_tags_path %>
   </div>
 </div>

@@ -43,13 +43,17 @@
 
           <%# レビューした教材 %>
           <div class="col-3 d-flex justify-content-center align-items-center">
-            <%= image_tag reviewer.material.get_cover_image(200,200),class:"img-fluid"%>
+            <%= link_to admin_material_path(reviewer.material) do %>
+              <%= image_tag reviewer.material.get_cover_image(200,200),class:"img-fluid"%>
+            <%end%>
           </div>
 
           <%# レビュー内容 %>
           <div class="col-9 d-flex flex-wrap">
             <div class="w-100 fs-5 fw-bold">
-              <%= reviewer.material.title %>
+              <%= link_to admin_material_path(reviewer.material), class:"text-decoration-none" do %>
+                <%= reviewer.material.title %>
+              <%end%>
             </div>
 
             <div class="w-50">

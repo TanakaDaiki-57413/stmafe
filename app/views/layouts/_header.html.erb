@@ -293,18 +293,34 @@
          
 
           <div class="d-flex align-items-center">
-            <%= link_to root_path, class: "text-decoration-none text-dark" do %>
-              <i class="fa-solid fa-book-open fs-2 text-primary"></i>
+            <% if current_admin %>
+              <%= link_to admin_root_path, class: "text-decoration-none text-dark" do %>
+                <i class="fa-solid fa-book-open fs-2 text-primary"></i>
 
-              <div class="ms-2 text-nowrap">
-                <div class="fs-4 fw-light">
-                  STMAFE
-                </div>
+                <div class="ms-2 text-nowrap">
+                  <div class="fs-4 fw-light">
+                    STMAFE
+                  </div>
 
-                <div class="fs-6 text-secondary">
-                  ITレビュー教材サイト
+                  <div class="fs-6 text-secondary">
+                    ITレビュー教材サイト
+                  </div>
                 </div>
-              </div>
+              <% end %>
+            <% else %>
+              <%= link_to root_path, class: "text-decoration-none text-dark" do %>
+                <i class="fa-solid fa-book-open fs-2 text-primary"></i>
+
+                <div class="ms-2 text-nowrap">
+                  <div class="fs-4 fw-light">
+                    STMAFE
+                  </div>
+
+                  <div class="fs-6 text-secondary">
+                    ITレビュー教材サイト
+                  </div>
+                </div>
+              <% end %>
             <% end %>
 
             <%# 検索 %>

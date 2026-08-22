@@ -3,7 +3,7 @@
   <div class="row">
     <%# レビュー一覧 %>
     <div class="col-md-9 no-border">
-      <h2> <%= link_to @user.nickname, user_path(@user.public_uid) %>さんのレビュー一覧</h2>
+      <h2> <%= link_to @user.nickname, user_path(@user.public_uid),class:"text-decoration-none" %>さんのレビュー一覧</h2>
       <% @reviews.each do |reviewer| %>
         <div class="row py-3 border-top">
 

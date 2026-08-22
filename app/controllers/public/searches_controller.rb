@@ -12,7 +12,7 @@ class Public::SearchesController < Public::ApplicationController
     end
 
     if @search_result.blank?
-      flash.now[:alert] = "#{@keyword}の検索結果はありませんでした"
+      flash.now[:alert] = "検索結果はありませんでした"
     end
   end
 end
