@@ -24,11 +24,11 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   # カテゴリ データ更新処理
   def update
-    category = Category.find(params[:id])
-    if category.update(category_params)
+    @category = Category.find(params[:id])
+    if @category.update(category_params)
       redirect_to admin_categories_path, notice:"カテゴリ名の更新に成功しました"
     else
-      render :index, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

@@ -28,7 +28,7 @@ class Admin::TagsController < Admin::ApplicationController
     if @tag.update(tag_params)
       redirect_to admin_tags_path, notice:"カテゴリ名の更新に成功しました"
     else
-      render :index, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

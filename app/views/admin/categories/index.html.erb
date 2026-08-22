@@ -3,14 +3,14 @@
     <%= render "layouts/flash" %>
   </div>
   
-  <%= render "layouts/error", obj: @category %>
+  <div class="w-50"><%= render "layouts/error",obj: @category %></div>
 
   <div class="row">
     <h1>カテゴリ一覧・追加</h1>
   </div>
 
   <div class="row">
-    <%= form_with model: @category, url:admin_categories_path do |form| %>
+    <%= form_with model: @category, url:admin_categories_path, class: :"d-flex" do |form| %>
       <%= form.label :name, "カテゴリ名" %>
       <%= form.text_field :name %>
       <%= form.submit "追加"%>

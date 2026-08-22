@@ -1,9 +1,10 @@
 <div class="container w-50 mx-auto">
   <%= render "layouts/error" ,obj: @material %>
   <div class="row">
-    <h1>教材登録</h1>
+    <h1>教材編集</h1>
     <%= form_with model: @material, 
-                  url: admin_materials_path do |form| %>
+                  url: admin_material_path,
+                  method: :patch do |form| %>
 
       <%# 画像保存 %>
       <div class="mt-4">
