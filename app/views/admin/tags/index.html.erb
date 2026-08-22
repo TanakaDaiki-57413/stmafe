@@ -3,14 +3,14 @@
     <%= render "layouts/flash" %>
   </div>
   
-  <%= render "layouts/error", obj: @tag %>
+  <div class="w-50"><%= render "layouts/error",obj: @tag %></div>
 
   <div class="row">
     <h1>タグ一覧・追加</h1>
   </div>
 
   <div class="row">
-    <%= form_with model: @tag, url:admin_tags_path do |form| %>
+    <%= form_with model: @tag, url:admin_tags_path, class: "d-flex" do |form| %>
       <%= form.label :name, "タグ名" %>
       <%= form.text_field :name %>
       <%= form.submit "追加"%>

@@ -15,7 +15,15 @@ class Material < ApplicationRecord
   validates :publisher, presence: true
   validates :price, presence: true,  numericality: { only_integer: true }
   validates :release_date, presence: true
-  validates :isbn_number, presence: true, uniqueness: true
+  validates :isbn_number, presence: true, uniqueness: true, length: { is: 13 }
+
+  # 発売日のバリデーション(未来の日付を入力させない)
+  validate :day_after_today
+  def day_after_today
+    unless release_date == nil
+      errors.add(:release_date, 'は、本日を含む過去の日付を入力して下さい') if release_date > Date.today
+    end
+  end
 
 
   # 画像表示処理
