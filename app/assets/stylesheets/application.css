@@ -68,3 +68,17 @@ footer {
   width: 12px;
   height: 12px;
 }
+
+.md-position-sticky {
+  position: sticky;
+  top: 0;
+  height: 550px;
+}
+
+@media screen and (max-width:768px) {
+  .md-position-sticky {
+    position: static;
+    top: auto;
+    margin-bottom: 30px;
+  }
+}

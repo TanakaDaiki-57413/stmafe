@@ -9,45 +9,29 @@
         並び替え
       </div>
     </div>
-    <div class="row">
-      <div class="col-5">
-        <h5>絞込検索</h5>
-      </div>
-    </div>
     
   </div>
-  <div class="row">
-    <div class="col-md-3 border border-dark">
-      <%= search_form_for @q, url: materials_path do |f| %>
-      
-        <div>
-          <%= f.label :title_cont, "教材名" %>
-          <%= f.text_field :title_cont, class:"w-100" %>
-        </div>
-      
-        <div class="text-end mt-2">
-          <%= f.submit "検索" %>
-        </div>     
-      <% end %>
-    </div>
+  <div class="row d-flex">
+    <%= render "public/shared/filter_form",q: @q %>
 
     <div class="col-md-9 d-flex">
       <div class="row g-3">
         <% @materials.each do |material| %>
           <% if @materials.count == 1%>
             <%# 検索結果が1件のみの場合、レイアウト崩れが起きるので処置 %>
-            <div class="col-md-4">
+            <div class="col-md-8">
           <% else%>
             <div class="col-md-3 col-sm-6">
           <% end%>
-            <%= link_to material_path(material),class:"text-decoration-none" do%>
               <div class="card h-100 px-1">
-                <%= image_tag material.get_cover_image(100,100),
-                              class:"card-img-top" %>
-
-                <div class="card-title small fw-bold">
-                  <%= material.title %>
-                </div>
+                <%= link_to material_path(material),class:"text-decoration-none" do%>
+                  <%= image_tag material.get_cover_image(100,100),
+                                class:"card-img-top" %>
+  
+                  <div class="card-title small fw-bold">
+                    <%= material.title %>
+                  </div>
+                <%end%>
 
                 <div class="card-subtitle small text-secondary">
                   著者：<%= material.author %><br>
@@ -63,10 +47,12 @@
 
                 <div class="card-text small">
                   <div class="d-flex flex-wrap align-items-baseline">
-                    <% material.material_tags.each do | tags | %>
-                      <div class="bg-light text-primary badge rounded-4  px-2 me-1 mb-2">
-                        <%= tags.tag.name %>
-                      </div>
+                    <% material.material_tags.each do | material | %>
+                      <%= link_to materials_path(tag_ids:[material.tag.id]) do %>
+                        <div class="bg-light text-primary badge rounded-4  px-2 me-1 mb-2">
+                          <%= material.tag.name %>
+                        </div>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>
@@ -84,7 +70,6 @@
                   <span class="text-primary badge">(<%= material.reviews.count %>件)</span>
                 </div>
               </div>
-            <%end%>
           </div>
         <%end%>
       </div>

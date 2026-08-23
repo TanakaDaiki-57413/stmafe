@@ -1,0 +1,65 @@
+<div class="col-md-3 border border-dark md-position-sticky">
+  <%= search_form_for q, url: materials_path do |f| %>
+    <div class="d-flex align-items-center">
+      <div class="w-50">
+        <h5>絞込検索</h5>
+      </div>
+      <div class="w-50 text-end">
+        <%= link_to "検索条件をリセット", materials_path%>
+      </div>
+    </div>
+    <div>
+      <%= f.label :title_cont, "教材名" %>
+      <%= f.text_field :title_cont, class:"w-100" %>
+    </div>
+
+    <div>
+      <%= f.label :category_id_eq, "カテゴリ" %><br>
+      <%= f.collection_select(
+            :category_id_eq,
+            Category.all,
+            :id,
+            :name,
+            { include_blank: "---" }
+          ) %>
+    </div>
+      
+    <div>
+      <%= f.label :study_level_eq, "勉強レベル" %><br>
+      <%= f.select(
+            :study_level_eq,
+            Material.distinct.pluck(:study_level),
+            { include_blank: "---" }
+          ) %>
+    </div>
+      
+    <div>
+      <span>タグ</span>
+      <%# スクロールバー設定 %>
+      <div class="overflow-scroll 
+                  overflow-hidden 
+                  overflow-x-auto
+                  border
+                  border-dark
+                  px-1" 
+           style="height:300px;">
+        <%# タグチェックボックス %>
+        <% Tag.all.each do |tag| %>
+          <label>
+            <%= check_box_tag(
+                  "tag_ids[]",
+                  tag.id,
+                  params[:tag_ids]&.include?(tag.id.to_s),
+                ) %>
+    
+            <%= tag.name %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+      
+    <div class="text-end mt-2">
+      <%= f.submit "検索" %>
+    </div>     
+  <% end %>
+</div>

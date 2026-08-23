@@ -37,8 +37,10 @@
 
       
       <div class="d-flex align-items-center mt-1">
-        <% @material.material_tags.each do |hit| %>
-          <span class="bg-light text-primary  badge me-2"><%= hit.tag.name %></span>
+        <% @material.material_tags.each do |material| %>
+          <%= link_to materials_path(tag_ids:[material.tag.id]) do %>
+            <span class="bg-light text-primary  badge me-2"><%= material.tag.name %></span>
+          <% end%>
         <% end %>
       </div>
       
