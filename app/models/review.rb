@@ -1,4 +1,9 @@
 class Review < ApplicationRecord
+  # 各データ処理後にレビュー教材の平均評価を再計算
+  after_create :call_update_on_material
+  after_update :call_update_on_material
+  after_destroy :call_update_on_material
+
   # アソシエーション
   belongs_to :user
   belongs_to :material
@@ -11,4 +16,9 @@ class Review < ApplicationRecord
   
   # rateのバリデーションは実装フェーズ3にて
   
+  private
+
+  def call_update_on_material
+    material.calc_to_set_avg_rate
+  end
 end

@@ -72,9 +72,16 @@
                     </div>
                   </div>
 
-                  <div class="card-footer small text-warning">
-                    <span class="fw-bold"><%= material.average_rating %></span>
-                    ★★★★★
+                  <div class="card-footer small d-flex align-items-center ">
+                    <div class="fw-bold me-2 text-warning"><%= material.average_rating %></div>
+                    <div id="all_show_raty" 
+                        class="xs-star raty"
+                        style="margin-bottom:1.75px;"
+                        data-score="<%= material.average_rating %>"
+                        data-star-on="<%= asset_path('star-on.png') %>"
+                        data-star-off="<%= asset_path('star-off.png') %>"
+                        data-star-half="<%= asset_path('star-half.png') %>">
+                    </div>
                     <span class="text-primary badge">(<%= material.reviews.count %>件)</span>
                   </div>
                 </div>

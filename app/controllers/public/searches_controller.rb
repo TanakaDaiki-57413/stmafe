@@ -6,7 +6,7 @@ class Public::SearchesController < Public::ApplicationController
     @keyword = params[:keyword]
     @model = params[:model]
     if @model == "user"
-      @search_result = User.ransack(nickname_cont: params[:keyword]).result
+      @search_result = User.status_valid.ransack(nickname_cont: params[:keyword]).result
     elsif @model == "material"
       @search_result = Material.ransack(title_cont: params[:keyword]).result
     end
