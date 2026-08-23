@@ -9,8 +9,17 @@
             class:"img-fluid py-4"%>
 
       <div class="card-footer bg-white">
-        <div class="text-warning mt-3 text-nowrap"> 
-          <h5><%= @material.average_rating %> ★★★★★</h5>  
+        <div class="d-flex align-items-center mt-3 text-nowrap "> 
+          <div class="me-2">
+            <%= @material.average_rating %>
+          </div>
+          <div  class="md-star raty" 
+              id="show_raty"
+              data-score="<%= @material.average_rating %>"
+              data-star-on="<%= asset_path('star-on.png') %>"
+              data-star-off="<%= asset_path('star-off.png') %>"
+              data-star-half="<%= asset_path('star-half.png') %>">
+          </div>
         </div>
       </div>
     </div>
@@ -103,8 +112,17 @@
           <%# レビュー内容 %>
           <div class="col-9 d-flex flex-wrap">
 
-            <div class="w-50">
-              <span class="text-warning">★★★★★</span>
+            <div class="w-50 d-flex align-items-center">
+              <div id="all_show_raty" 
+                class="sm-star raty"
+                data-score="<%= reviewer.rate %>"
+                data-star-on="<%= asset_path('star-on.png') %>"
+                data-star-off="<%= asset_path('star-off.png') %>"
+                data-star-half="<%= asset_path('star-half.png') %>">
+              </div>
+              <div class="ms-2">
+                (<%= reviewer.rate %>)
+              </div>
             </div>
 
             <div class="w-50 text-end text-secondary">
@@ -140,6 +158,18 @@
       <% if current_user %>
         <%= form_with model:@new_review, 
                       url: material_reviews_path(@material) do |form| %>
+          <div class="d-flex align-items-center mt-2">
+            <%# レビュー評価 :★★★★★ %>
+            <div class="fw-bold me-2">
+              評価:
+            </div>
+            <div id="post_raty" 
+              class="raty"
+              data-star-on="<%= asset_path('star-on.png') %>"
+              data-star-off="<%= asset_path('star-off.png') %>"
+              data-star-half="<%= asset_path('star-half.png') %>">
+            </div>
+          </div>
 
           <div class="mt-3">
             <%= form.label :study_time, "学習時間 ※時間単位で入力", class:"fw-bold" %><br>

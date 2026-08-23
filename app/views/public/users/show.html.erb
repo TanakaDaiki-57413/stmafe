@@ -98,8 +98,21 @@
               <%= link_to review.material.title, material_path(review.material) ,class:"fs-4 text-decoration-none" %>
             </div>
             <div>
-              <span class="text-warning me-5">★★★★★ <%= review.rate %></span>
-              <span>学習時間：<%= review.study_time %>時間</span>
+              <div class="d-flex align-items-center">
+                <div id="all_show_raty" 
+                    class="xs-star ms-2 raty"
+                    data-score="<%= review.rate %>"
+                    data-star-on="<%= asset_path('star-on.png') %>"
+                    data-star-off="<%= asset_path('star-off.png') %>"
+                    data-star-half="<%= asset_path('star-half.png') %>">               
+                </div>
+                <div class="ms-2">
+                  (<%= review.rate %>)
+                </div>     
+                <div class="w-50 text-end">
+                  <span>学習時間：<%= review.study_time %>時間</span>
+                </div>
+              </div>
             </div>
             <div class="mt-2 mx-1">
               <p><%= truncate(review.content ,length:50 ) %></p>

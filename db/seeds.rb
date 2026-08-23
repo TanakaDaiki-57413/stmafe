@@ -329,13 +329,14 @@ end
 # レビュー テストレビューを10件作成
 target_materials = Material.all.shuffle.first(10)
 study_times = [50, 100, 150, 200 ]
+rate_array = [3,  3.5,  4,  4.5,  5]
 target_materials.each do |target_material| 
   reviewer = User.all.shuffle.first
   Review.create!(
     user_id: reviewer.id,
     material_id: target_material.id,
     content: "テストレビュー",
-    rate: 0.0,
+    rate: rate_array.sample,
     study_time: study_times.sample
   )
 end

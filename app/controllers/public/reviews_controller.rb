@@ -13,7 +13,6 @@ class Public::ReviewsController < Public::ApplicationController
     @material = Material.find(params[:material_id])
     @review.user = current_user
     @review.material = @material
-    @review.rate = 0.0
     
     if @review.save
       redirect_to material_path(@material),notice:"レビュー投稿に成功しました"

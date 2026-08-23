@@ -47,6 +47,15 @@ class Material < ApplicationRecord
     else
       return 0
     end
+     
+    # avg_study_time = reviews.average(:study_time).round
+    # return avg_study_time
+  end
+
+  # 該当教材のレビュー平均評価を求める
+  def calc_to_set_avg_rate
+    average = reviews.average(:rate).round(1)
+    update!(average_rating: average || 0)
   end
 
   # ransackで検索を許可するカラム名を指定

@@ -160,16 +160,17 @@
             <div class="col-md-6 col-xl-3">
 
               <div class="card h-100 shadow-sm border-0">
-
-                <%= image_tag review.material.cover_image,
+                <%= link_to material_path(review.material) do %>
+                  <%= image_tag review.material.cover_image,
                                 class: "card-img-top p-3",
                                 alt: "教材画像" %>
+                <% end %>
 
 
                 <div class="card-body">
 
                   <h3 class="h6 fw-bold">
-                    <%= review.material.title %>
+                    <%= link_to review.material.title, material_path(review.material) ,class:"text-decoration-none "%>
                   </h3>
 
                   <p class="small text-secondary mb-2">
@@ -178,12 +179,18 @@
 
 
                   <%# 評価 %>
-                  <div class="small text-warning mb-2">
+                  <div class="small mb-2 d-flex align-items-center">
 
-                    ★★★★★
+                    <div id="all_show_raty" 
+                      class="xs-star raty mb-1 me-1"
+                      data-score="<%= review.rate %>"
+                      data-star-on="<%= asset_path('star-on.png') %>"
+                      data-star-off="<%= asset_path('star-off.png') %>"
+                      data-star-half="<%= asset_path('star-half.png') %>">
+                    </div>
 
                     <span class="text-secondary">
-                      <%= review.rate %>
+                      (<%= review.rate %>)
                     </span>
 
                   </div>
@@ -247,14 +254,14 @@
           ] %>
 
 
-          <% matelial.each do |rank, title, score| %>
+          <% @popular_materials.each_with_index do | material, i | %>
 
             <div class="d-flex align-items-center py-2 border-bottom">
 
               <!-- 順位 -->
 
               <div class="fw-bold text-secondary me-3">
-                <%= rank %>
+                <%= i + 1%>
               </div>
 
 
@@ -263,7 +270,9 @@
               <div class="flex-grow-1">
 
                 <div class="small fw-bold">
-                  <%= title %>
+                  <%= link_to material_path(material),class: "text-decoration-none" do%>
+                    <%= material.title %>
+                  <% end %>
                 </div>
 
               </div>
@@ -271,12 +280,18 @@
 
               <!-- 評価 -->
 
-              <div class="small text-warning">
+              <div class="small d-flex align-items-center">
 
-                ★★★★★
+                <div id="all_show_raty" 
+                  class="xs-star raty mb-1 me-1"
+                  data-score="<%= material.average_rating %>"
+                  data-star-on="<%= asset_path('star-on.png') %>"
+                  data-star-off="<%= asset_path('star-off.png') %>"
+                  data-star-half="<%= asset_path('star-half.png') %>">
+                </div>
 
                 <span class="text-secondary">
-                  <%= score %>
+                  <%= material.average_rating %>
                 </span>
 
                 </div>
