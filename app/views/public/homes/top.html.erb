@@ -22,110 +22,81 @@
 </div>
 
 <!-- 検索エリア -->
-<section class="position-relative mt-n4">
+<section>
   <div class="container">
 
     <div class="bg-white rounded shadow-sm p-4">
-
-      <div class="row g-3">
-
-        <%# <!-- キーワード --> %>
-          <%= search_form_for @q, url: materials_path, class:"d-flex g-2" do |f| %>
-            <div class="col-lg-4 me-2">
-              <%= f.label :title_or_author_or_publisher_cont, "キーワード",
-                     class: "form-label small fw-bold" %>
-
-              <%= f.text_field :title_or_author_or_publisher_cont,
-                    class:"form-control",
-                    placeholder: "教材名/著者名/出版社" %>
-            </div>
-
-            <!-- カテゴリ -->
-            <div class="col-lg-2 me-2">
     
-              <%= label_tag :category,
-                            "カテゴリ",
-                            class: "form-label small fw-bold" %>
+      <%= search_form_for @q, url: materials_path, class:"d-flex g-2 w-100" do |f| %>
+        <div class="row g-3">
+
+          <%# <!-- キーワード --> %>
+          <div class="col-lg-4">
+            <%= f.label :title_or_author_or_publisher_cont, "キーワード",
+                    class: "form-label small fw-bold" %>
+
+            <%= f.text_field :title_or_author_or_publisher_cont,
+                  class:"form-control",
+                  placeholder: "教材名/著者名/出版社" %>
+          </div>
+
+          <!-- カテゴリ -->
+          <div class="col-lg-2">
     
-              <%= select_tag :category,
-                             options_for_select([
-                               ["すべて", ""],
-                               ["プログラミング", "programming"],
-                               ["Web開発", "web"],
-                               ["インフラ", "infrastructure"]
-                             ]),
-                             class: "form-select" %>
+            <%= label_tag :category_id,
+                          "カテゴリ",
+                          class: "form-label small fw-bold" %>
     
-            </div>
+            <%= f.collection_select(
+              :category_id_eq,
+              Category.all,
+              :id,
+              :name,
+              { include_blank: "---" },
+              { class: "form-select"}
+            ) %>
+    
+          </div>
 
-            <!-- タグ -->
-            <div class="col-lg-2 me-2">
+          <!-- タグ -->
+          <div class="col-lg-2">
+            <%= label_tag :tag_id,
+                          "タグ",
+                          class: "form-label small fw-bold" %>
 
-              <%= label_tag :genre,
-                            "タグ",
-                            class: "form-label small fw-bold" %>
+            <%# タグチェックボックス %>
+            <%= select_tag(
+              "tag_id",
+              options_from_collection_for_select(
+                Tag.all, #配列
+                :id,     #value
+                :name,   #表示
+                params[:tag_id] #選択要素
+              ),
+              include_blank: "---",
+              class: "form-select"
+            ) %>
 
-              <%= select_tag :genre,
-                             options_for_select([
-                               ["すべて", ""],
-                               ["Ruby", "ruby"],
-                               ["Python", "python"],
-                               ["JavaScript", "javascript"],
-                               ["AWS", "aws"],
-                               ["Docker", "docker"]
-                             ]),
-                             class: "form-select" %>
+          </div>
 
-            </div>
+          <!-- レベル -->
+          <div class="col-lg-2">
 
-            <!-- レベル -->
-            <div class="col-lg-2 me-2">
+            <%= f.label :study_level_eq, "勉強レベル", class: "form-label small fw-bold"  %>
+            <%= f.select(
+              :study_level_eq,
+              Material.distinct.pluck(:study_level),
+              { include_blank: "---" },
+              { class:"form-select"}
+            ) %>
 
-              <%= label_tag :level,
-                            "レベル",
-                            class: "form-label small fw-bold" %>
+          </div>
 
-              <%= select_tag :level,
-                             options_for_select([
-                               ["すべて", ""],
-                               ["初心者", "beginner"],
-                               ["中級者", "intermediate"],
-                               ["上級者", "advanced"]
-                             ]),
-                             class: "form-select" %>
-
-            </div>
-
-            <div class="col-lg-2 d-flex align-items-end">
-              <%= f.submit "検索する" ,class:"btn btn-primary w-100"%>
-
-      
-          <% end %>
-
-        
-      </div>
-    </div>
-    <%# 人気のキーワード %>
-    <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
-      <span class="small text-secondary">
-        人気のキーワード：
-      </span>
-      <%= link_to "Ruby", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "Rails", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "Python", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "AWS", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "Docker", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "JavaScript", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "SQL", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
-      <%= link_to "Linux", "#",
-                  class: "badge rounded-pill text-bg-light text-primary text-decoration-none" %>
+          <div class="col-lg-2 d-flex align-items-end">
+            <%= f.submit "検索する" ,class:"btn btn-primary"%>
+          </div>
+        </div>
+      <% end %> 
     </div>
   </div>
 </section>
@@ -244,16 +215,6 @@
 
           </div>
             
-          <%# テストデータ %>
-          <% matelial = [
-            ["1", "リーダブルコード", "4.6"],
-            ["2", "達人に学ぶDB設計", "4.4"],
-            ["3", "AWS認定資格テキスト", "4.2"],
-            ["4", "スッキリわかるJava入門", "4.0"],
-            ["5", "図解解説 SQLのしくみ", "3.9"]
-          ] %>
-
-
           <% @popular_materials.each_with_index do | material, i | %>
 
             <div class="d-flex align-items-center py-2 border-bottom">

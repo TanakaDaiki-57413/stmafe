@@ -8,28 +8,10 @@
         並び替え
       </div>
     </div>
-    <div class="row">
-      <div class="col-5">
-        <h5>絞込検索</h5>
-      </div>
-    </div>
     
   </div>
   <div class="row">
-    <div class="col-md-3 border border-dark">
-      <%= search_form_for @q, url: materials_path do |f| %>
-      
-        <div>
-          <%= f.label :title_cont, "教材名" %>
-          <%= f.text_field :title_cont, class:"w-100" %>
-        </div>
-      
-        <div class="text-end mt-2">
-          <%= f.submit "検索" %>
-        </div>     
-      
-      <% end %>
-    </div>
+    <%= render "public/shared/filter_form",q: @q %>
 
     <div class="col-md-9 d-flex">
       <div class="row g-3">
