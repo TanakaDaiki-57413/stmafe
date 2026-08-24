@@ -3,6 +3,7 @@ class Material < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :material_tags, dependent: :destroy
   has_many :tags, through: :material_tags
+  has_many :bookmarks
 
   belongs_to :category
 
@@ -81,5 +82,10 @@ class Material < ApplicationRecord
     material_tags
     tags
     ]
+  end
+
+  # 
+  def bookmarked_by?(user)
+    bookmarks.exists?(user_id: user.id)
   end
 end

@@ -73,6 +73,8 @@ Rails.application.routes.draw do
     resources :materials, only: [ :index, :show ] do
       # レビュー編集画面・各データ処理
       resources :reviews, only: [ :edit, :create, :update, :destroy ]
+      # お気に入り機能
+      resource :book_marks, only: [ :create , :destroy ]
     end
 
     # 通知

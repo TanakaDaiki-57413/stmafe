@@ -1,0 +1,20 @@
+<% if material.bookmarked_by?(current_user) %>
+
+  <%= link_to material_book_marks_path(material), 
+      data: {turbo_method: :delete,  turbo_stream: true },
+      class:"text-decoration-none" do %>
+    <i class="fa-solid fa-bookmark text-primary"></i>
+      お気に入りを解除
+  <%end%>
+
+<% else%>
+
+  <%= link_to material_book_marks_path(material), 
+      data: {turbo_method: :post, turbo_stream: true  },
+      class:"text-decoration-none" do %>
+    <i class="fa-solid fa-bookmark text-primary"></i>
+      お気に入りに追加
+  <%end%>
+
+<% end %>
+

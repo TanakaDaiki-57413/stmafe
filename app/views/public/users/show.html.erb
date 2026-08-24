@@ -78,7 +78,7 @@
 
     <div class="col-4 text-end text-primary">
       <% unless @user.reviews.count == 0 %>
-        <%= link_to "すべて見る", user_reviewing_path(@user.public_uid) %>
+        <%= link_to "すべて見る", user_reviewing_path(@user.public_uid), class: "text-decoration-none" %>
       <% end %>
     </div>
   </div>
@@ -124,5 +124,76 @@
         </div>
       <% end %>
     </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-4">
+      <h5>お気に入り教材</h5>
+    </div>
+    <div class="col-4 text-end text-primary">
+      <% unless @user.bookmarks.count == 0 %>
+        <%= link_to "すべて見る", user_bookmarking_path(@user.public_uid), class: "text-decoration-none" %>
+      <% end %>
+    </div>
+  </div>
   
+  <%# お気に入り教材を3件表示 %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <% @bookmarks.each do |bookmark| %>
+          <div class="col-md-4">
+            <div class="card h-100 px-1">
+              <%= link_to material_path(bookmark.material),class:"text-decoration-none" do%>
+                <%= image_tag bookmark.material.get_cover_image(100,100),
+                              class:"card-img-top" %>
+
+                <div class="card-title small fw-bold">
+                  <%= bookmark.material.title %>
+                </div>
+              <%end%>
+
+              <div class="card-subtitle small text-secondary">
+                著者：<%= bookmark.material.author %><br>
+                出版社：<%= bookmark.material.publisher %><br>
+                価格：<%= bookmark.material.price %>円<br>
+                カテゴリ：<%= bookmark.material.category.name %><br>
+                レベル：<%= bookmark.material.study_level %>
+              </div>
+
+              <div class="card-body small px-1 my-auto">
+                <%= truncate(bookmark.material.body, length:50)%>
+              </div>
+
+              <div class="card-text small">
+                <div class="d-flex flex-wrap align-items-baseline">
+                  <% bookmark.material.material_tags.each do | material | %>
+                    <%= link_to materials_path(tag_ids:[material.tag.id]) do %>
+                      <div class="bg-light text-primary badge rounded-4  px-2 me-1 mb-2">
+                        <%= material.tag.name %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="card-footer small text-warning d-flex align-items-center">
+                <div class="fw-bold me-2"><%= bookmark.material.average_rating %></div>
+                <div id="all_show_raty" 
+                    class="xs-star raty"
+                    style="margin-bottom:1.75px;"
+                    data-score="<%= bookmark.material.average_rating %>"
+                    data-star-on="<%= asset_path('star-on.png') %>"
+                    data-star-off="<%= asset_path('star-off.png') %>"
+                    data-star-half="<%= asset_path('star-half.png') %>">
+                </div>
+                <span class="text-primary badge">(<%= bookmark.material.reviews.count %>件)</span>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
 </div>
