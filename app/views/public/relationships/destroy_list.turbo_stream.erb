@@ -1,0 +1,18 @@
+<%# ユーザ一覧/フォロー一覧/フォロワー一覧ページ用 %>
+<%= turbo_stream.replace "list-follow-btn-#{@target_user.public_uid}" do %>
+  <div id="list-follow-btn-<%= @target_user.public_uid %>" >
+    <%= render "public/users/follow_btn" , user: @target_user, from:"list" %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "followings-info-current_user" do %>
+  <div id="followings-info-current_user">
+    <%= render "public/users/followings", user: current_user %>
+  <div>
+<% end %>
+
+<%= turbo_stream.replace "followers-info-#{@target_user.public_uid}" do %>
+  <div id="followers-info-<%= @target_user.public_uid %>">
+    <%= render "public/users/followers", user: @target_user %>
+  <div>
+<% end %>

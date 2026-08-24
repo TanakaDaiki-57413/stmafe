@@ -1,0 +1,33 @@
+<%# ユーザー詳細ページ用 %>
+<%# プロフィール用 非同期通信 %>
+<%= turbo_stream.replace "profile-follow-btn-#{@target_user.public_uid}" do %>
+  <div id="profile-follow-btn-<%= @target_user.public_uid %>">
+    <%= render "public/users/follow_btn", user: @target_user, profile_user_public_uid: @profile_user.public_uid %>
+  </div>
+<% end %>
+
+<%# フォローしてるユーザー用 非同期通信 %>
+<%= turbo_stream.replace "followings-follow-btn-#{@target_user.public_uid}" do %>
+  <div id="followings-follow-btn-<%= @target_user.public_uid %>">
+    <%= render "public/users/follow_btn", user: @target_user, profile_user_public_uid: @profile_user.public_uid %>
+  </div>
+<% end %>
+
+<%# フォロワー用 非同期通信 %>
+<%= turbo_stream.replace "followers-follow-btn-#{@target_user.public_uid}" do %>
+  <div id="followers-follow-btn-<%= @target_user.public_uid %>">
+    <%= render "public/users/follow_btn", user: @target_user, profile_user_public_uid: @profile_user.public_uid %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "followers" do %>
+  <div id="followers">
+    <%= render "public/users/followers", user: @profile_user %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "followings" do %>
+  <div id="followings">
+    <%= render "public/users/followings", user: @profile_user %>
+  </div>
+<% end %>

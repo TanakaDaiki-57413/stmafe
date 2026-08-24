@@ -1,2 +1,9 @@
-<h1>Public::Relationships#followers</h1>
-<p>Find me in app/views/public/relationships/followers.html.erb</p>
+<div class="container w-75 mx-auto py-4">
+  <h1 class="mb-4">
+    <%= link_to @user.nickname, user_path(@user.public_uid), class:"text-decoration-none" %>
+    さんのフォロワー
+  </h1>
+
+  <div class="row g-4">
+    <%= render "public/users/user_list", users:@followers%>
+</div>
