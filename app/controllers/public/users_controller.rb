@@ -1,5 +1,5 @@
 class Public::UsersController < Public::ApplicationController
-  allow_unauthenticated_access only: %i[index show bookmariking reviewing]
+  allow_unauthenticated_access only: %i[index show bookmarking reviewing]
 
   # ユーザー一覧画面
   def index
@@ -14,6 +14,10 @@ class Public::UsersController < Public::ApplicationController
                       .where(user_id: @user.id)
                       .order(id: :desc)
                       .first(3)
+
+    @bookmarks = Bookmark.includes(:material)
+                          .where(user_id: @user.id)
+                          .first(3)
   end
 
   # プロフィール編集画面
@@ -26,7 +30,10 @@ class Public::UsersController < Public::ApplicationController
   end
 
   # お気に入り一覧画面
-  def bookmariking
+  def bookmarking
+    @user = User.find_by(public_uid: params[:user_public_uid])
+    @bookmarks = Bookmark.includes(:material)
+                          .where(user_id: @user.id)
   end
 
   # レビュー一覧画面
