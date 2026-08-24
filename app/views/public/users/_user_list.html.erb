@@ -1,0 +1,53 @@
+<% users.each do |user| %>
+  <div class="col-12 col-md-6 col-lg-4">
+    <%= link_to user_path(user.public_uid), 
+        class: "text-decoration-none" do %>
+
+      <%# ユーザー枠組 %>
+      <div class="card h-100 d-flex flex-column">
+        <div class="card-body text-center ">
+              
+          <%# ユーザー画像 %>
+          <%= image_tag user.get_profile_image(80, 80),
+              class: "rounded-circle mb-2" %>
+
+          <%# ニックネーム %>
+          <h5 class="card-title">
+            <%= user.nickname %>
+          </h5>
+
+          <%# レビュー/フォロー/フォロワー数 %>
+          <h5 class="card-subtitle small text-primary">
+            <span class="d-flex justify-content-center">
+              レビュー数<%= user.reviews.count %>
+              フォロー数
+              <% if current_user == user %>
+                <div id="followings-info-current_user">
+                  <%= render "public/users/followings", user: current_user%>
+                </div>
+              <% else %>
+                <%= user.followings.count %>
+              <% end %>
+              フォロワー数
+
+              <div id="followers-info-<%= user.public_uid %>">
+                <%= render "public/users/followers", user: user %>
+              <div>
+            <span>
+          </h5>
+
+          <%# 自己紹介文 %>
+          <p class="card-text text-muted small text-break  mt-2">
+            <%= truncate(user.introduction,length: 58) %>
+          </p>
+        </div>
+
+        <div class="card-footer text-center mt-auto">
+          <div id="list-follow-btn-<%= user.public_uid %>" >
+            <%= render "public/users/follow_btn" , user: user, from: "list" %>
+          </div>
+        </div>
+      </div>
+     <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<%# プロフィール用公開IDをオプションにする %>
+<% profile_user_public_uid ||= nil %>
+<% from ||= nil %>
+
+<%# ログインユーザー自身の場合 %>
+<% if current_user == user %>
+  <%# 何も表示しない %>
+
+<%# ログインしてない状態 %>
+<% elsif !current_user %>
+
+<%# ログインユーザーがフォローしてる状態 %>
+<% elsif current_user.following?(user)%>
+  <%= link_to "フォロー中",
+      user_relationships_path(user.public_uid,
+                              profile_user_public_uid: profile_user_public_uid,
+                              from: from
+                              ), 
+      data: {
+        turbo_method: :delete,
+        turbo_stream: true
+      },
+      class:"btn btn-primary px-3 py-1"%>
+
+<%# ログインユーザーがフォローしていない状態 %>
+<% elsif current_user.not_following?(user) %>
+  <%= link_to "フォロー",
+      user_relationships_path(user.public_uid,
+                              profile_user_public_uid: profile_user_public_uid,
+                              from: from
+                              ), 
+      data: {
+        turbo_method: :post,
+        turbo_stream: true
+      },
+      class:"btn btn-primary px-3 py-1"%>
+<% end %>

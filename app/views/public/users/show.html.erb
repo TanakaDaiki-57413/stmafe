@@ -11,20 +11,25 @@
 
       <div class="col-12 col-md-9">
 
-        <%# ユーザー名/プロフィール設定ボタン %>
         <div class="row">
 
+          <%# ユーザー名%>
           <div class="col-12 col-md">
             <h1><%= @user.nickname %></h1>
           </div>
-
-          <% if @user == current_user %>
-            <div class="col-12 col-md-auto mt-2 mt-md-0">
-              <div class="text-end">
-                <%=  link_to "プロフィール設定", users_profile_edit_path, class:"btn btn-success px-3 py-2" %> 
-              </div>
+          
+          <%#  プロフィール設定/フォロー/フォロー解除ボタン %>
+          <div class="col-12 col-md-auto mt-2 mt-md-0">
+            <div class="text-end">  
+              <% if @user == current_user %>
+                <%=  link_to "プロフィール設定", users_profile_edit_path, class:"btn btn-success px-3 py-2" %>    
+              <% elsif current_user %>
+                <div id="profile-follow-btn-<%= @user.public_uid %>" >
+                  <%= render "follow_btn", user: @user , profile_user_public_uid: @user.public_uid%>
+                </div>
+              <%end%>
             </div>
-          <% end %>
+          </div>
 
         </div>
 
@@ -55,17 +60,21 @@
             <%= @user.bookmarks.count %>
           </div>
 
-          <div class="col-6 col-lg-3 mb-3 mb-lg-0">
-           <i class="fa-solid fa-users text-primary"></i>
+          <div class="col-6 col-lg-3 mb-3 mb-lg-0 d-flex align-items-center">
+            <i class="fa-solid fa-users text-primary me-2"></i>
             フォロー:
-            <%= @user.followings.count %>
+            <div id="followings">
+              <%= render "followings", user: @user%>
+            </div>
           </div>
 
-          <div class="col-6 col-lg-3 mb-3 mb-lg-0">
-            <i class="fa-solid fa-users text-primary"></i>
+          <div class="col-6 col-lg-3 mb-3 mb-lg-0 d-flex align-items-center">
+            <i class="fa-solid fa-users text-primary me-2"></i>
             フォロワー:
-             <%= @user.followers.count %>
-          </div>
+            <div id="followers">
+              <%= render "followers", user: @user%>
+            </div>
+          </div> 
         </div>
       </div>
     </div>
@@ -79,6 +88,15 @@
     <div class="col-4 text-end text-primary">
       <% unless @user.reviews.count == 0 %>
         <%= link_to "すべて見る", user_reviewing_path(@user.public_uid), class: "text-decoration-none" %>
+      <% end %>
+    </div>
+
+    <div class="col-2">
+      <h5>フォロー中のユーザー</h5>
+    </div>
+    <div class="col-2 text-end">
+      <% unless @user.followings.count == 0 %>
+        <%= link_to "すべて見る", user_followings_path(@user.public_uid), class: "text-decoration-none" %>
       <% end %>
     </div>
   </div>
@@ -124,6 +142,27 @@
         </div>
       <% end %>
     </div>
+
+    <%# フォロー中のユーザー %>
+    <div class="col-md-4 border-top">
+      <% @followings.each do | following |%>
+        <div class="row d-flex align-items-center border-bottom py-3">
+          <div class="col-4">
+            <%= link_to user_path(following.public_uid) do %>
+              <%= image_tag following.get_profile_image(80,80), class:"rounded-circle img-fluid" %>
+            <%end%>
+          </div>
+          <div class="col-3">
+            <%= link_to truncate(following.nickname,length: 9), user_path(following.public_uid),class:"text-decoration-none"%>
+          </div>
+          <div class="col-5">
+            <div id="followings-follow-btn-<%= following.public_uid %>">
+              <%= render "follow_btn", user: following, profile_user_public_uid: @user.public_uid %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
 
@@ -134,6 +173,14 @@
     <div class="col-4 text-end text-primary">
       <% unless @user.bookmarks.count == 0 %>
         <%= link_to "すべて見る", user_bookmarking_path(@user.public_uid), class: "text-decoration-none" %>
+      <% end %>
+    </div>
+    <div class="col-2">
+      <h5>フォロワー</h5>
+    </div>
+    <div class="col-2 text-end">
+      <% unless @user.followers.count == 0 %>
+        <%= link_to "すべて見る", user_followers_path(@user.public_uid), class: "text-decoration-none" %>
       <% end %>
     </div>
   </div>
@@ -194,6 +241,27 @@
           </div>
         <%end%>
       </div>
+    </div>
+
+    <%# フォロワーを3件表示 %>
+    <div class="col-md-4 border-top">
+      <% @followers.each do | follower |%>
+        <div class="row d-flex align-items-center border-bottom py-3">
+          <div class="col-4">
+            <%= link_to user_path(follower.public_uid) do %>
+              <%= image_tag follower.get_profile_image(80,80), class:"rounded-circle img-fluid" %>
+            <%end%>
+          </div>
+          <div class="col-3">
+            <%= link_to truncate(follower.nickname,length: 9), user_path(follower.public_uid),class:"text-decoration-none"%>
+          </div>
+          <div class="col-5">
+            <div id="followers-follow-btn-<%= follower.public_uid %>">
+              <%= render "follow_btn" , user: follower, profile_user_public_uid: @user.public_uid %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
