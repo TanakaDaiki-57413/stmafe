@@ -11,7 +11,8 @@ class Public::MaterialsController < Public::ApplicationController
   # 教材詳細画面
   def show
     @material = Material.find(params[:id])
-    @reviews = @material.reviews.includes(:user)
+    @q = @material.reviews.ransack(params[:q])
+    @reviews = @q.result.includes(:user)
     @new_review = Review.new
   end
 

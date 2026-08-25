@@ -15,6 +15,15 @@ class Review < ApplicationRecord
             numericality: { only_integer: true }
   
   # rateのバリデーションは実装フェーズ3にて
+
+  # ransackで検索を許可するカラム名を指定
+  def self.ransackable_attributes(auth_object = nil)
+    %w[
+      rate
+      created_at
+      study_time
+    ]
+  end
   
   private
 

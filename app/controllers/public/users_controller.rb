@@ -3,10 +3,11 @@ class Public::UsersController < Public::ApplicationController
 
   # ユーザー一覧画面
   def index
-    # 利用中ユーザーを取得かつN+1問題防止のためプロフィール画像を事前に読込
-    @users = User.includes(:reviews, :followings, :followers)
-                 .status_valid
-                 .with_attached_profile_image
+    @q = User.ransack(params[:q])
+
+    @users = @q.result.includes(:reviews, :followings, :followers)
+                      .status_valid
+                      .with_attached_profile_image
   end
 
   # ユーザー詳細画面
@@ -47,9 +48,11 @@ class Public::UsersController < Public::ApplicationController
   # レビュー一覧画面
   def reviewing
     @user = User.find_by(public_uid: params[:user_public_uid])
-    @reviews = Review.includes(:material)
-                      .where(user_id: @user.id)
-                      .order(id: :desc)
+    @q = @user.reviews.ransack(params[:q])
+    @reviews = @q.result.includes(:material)
+    # @reviews = Review.includes(:material)
+    #                   .where(user_id: @user.id)
+    #                   .order(id: :desc)
 
   end
 

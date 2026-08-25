@@ -1,8 +1,8 @@
 class Admin::ReviewsController < Admin::ApplicationController
   # レビュー管理一覧画面
   def index
-    @reviews = Review.includes(:material, :user)
-                     .order(created_at: :desc)
+    @q = Review.ransack(params[:q])
+    @reviews = @q.result.includes(:material, :user)
   end
 
   # レビュー管理詳細画面

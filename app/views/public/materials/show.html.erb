@@ -102,7 +102,22 @@
   <div class="row">
     <%# レビュー一覧 %>
     <div class="col-md-9 no-border">
-      <h2>レビュー一覧(<%=@material.reviews.count%>)</h2>
+      <div class="d-flex align-items-center">
+        <div class="w-50">
+          <h2>レビュー一覧(<%=@material.reviews.count%>)</h2>
+        </div>
+        <div class="w-50 text-end">
+          <%= search_form_for @q, url: material_path(@material) do |f| %> 
+            <%= f.label :sorts, "並び替え", class: "form-label small fw-bold" %>
+            <%= f.select :sorts, {
+              "投稿が新しい順": "created_at desc",
+              "投稿が古い順": "created_at asc",
+              "評価の高い順": "rate desc",
+              "勉強時間が多い順": "study_time desc"
+            }, { selected: params.dig(:q, :sorts) },{ onchange: 'this.form.submit()' }%>
+          <% end %>
+        </div>
+      </div>
       <% @reviews.each do |reviewer| %>
         <div class="row py-3 border-top">
 
