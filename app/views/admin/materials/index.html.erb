@@ -4,7 +4,7 @@
     <h1>教材管理</h1>
     <%= search_form_for @q, url: admin_materials_path, class:"d-flex align-items-center" do |f| %>
 
-      <div class="w-75">
+      <div style=" width :90%;">
         <%= f.label :title_or_author_or_publisher_cont, "キーワード検索",class: "form-label small fw-bold" %>
         <%= f.text_field :title_or_author_or_publisher_cont, placeholder:"タイトル/著者名/出版社" %>
         <%= f.label :category_id,
@@ -19,11 +19,20 @@
           { include_blank: "---" }
         ) %>
 
+        <%= f.label :sorts, "並び替え", class: "form-label small fw-bold" %>
+        <%= f.select :sorts, {
+           "---": "",
+            "【昇順】平均評価": "average_rating asc",
+            "【降順】平均評価": "average_rating desc",
+            "【昇順】レビュー数": "reviews_count asc",
+            "【降順】レビュー数": "reviews_count desc"
+        }, { selected: params.dig(:q, :sorts) }%>
+
         <%= f.submit "検索" ,class:"btn ms-2 mb-1 border border-dark"%>
         <%= link_to "リセット", admin_materials_path, class:"btn mb-1 border border-dark"%>
       </div>
 
-      <div class="w-25 text-end">
+      <div class="text-end" style=" width: 10%;">
         <%= link_to "教材登録へ", add_admin_materials_path, class:"text-decoration-none btn btn-success px-1 mb-1"%>
       </div>
 
@@ -38,6 +47,7 @@
           <th>カテゴリ名</th>
           <th>レベル</th>
           <th>平均評価</th>
+          <th>レビュー数</th>
         </tr>
       </thead>
 
@@ -57,6 +67,7 @@
             <td><%= material.category.name%></td>
             <td><%= material.study_level %></td>
             <td><%= material.average_rating %></td>
+            <td><%= material.reviews.count %></td>
           <tr>
         <% end %>
       </tbody>

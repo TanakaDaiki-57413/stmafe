@@ -5,18 +5,40 @@
         
       <div class="me-1">
         <%= f.label :nickname_or_email_address_cont, "ユーザー検索",class:"form-label small fw-bold ms-2" %>
-        <%= f.text_field :nickname_or_email_address_cont, placeholder:"ニックネームorメアド" %>
+        <%= f.text_field :nickname_or_email_address_cont, placeholder:"ニックネーム or email" %>
+      </div>
+      <div class="me-4">
+        <%= f.label :active_status,
+                          "ステータス",
+                          class: "form-label small fw-bold ms-2" %>
+
+        <%= f.select :active_status_eq, 
+            [["利用中", 0], 
+            ["無効", 1],
+            ["利用停止", 2]], 
+            include_blank: "---" %>
+      </div>
+      <div class="me-3">
+        <%= f.label :sorts, "並び替え", class: "form-label small fw-bold" %>
+        <%= f.select :sorts, {
+           "---": "",
+           "【昇順】作成日": "created_at asc",
+            "【降順】作成日": "created_at desc",
+            "【昇順】レビュー数": "reviews_count asc",
+            "【降順】レビュー数": "reviews_count desc"
+        }, { selected: params.dig(:q, :sorts) }%>
       </div>
     
       <%= f.submit "検索",class:"btn ms-2 mb-1 border border-dark" %>
       <%= link_to "リセット", admin_users_path, class:"btn ms-1 mb-1 border border-dark"%>
     <% end %>
-    <table class="table table-hover">
+    <table class="table table-hover mt-3">
       <thead>
         <tr>
           <th>プロフィール画像</th>
           <th>ニックネーム</th>
           <th>メールアドレス</th>
+          <th>レビュー数</th>
           <th>作成日</th>
           <th>ステータス</th>
         </tr>
@@ -31,6 +53,7 @@
             </td>
             <td><%= link_to user.nickname, admin_user_path(user) %></td>
             <td><%= user.email_address %></td>
+            <td><%= user.reviews.count %></td>
             <td><%= user.created_at.strftime("%Y/%m/%d") %></td>
             <td><%= user.active_status_i18n%></td>
           </tr>

@@ -59,6 +59,20 @@ class Material < ApplicationRecord
     update!(average_rating: average || 0)
   end
 
+  # レビュー件数の多い変数を仮想属性で定義
+  ransacker :reviews_count do
+    query = <<-SQL
+      (SELECT
+        COUNT(reviews.id)
+       FROM
+        reviews
+       WHERE
+        reviews.material_id = materials.id
+        )
+    SQL
+    Arel.sql(query)
+  end
+
   # ransackで検索を許可するカラム名を指定
   def self.ransackable_attributes(auth_object = nil)
     %w[
@@ -72,6 +86,7 @@ class Material < ApplicationRecord
     release_date
     study_level
     title
+    reviews_count
     ]
   end
 
@@ -81,8 +96,11 @@ class Material < ApplicationRecord
     category
     material_tags
     tags
+    reviews
     ]
   end
+
+  
 
   # 
   def bookmarked_by?(user)

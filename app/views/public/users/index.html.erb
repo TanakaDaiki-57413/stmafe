@@ -1,5 +1,13 @@
 <div class="container w-75 mx-auto py-4">
-  <h1 class="mb-4">ユーザー</h1>
+  <div class="d-flex align-items-center">
+    <div class="w-50">
+      <h1 class="mb-4">ユーザー</h1>
+    </div>
+    <div class="w-50 text-end ">
+      <%= render "sort_sellect" , q: @q%>
+    </div>
+  </div>
+  
 
   <div class="row g-4">
     <%= render "user_list" , users:@users%>

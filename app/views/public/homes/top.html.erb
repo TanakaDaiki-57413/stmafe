@@ -265,7 +265,7 @@
           <div class="text-end mt-3">
 
             <%= link_to "もっと見る",
-                        materials_path,
+                        materials_path( q: { sorts: 'average_rating desc' } ),
                         class: "small text-decoration-none" %>
 
           </div>

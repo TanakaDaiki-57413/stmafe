@@ -1,0 +1,11 @@
+<%= search_form_for q, url: users_path do |f| %>
+  <div class="sort-select-box">
+    <%= f.label :sorts, "並び替え", class: "form-label small fw-bold" %>
+      <%= f.select :sorts, {
+        "指定なし": "",
+        "レビュー数が多い順": "reviews_count desc",
+        "フォローが多い順": "followings_count_sort desc",
+        "フォロワーが多い順": "followers_count_sort desc",
+      }, { selected: params.dig(:q, :sorts) },{ onchange: 'this.form.submit()' }%>
+  </div>
+<% end %>
