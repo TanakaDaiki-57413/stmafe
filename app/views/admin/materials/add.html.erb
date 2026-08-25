@@ -46,7 +46,9 @@
 
       <div class="mt-4">
         <%= form.label :isbn_number, "ISBN番号", class:"bg-success text-white px-2 rounded mb-1" %>
-        <%= form.text_field :isbn_number, class: "form-control" %>
+        <%= form.text_field :isbn_number, 
+                             class: "form-control",
+                             maxlength: 13 %>
       </div>
 
       <div class="mt-4">

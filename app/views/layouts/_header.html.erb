@@ -104,9 +104,8 @@
                 aria-expanded="false">
 
                 <i class="fa-regular fa-envelope fs-4"></i>
-
                 <% if @notifications.present? %>
-                  <span class="badge bg-danger">
+                  <span class="badge bg-primary">
                     <%= @notifications.count %>
                   </span>
                 <% end %>
@@ -119,8 +118,9 @@
 
                   <% @notifications.each do |notification| %>
                     <li>
-                      <%= link_to notification.message,
+                      <%= link_to notification_message(notification),
                           notification_path(notification),
+                          data: { turbo_method: :patch },
                           class: "dropdown-item" %>
                     </li>
                   <% end %>
@@ -343,7 +343,7 @@
               <i class="fa-regular fa-envelope fs-5"></i>
 
               <% if @notifications.present? %>
-                <span class="badge bg-danger">
+                <span class="badge bg-primary">
                   <%= @notifications.count %>
                 </span>
               <% end %>
@@ -356,8 +356,9 @@
 
                 <% @notifications.each do |notification| %>
                   <li>
-                    <%= link_to notification.message,
+                    <%= link_to notification_message(notification),
                         notification_path(notification),
+                        data: { turbo_method: :patch },
                         class: "dropdown-item" %>
                   </li>
                 <% end %>

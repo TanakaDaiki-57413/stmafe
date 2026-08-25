@@ -13,4 +13,8 @@ class Request < ApplicationRecord
 
   # enum設定
   enum :progress_status, { in_progress: 0, rejection: 1, added: 2 }
+
+  def create_request_notification
+    create_notification(user_id: user.id)
+  end
 end

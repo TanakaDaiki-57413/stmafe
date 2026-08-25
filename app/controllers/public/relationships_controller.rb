@@ -53,10 +53,3 @@ class Public::RelationshipsController < Public::ApplicationController
     @profile_user = User.find_by(public_uid: params[:profile_user_public_uid])
   end
 end
-
-# user_relationships DELETE /users/:user_public_uid/relationships(.:format) public/relationships#destroy
-#                 POST   /users/:user_public_uid/relationships(.:format)   public/relationships#create
-# user_followings GET    /users/:user_public_uid/followings(.:format)      public/relationships#followings
-# user_followers GET    /users/:user_public_uid/followers(.:format)       public/relationships#followers
-
-# href="/users/GVrhRTWxeYk/relationships?profile_user_public_uid=MJqoh5svL2A">フォロー中</a>

@@ -8,6 +8,7 @@ class Admin::RequestsController < Admin::ApplicationController
   # 管理者の返信内容の作成
   def update
     if @request.update(request_params)
+      @request.create_request_notification
       redirect_to admin_root_path, notice: "リクエストの更新に成功しました"
     else
       render :show, status: :unprocessable_entity

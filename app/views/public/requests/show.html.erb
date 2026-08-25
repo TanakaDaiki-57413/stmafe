@@ -101,6 +101,20 @@
                           class: "btn btn-danger px-5" %>
         </div>
       </div>
+    <% else @request.progress_status_i18n == "追加済"%>
+
+      <div class="row mt-4 mb-4">
+        <div class="col-md-8 text-end">
+
+          <% material = Material.find_by(isbn_number: @request.isbn_number )%>
+          <% if material  %>
+            <%= link_to "確認する",
+                            material_path(material),
+                            class: "btn btn-success px-5" %>
+          <% end %>
+          
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>

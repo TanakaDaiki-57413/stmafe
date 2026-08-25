@@ -47,7 +47,8 @@ class Admin::MaterialsController < Admin::ApplicationController
   # 教材削除処理
   def destroy
     @material.destroy
-    redirect_to admin_materials_path , notice: "データの削除に成功しました"
+    request_isbn_exists_and_destroy
+    redirect_to admin_materials_path , notice: "データの削除に成功しました\n\n" + @number_of_request_destroy
   end
 
   private
@@ -72,15 +73,29 @@ class Admin::MaterialsController < Admin::ApplicationController
     @material = Material.find(params[:id])
   end
 
-  # リクエスト教材と登録教材のISBNが一致したならステータスを自動で追加済に変更
+  # リクエスト教材と登録教材のISBNが一致したならリクエストのステータスを自動で追加済に変更
   def request_isbn_exists_and_create
-    requests = Request.where(isbn_number: @material.isbn_number )
+    requests = Request.in_progress
+                      .where(isbn_number: @material.isbn_number )
     unless requests.blank?
+      update_counts = requests.count
       requests.each do |request_record|
         request_record.update(reply: "リクエストありがとうございます。教材の追加をしたのでご確認お願いします",
                               progress_status: 2)
+        # リクエスト通知を作成
+        request_record.create_request_notification              
       end
     end
-    @number_of_request_changes = "リクエスト教材の変更件数は#{requests.count}件です"
+    @number_of_request_changes = "リクエスト教材の変更件数は#{update_counts}件です"
+  end
+
+  # リクエスト教材と登録教材のISBNが一致したリクエスト履歴を削除
+  def request_isbn_exists_and_destroy
+    return if @material.blank?
+
+    requests = Request.where(isbn_number: @material.isbn_number )
+    destroy_counts = requests.count
+    requests.destroy_all
+    @number_of_request_destroy = "リクエスト教材の削除件数は#{destroy_counts}件です"
   end
 end
