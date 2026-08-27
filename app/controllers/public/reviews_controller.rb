@@ -2,9 +2,8 @@ class Public::ReviewsController < Public::ApplicationController
   before_action :set_one_review, only: [ :edit, :update, :destroy ]
   # レビュー編集画面
   def edit
-    # @return_toの値に遷移元のURLが格納
     @material = Material.find(params[:material_id])
-    @return_to = params[:return_to]
+    @return_to = url_from(params[:return_to])
   end
 
   # レビュー作成処理
@@ -27,10 +26,11 @@ class Public::ReviewsController < Public::ApplicationController
   # レビュー内容の変更処理
   def update
     @material = Material.find(params[:material_id])
+    @return_to = url_from(params[:return_to])
+
     if @review.update(review_param)
-      redirect_to params[:return_to].presence || root_path, notice: "レビューを更新しました"
+      redirect_to @return_to.presence || material_path(@material), notice: "レビューを更新しました"
     else
-      @return_to = params[:return_to]
       render "edit", status: :unprocessable_entity
     end
   end
@@ -52,6 +52,8 @@ class Public::ReviewsController < Public::ApplicationController
   end
 
   def set_one_review
-    @review = Review.find(params[:id])
+    @review = current_user.reviews.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: "このレビューを編集する権限がありません"
   end
 end

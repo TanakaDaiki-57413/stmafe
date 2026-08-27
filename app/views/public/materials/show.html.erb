@@ -160,7 +160,7 @@
             <%# 投稿本人の時に表示 %>
             <% if reviewer.user == current_user %>
               <div class="w-100 text-end">
-                <%= link_to "編集",  edit_material_review_path(@material,reviewer, return_to: request.fullpath) ,class:"btn btn-success"%>
+                <%= link_to "編集",  edit_material_review_path(@material,reviewer, return_to: request.fullpath), user: reviewer.user ,class:"btn btn-success"%>
                 <%= link_to "削除", material_review_path(@material,reviewer) ,
                                   class:"btn btn-danger",
                                   data: { 

@@ -94,7 +94,7 @@
 
         <div class="mt-4 text-end">
           <%= form.submit "編集内容を保存", class:"w-50, btn btn-success"%>
-          <%= link_to "戻る",@return_to , class:"w-50, btn btn-danger"%>
+          <%= link_to "戻る", @return_to || material_path(@review.material), class:"w-50, btn btn-danger"%>
         </div>
       
       <% end %>

@@ -44,6 +44,8 @@ gem "enum_help"
 
 gem "ransack"
 
+gem "brakeman"
+
 gem "dotenv-rails"
 group :production do
   gem "mysql2"
