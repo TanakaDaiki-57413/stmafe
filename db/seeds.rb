@@ -13,61 +13,84 @@ puts "seedの実行を開始"
 olivi = User.find_or_create_by!(email_address: "olivi@example.com") do |user|
   user.nickname = "olivi"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.jpg"), filename:"sample-user1.jpg")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.jpg"), filename: "sample-user1.jpg")
 end
 
 yuka = User.find_or_create_by!(email_address: "yuka@example.com") do |user|
   user.nickname = "yuka"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename:"sample-user2.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename: "sample-user2.png")
 end
 
 taro = User.find_or_create_by!(email_address: "taro@example.com") do |user|
   user.nickname = "taro"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user3.png"), filename:"sample-user3.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user3.png"), filename: "sample-user3.png")
 end
 
 teru = User.find_or_create_by!(email_address: "teru@example.com") do |user|
   user.nickname = "teru"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user4.png"), filename:"sample-user2.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user4.png"), filename: "sample-user2.png")
 end
 
 ryu = User.find_or_create_by!(email_address: "ryu@example.com") do |user|
   user.nickname = "ryu"
   user.introduction = "3年目エンジニア アプリ設計を勉強中"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user3.png"), filename:"sample-user3.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user3.png"), filename: "sample-user3.png")
 end
 
 juju = User.find_or_create_by!(email_address: "juju@example.com") do |user|
   user.nickname = "juju"
   user.introduction = "1年目エンジニア Rubyを勉強中"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename:"sample-user2.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename: "sample-user2.png")
 end
 
 sun = User.find_or_create_by!(email_address: "sun@example.com") do |user|
   user.nickname = "sun"
   user.introduction = "2年目エンジニア AWSを勉強中"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user4.png"), filename:"sample-user4.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user4.png"), filename: "sample-user4.png")
 end
 
 L = User.find_or_create_by!(email_address: "L@example.com") do |user|
   user.nickname = "L"
   user.introduction = "2年目エンジニア DBを勉強中"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.jpg"), filename:"sample-user1.jpg")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user1.jpg"), filename: "sample-user1.jpg")
 end
 
 yukki = User.find_or_create_by!(email_address: "yukki@example.com") do |user|
   user.nickname = "ゆっきー"
   user.introduction = "未経験エンジニア"
   user.password = "password"
-  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename:"sample-user2.png")
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename: "sample-user2.png")
 end
+
+test_user = User.find_or_create_by!(email_address: "test@example.com") do |user|
+  user.nickname = "テストユーザー"
+  user.password = "password"
+  user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename: "sample-user2.png")
+end
+
+# フォロワー処理
+followed_array = [ olivi, yuka, juju ]
+followed_array.each do |followed|
+  Relationship.create(
+    follower_id: followed.id,
+    followed_id: test_user.id
+  )
+end
+
+# リクエストデータ作成
+test_user.requests.create(
+  title: "テスト",
+  author: "テスト",
+  publisher: "テスト",
+  isbn_number: "1111111111111"
+)
 
 # 管理者
 Admin.find_or_create_by!(email_address: ENV.fetch("ADMIN_EMAIL")) do |admin|
@@ -149,7 +172,7 @@ materials = [
     isbn_number: "0000000000001",
     study_level: "初級",
     category: "プログラミング言語",
-    tags: ["Ruby", "チュートリアル"]
+    tags: [ "Ruby", "チュートリアル" ]
   },
 
   {
@@ -162,7 +185,7 @@ materials = [
     isbn_number: "0000000000002",
     study_level: "中級",
     category: "プログラミング言語",
-    tags: ["Ruby", "バックエンド", "オブジェクト指向"]
+    tags: [ "Ruby", "バックエンド", "オブジェクト指向" ]
   },
 
   {
@@ -175,7 +198,7 @@ materials = [
     isbn_number: "0000000000003",
     study_level: "初級",
     category: "Web開発",
-    tags: ["Ruby on Rails", "バックエンド"]
+    tags: [ "Ruby on Rails", "バックエンド" ]
   },
 
   {
@@ -188,7 +211,7 @@ materials = [
     isbn_number: "0000000000004",
     study_level: "初級",
     category: "Web開発",
-    tags: ["Ruby on Rails", "バックエンド", "データベース", "実践"]
+    tags: [ "Ruby on Rails", "バックエンド", "データベース", "実践" ]
   },
 
   {
@@ -201,7 +224,7 @@ materials = [
     isbn_number: "0000000000005",
     study_level: "初級",
     category: "データベース",
-    tags: ["SQL", "実践", "チュートリアル"]
+    tags: [ "SQL", "実践", "チュートリアル" ]
   },
 
   {
@@ -214,7 +237,7 @@ materials = [
     isbn_number: "0000000000006",
     study_level: "初級",
     category: "データベース",
-    tags: ["バックエンド", "実践"]
+    tags: [ "バックエンド", "実践" ]
   },
 
   {
@@ -227,7 +250,7 @@ materials = [
     isbn_number: "0000000000007",
     study_level: "初級",
     category: "インフラ/クラウド",
-    tags: ["AWS", "クラウド", "バックエンド"]
+    tags: [ "AWS", "クラウド", "バックエンド" ]
   },
 
   {
@@ -240,7 +263,7 @@ materials = [
     isbn_number: "0000000000008",
     study_level: "中級",
     category: "Web開発",
-    tags: ["AWS", "クラウド", "バックエンド", "実践"]
+    tags: [ "AWS", "クラウド", "バックエンド", "実践" ]
   },
 
   {
@@ -253,7 +276,7 @@ materials = [
     isbn_number: "0000000000009",
     study_level: "初級",
     category: "プログラミング言語",
-    tags: ["HTML/CSS", "フロントエンド", "チュートリアル"]
+    tags: [ "HTML/CSS", "フロントエンド", "チュートリアル" ]
   },
 
   {
@@ -266,7 +289,7 @@ materials = [
     isbn_number: "0000000000010",
     study_level: "中級",
     category: "Web開発",
-    tags: ["HTML/CSS", "フロントエンド", "実践"]
+    tags: [ "HTML/CSS", "フロントエンド", "実践" ]
   },
 
   {
@@ -279,7 +302,7 @@ materials = [
     isbn_number: "0000000000011",
     study_level: "初級",
     category: "プログラミング言語",
-    tags: ["Javascript", "フロントエンド", "チュートリアル"]
+    tags: [ "Javascript", "フロントエンド", "チュートリアル" ]
   },
 
   {
@@ -292,7 +315,7 @@ materials = [
     isbn_number: "0000000000012",
     study_level: "中級",
     category: "プログラミング言語",
-    tags: ["Javascript", "フロントエンド", "実践"]
+    tags: [ "Javascript", "フロントエンド", "実践" ]
   }
 ]
 
@@ -313,7 +336,7 @@ materials.each do |data|
     category: category
   )
 
-  material.cover_image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-book.jpg"),filename: "sample-book.jpg"
+  material.cover_image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-book.jpg"), filename: "sample-book.jpg"
 )
 
   data[:tags].each do |tag_name|
@@ -328,9 +351,9 @@ end
 
 # レビュー テストレビューを10件作成
 target_materials = Material.all.shuffle.first(10)
-study_times = [50, 100, 150, 200 ]
-rate_array = [3,  3.5,  4,  4.5,  5]
-target_materials.each do |target_material| 
+study_times = [ 50, 100, 150, 200 ]
+rate_array = [ 3,  3.5,  4,  4.5,  5 ]
+target_materials.each do |target_material|
   reviewer = User.all.shuffle.first
   Review.create!(
     user_id: reviewer.id,

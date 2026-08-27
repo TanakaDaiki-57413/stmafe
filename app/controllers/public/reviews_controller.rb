@@ -9,19 +9,19 @@ class Public::ReviewsController < Public::ApplicationController
 
   # レビュー作成処理
   def create
-    @review = Review.new(review_param)
+    @new_review = Review.new(review_param)
     @material = Material.find(params[:material_id])
-    @review.user = current_user
-    @review.material = @material
-    
-    if @review.save
-      redirect_to material_path(@material),notice:"レビュー投稿に成功しました"
+
+    @new_review.user = current_user
+    @new_review.material = @material
+
+    if @new_review.save
+      redirect_to material_path(@material), notice: "レビュー投稿に成功しました"
     else
-      @new_review = @review
-      @reviews = @material.reviews.includes(:user)
+      @q = @material.reviews.order(created_at: :desc).ransack(params[:q])
+      @reviews = @q.result.includes(:user)
       render "public/materials/show", status: :unprocessable_entity
     end
-
   end
 
   # レビュー内容の変更処理
@@ -30,12 +30,13 @@ class Public::ReviewsController < Public::ApplicationController
     if @review.update(review_param)
       redirect_to params[:return_to].presence || root_path, notice: "レビューを更新しました"
     else
+      @return_to = params[:return_to]
       render "edit", status: :unprocessable_entity
     end
   end
 
   # レビューの削除処理
-  def destroy    
+  def destroy
     @review.destroy
     redirect_back(fallback_location: root_path, notice: "レビューの削除に成功しました")
   end

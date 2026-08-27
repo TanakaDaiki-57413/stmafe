@@ -5,13 +5,15 @@ class Admin::UsersController < Admin::ApplicationController
     # 検索結果を@qに格納 該当書籍の画像を事前に取得
     # @params[:q]に値が無い状態だとUser情報全取得
     @q = User.ransack(params[:q])
-    @users = @q.result.with_attached_profile_image
+    @users = @q.result(distinct: true).with_attached_profile_image
   end
 
   # ユーザー管理詳細画面
   def show
     @user = User.includes(:reviews)
                  .find(params[:id])
+    @q = @user.reviews.order(created_at: :desc).ransack(params[:q])
+    @reviews = @q.result(distinct: true).includes(:material)
   end
 
   # ユーザー管理編集画面

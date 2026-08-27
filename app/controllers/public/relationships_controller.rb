@@ -1,7 +1,7 @@
 class Public::RelationshipsController < Public::ApplicationController
   allow_unauthenticated_access only: %i[followings followers]
   before_action :set_user, only: [ :followings, :followers ]
-  before_action :set_users, only: [ :create, :destroy]
+  before_action :set_users, only: [ :create, :destroy ]
   # フォロー一覧画面
   def followings
     @followings = @user.followings

@@ -8,12 +8,14 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :material
 
-  validates :content, presence: true, 
+  validates :content, presence: true,
             length: { maximum: 512 }
-  
+
   validates :study_time, presence: true,
             numericality: { only_integer: true }
-  
+
+  validates :rate, presence: true
+
   # rateのバリデーションは実装フェーズ3にて
 
   # ransackで検索を許可するカラム名を指定
@@ -24,7 +26,7 @@ class Review < ApplicationRecord
       study_time
     ]
   end
-  
+
   private
 
   def call_update_on_material

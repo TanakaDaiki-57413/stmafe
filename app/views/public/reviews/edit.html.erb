@@ -66,7 +66,8 @@
       <h1>レビュー編集</h1>
       <%= form_with model:@review, 
           url:material_review_path(@material,@review ,return_to: @return_to),
-          method: :patch do |form| %>
+          method: :patch ,
+          data: {turbo: false} do |form| %>
   
         <div class="fw-bold me-2">
               評価:
@@ -93,8 +94,7 @@
 
         <div class="mt-4 text-end">
           <%= form.submit "編集内容を保存", class:"w-50, btn btn-success"%>
-
-          <%= link_to "戻る",:back , class:"w-50, btn btn-danger"%>
+          <%= link_to "戻る",@return_to , class:"w-50, btn btn-danger"%>
         </div>
       
       <% end %>

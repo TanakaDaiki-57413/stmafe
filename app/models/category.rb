@@ -7,6 +7,6 @@ class Category < ApplicationRecord
 
   # materialで検索されるカラムを許可
   def self.ransackable_attributes(auth_object = nil)
-    ["name"]
+    [ "name" ]
   end
 end

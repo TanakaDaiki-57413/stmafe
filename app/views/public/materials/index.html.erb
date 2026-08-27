@@ -3,73 +3,20 @@
   <div class="row">
     <div class="row mb-3 mt-3">
       <div class="col-5">
-        <h2>教材一覧</h2>
+        <% if  @q.conditions.blank? && @tag_ids.blank? %>
+          <h2>教材一覧</h2>
+        <% else %>
+          <h2>教材検索結果</h2>
+        <%end%>
       </div>
     </div>
     
   </div>
-  <div class="row d-flex">
+  <div class="row">
     <%= render "public/shared/filter_form",q: @q %>
 
-    <div class="col-md-9 d-flex">
-      <div class="row g-3">
-        <% @materials.each do |material| %>
-          <% if @materials.count == 1%>
-            <%# 検索結果が1件のみの場合、レイアウト崩れが起きるので処置 %>
-            <div class="col-md-8">
-          <% else%>
-            <div class="col-md-3 col-sm-6">
-          <% end%>
-              <div class="card h-100 px-1">
-                <%= link_to material_path(material),class:"text-decoration-none" do%>
-                  <%= image_tag material.get_cover_image(100,100),
-                                class:"card-img-top" %>
-  
-                  <div class="card-title small fw-bold">
-                    <%= material.title %>
-                  </div>
-                <%end%>
-
-                <div class="card-subtitle small text-secondary">
-                  著者：<%= material.author %><br>
-                  出版社：<%= material.publisher %><br>
-                  価格：<%= material.price %>円<br>
-                  カテゴリ：<%= material.category.name %><br>
-                  レベル：<%= material.study_level %>
-                </div>
-
-                <div class="card-body small px-1 my-auto">
-                  <%= truncate(material.body, length:50)%>
-                </div>
-
-                <div class="card-text small">
-                  <div class="d-flex flex-wrap align-items-baseline">
-                    <% material.material_tags.each do | material | %>
-                      <%= link_to materials_path(tag_ids:[material.tag.id]) do %>
-                        <div class="bg-light text-primary badge rounded-4  px-2 me-1 mb-2">
-                          <%= material.tag.name %>
-                        </div>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-
-                <div class="card-footer small text-warning d-flex align-items-center">
-                  <div class="fw-bold me-2"><%= material.average_rating %></div>
-                  <div id="all_show_raty" 
-                      class="xs-star raty"
-                      style="margin-bottom:1.75px;"
-                      data-score="<%= material.average_rating %>"
-                      data-star-on="<%= asset_path('star-on.png') %>"
-                      data-star-off="<%= asset_path('star-off.png') %>"
-                      data-star-half="<%= asset_path('star-half.png') %>">
-                  </div>
-                  <span class="text-primary badge">(<%= material.reviews.count %>件)</span>
-                </div>
-              </div>
-          </div>
-        <%end%>
-      </div>
+    <div class="col-md-9">
+      <%= render "public/shared/index_materials", materials: @materials%>
     </div>
   </div>
 </div>

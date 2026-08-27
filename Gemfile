@@ -42,11 +42,11 @@ gem "image_processing", "~> 1.2"
 
 gem "enum_help"
 
-gem 'ransack'
+gem "ransack"
 
-gem 'dotenv-rails'
+gem "dotenv-rails"
 group :production do
-  gem 'mysql2'
+  gem "mysql2"
 end
 
 group :development, :test do

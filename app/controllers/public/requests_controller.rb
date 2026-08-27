@@ -30,16 +30,16 @@ class Public::RequestsController < Public::ApplicationController
     @request = current_user.requests.new(session[:request_params])
     if @request.save
       session.delete(:request_params)
-      redirect_to request_path(@request) , notice: "リクエスト作成に成功しました"
+      redirect_to request_path(@request), notice: "リクエスト作成に成功しました"
     else
-      render :new , status: :unprocessable_entity
-    end   
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
     request = current_user.requests.find(params[:id])
     request.destroy
-    redirect_to requests_path , notice: "リクエストの取消に成功しました"
+    redirect_to requests_path, notice: "リクエストの取消に成功しました"
   end
 
   private
@@ -51,5 +51,4 @@ class Public::RequestsController < Public::ApplicationController
       :isbn_number
     )
   end
-  
 end

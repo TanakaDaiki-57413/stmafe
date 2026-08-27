@@ -74,7 +74,7 @@ Rails.application.routes.draw do
       # レビュー編集画面・各データ処理
       resources :reviews, only: [ :edit, :create, :update, :destroy ]
       # お気に入り機能
-      resource :book_marks, only: [ :create , :destroy ]
+      resource :book_marks, only: [ :create, :destroy ]
     end
 
     # 通知
@@ -82,8 +82,8 @@ Rails.application.routes.draw do
 
     get "requests/confirm", to: "requests#new"
     post "requests/confirm", to: "requests#confirm"
-    
+
     # 教材リクエスト 各画面・各データ処理
-    resources :requests, only: [ :new, :index, :show, :create, :destroy ] 
+    resources :requests, only: [ :new, :index, :show, :create, :destroy ]
   end
 end

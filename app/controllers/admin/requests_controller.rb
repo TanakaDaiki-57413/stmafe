@@ -13,7 +13,6 @@ class Admin::RequestsController < Admin::ApplicationController
     else
       render :show, status: :unprocessable_entity
     end
-
   end
 
   private
