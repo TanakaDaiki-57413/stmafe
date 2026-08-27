@@ -78,8 +78,21 @@
     </div>
     <%# レビュー一覧 %>
     <div class="col-md-6 col-xl-7">
-      <h1 class="border-bottom">レビュー一覧</h1>
-      <% @material.reviews.each do |reviewer| %>
+      <div>
+        <h1 class="border-bottom">レビュー一覧</h1>
+      </div>
+      <div class="w-100 text-end">
+        <%= search_form_for @q, url: admin_material_path(@material) do |f| %> 
+          <%= f.label :sorts, "並び替え", class: "form-label small fw-bold" %>
+          <%= f.select :sorts, {
+            "投稿が新しい順": "created_at desc",
+            "投稿が古い順": "created_at asc",
+            "評価の高い順": "rate desc",
+            "勉強時間が多い順": "study_time desc"
+          }, { selected: params.dig(:q, :sorts) },{ onchange: 'this.form.submit()' }%>
+        <% end %>
+      </div>
+      <% @reviews.each do |reviewer| %>
         <div class="mt-2">
           <%= image_tag reviewer.user.get_profile_image(100,100) %>
           <br>

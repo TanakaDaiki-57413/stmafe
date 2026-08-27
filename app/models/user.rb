@@ -78,15 +78,15 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-  
+
   def not_following?(user)
     !following?(user)
   end
 
   ransacker :followings_count_sort do
     query = <<-SQL
-      (SELECT COUNT(r.id) 
-       FROM relationships r 
+      (SELECT COUNT(r.id)#{' '}
+       FROM relationships r#{' '}
        WHERE r.follower_id = users.id)
     SQL
     Arel.sql(query)
@@ -94,8 +94,8 @@ class User < ApplicationRecord
 
   ransacker :followers_count_sort do
     query = <<-SQL
-      (SELECT COUNT(r.id) 
-       FROM relationships r 
+      (SELECT COUNT(r.id)#{' '}
+       FROM relationships r#{' '}
        WHERE r.followed_id = users.id)
     SQL
     Arel.sql(query)
@@ -113,7 +113,7 @@ class User < ApplicationRecord
     SQL
     Arel.sql(query)
   end
-  
+
   # ransackで検索を許可するカラムを指定
   def self.ransackable_attributes(auth_object = nil)
     %w[

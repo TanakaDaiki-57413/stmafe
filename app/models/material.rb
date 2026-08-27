@@ -22,7 +22,7 @@ class Material < ApplicationRecord
   validate :day_after_today
   def day_after_today
     unless release_date == nil
-      errors.add(:release_date, 'は、本日を含む過去の日付を入力して下さい') if release_date > Date.today
+      errors.add(:release_date, "は、本日を含む過去の日付を入力して下さい") if release_date > Date.today
     end
   end
 
@@ -44,19 +44,23 @@ class Material < ApplicationRecord
         total_time += reviewer.study_time
       end
       avg_study_time = total_time / reviews.count
-      return avg_study_time
+      avg_study_time
     else
-      return 0
+      0
     end
-     
+
     # avg_study_time = reviews.average(:study_time).round
     # return avg_study_time
   end
 
   # 該当教材のレビュー平均評価を求める
   def calc_to_set_avg_rate
-    average = reviews.average(:rate).round(1)
-    update!(average_rating: average || 0)
+    average = reviews.average(:rate)
+    if average
+      update!(average_rating: average.round(1))
+    else
+      update!(average_rating: 0)
+    end
   end
 
   # レビュー件数の多い変数を仮想属性で定義
@@ -100,9 +104,9 @@ class Material < ApplicationRecord
     ]
   end
 
-  
 
-  # 
+
+  #
   def bookmarked_by?(user)
     bookmarks.exists?(user_id: user.id)
   end

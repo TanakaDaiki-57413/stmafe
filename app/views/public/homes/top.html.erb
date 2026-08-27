@@ -117,7 +117,7 @@
           </h2>
 
           <%= link_to "もっと見る",
-                      materials_path,
+                      materials_path( q: { sorts: 'reviews_created_at desc' } ),
                       class: "small text-decoration-none" %>
 
         </div>
@@ -167,7 +167,9 @@
                   </div>
 
                   <span class="badge text-bg-light text-primary">
-                    <%= review.material.category.name%>
+                    <%= link_to review.material.category.name ,
+                        materials_path(q:{ category_id_eq: review.material.category.id}),
+                        class:"text-decoration-none"%>
                   </span>
 
 
@@ -201,7 +203,7 @@
       </div>
 
 
-      <%# 人気教材 %>
+      <%# 評価の高い教材 %>
       <div class="col-lg-4">
 
         <div class="bg-white rounded shadow-sm p-3">
@@ -210,7 +212,7 @@
 
             <h2 class="h6 fw-bold mb-0">
               <i class="fa-solid fa-ranking-star me-2"></i>
-              人気教材
+              評価の高い教材
             </h2>
 
           </div>

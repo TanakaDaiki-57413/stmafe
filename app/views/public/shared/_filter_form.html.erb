@@ -15,7 +15,8 @@
         "指定なし": "",
         "評価の高い順": "average_rating desc",
         "レビュー件数の多い順": "reviews_count desc",
-        "発売日が新しい順": "release_date desc"
+        "発売日が新しい順": "release_date desc",
+        "新着レビュー順": "reviews_created_at desc"
 
       }, { selected: params.dig(:q, :sorts) }%>
     </div>

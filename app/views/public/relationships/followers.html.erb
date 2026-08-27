@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <meta name="turbo-visit-control" content="reload">
+<% end %>
 <div class="container w-75 mx-auto py-4">
   <h1 class="mb-4">
     <%= link_to @user.nickname, user_path(@user.public_uid), class:"text-decoration-none" %>

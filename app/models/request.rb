@@ -6,9 +6,9 @@ class Request < ApplicationRecord
   validates :title, presence: true
   validates :author, presence: true
   validates :publisher, presence: true
-  validates :isbn_number, 
-             presence: true, 
-             numericality: { only_integer: true }, 
+  validates :isbn_number,
+             presence: true,
+             numericality: { only_integer: true },
              length: { is: 13 }
 
   # enum設定

@@ -8,7 +8,6 @@ class Admin::TagsController < Admin::ApplicationController
 
   # タグ 編集画面
   def edit
-    
   end
 
   # タグ データ登録処理
@@ -26,7 +25,7 @@ class Admin::TagsController < Admin::ApplicationController
   # タグ データ更新処理
   def update
     if @tag.update(tag_params)
-      redirect_to admin_tags_path, notice:"カテゴリ名の更新に成功しました"
+      redirect_to admin_tags_path, notice: "カテゴリ名の更新に成功しました"
     else
       render :edit, status: :unprocessable_entity
     end

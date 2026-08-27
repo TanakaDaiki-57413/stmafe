@@ -5,9 +5,9 @@ class Public::UsersController < Public::ApplicationController
   def index
     @q = User.ransack(params[:q])
 
-    @users = @q.result.includes(:reviews, :followings, :followers)
-                      .status_valid
-                      .with_attached_profile_image
+    @users = @q.result(distinct: true).includes(:reviews, :followings, :followers)
+                                      .status_valid
+                                      .with_attached_profile_image
   end
 
   # ユーザー詳細画面
@@ -22,11 +22,10 @@ class Public::UsersController < Public::ApplicationController
     @bookmarks = Bookmark.includes(:material)
                           .where(user_id: @user.id)
                           .first(3)
-    
+
     @followings = @user.followings.first(4)
 
     @followers = @user.followers.first(3)
-
   end
 
   # プロフィール編集画面
@@ -48,12 +47,10 @@ class Public::UsersController < Public::ApplicationController
   # レビュー一覧画面
   def reviewing
     @user = User.find_by(public_uid: params[:user_public_uid])
-    @q = @user.reviews.ransack(params[:q])
-    @reviews = @q.result.includes(:material)
-    # @reviews = Review.includes(:material)
-    #                   .where(user_id: @user.id)
-    #                   .order(id: :desc)
+    @q = @user.reviews.order(created_at: :desc)
+                      .ransack(params[:q])
 
+    @reviews = @q.result(distinct: true).includes(:material)
   end
 
   # ユーザープロフィール編集内容の更新処理
