@@ -341,7 +341,7 @@ materials = [
     isbn_number: "0000000000013",
     study_level: "上級",
     category: "データベース",
-    tags: ["SQL", "データベース", "パフォーマンスチューニング", "実践"]
+    tags: [ "SQL", "データベース", "パフォーマンスチューニング", "実践" ]
   },
 
   {
@@ -354,8 +354,8 @@ materials = [
     isbn_number: "0000000000014",
     study_level: "上級",
     category: "Web開発",
-    tags: ["Ruby on Rails", "バックエンド", "データベース", "実践"]
-  },
+    tags: [ "Ruby on Rails", "バックエンド", "データベース", "実践" ]
+  }
 ]
 
 
