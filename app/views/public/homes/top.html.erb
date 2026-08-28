@@ -66,12 +66,12 @@
 
             <%# タグチェックボックス %>
             <%= select_tag(
-              "tag_id",
+              "tag_ids[]",
               options_from_collection_for_select(
                 Tag.all, #配列
                 :id,     #value
                 :name,   #表示
-                params[:tag_id] #選択要素
+                params[:tag_ids] #選択要素
               ),
               include_blank: "---",
               class: "form-select"

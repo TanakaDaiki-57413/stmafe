@@ -75,7 +75,20 @@ test_user = User.find_or_create_by!(email_address: "test@example.com") do |user|
   user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user2.png"), filename: "sample-user2.png")
 end
 
-# フォロワー処理
+# テストユーザー以外のフォロー・フォロワー関係を作成
+users = User.all.where.not(id: test_user.id)
+
+10.times do
+  follower = users.sample
+  followed = users.where.not(id: follower.id).sample
+
+  Relationship.find_or_create_by!(
+    follower_id: follower.id,
+    followed_id: followed.id
+  )
+end
+
+# テストユーザーのフォロワー作成
 followed_array = [ olivi, yuka, juju ]
 followed_array.each do |followed|
   Relationship.create(
@@ -316,7 +329,33 @@ materials = [
     study_level: "中級",
     category: "プログラミング言語",
     tags: [ "Javascript", "フロントエンド", "実践" ]
-  }
+  },
+
+  {
+    title: "SQL実践データベース設計・最適化",
+    body: "複雑なJOIN、サブクエリ、ウィンドウ関数、CTE、トランザクション、インデックス設計、クエリ実行計画などを題材に、実務で必要となる高度なSQLとデータベース最適化を実践的に学べる上級者向け教材です。",
+    author: "データ 花子",
+    publisher: "サンプル技術出版",
+    price: 4800,
+    release_date: "2025-03-12",
+    isbn_number: "0000000000013",
+    study_level: "上級",
+    category: "データベース",
+    tags: ["SQL", "データベース", "パフォーマンスチューニング", "実践"]
+  },
+
+  {
+    title: "Railsモデル設計実践",
+    body: "Active Record、複雑なアソシエーション、バリデーション、トランザクション、N+1問題、データベース設計など、Railsアプリケーションのモデル設計を実践的に学ぶ上級者向け教材です。",
+    author: "開発 次郎",
+    publisher: "架空出版",
+    price: 4800,
+    release_date: "2025-07-20",
+    isbn_number: "0000000000014",
+    study_level: "上級",
+    category: "Web開発",
+    tags: ["Ruby on Rails", "バックエンド", "データベース", "実践"]
+  },
 ]
 
 
@@ -349,18 +388,20 @@ materials.each do |data|
   end
 end
 
-# レビュー テストレビューを10件作成
-target_materials = Material.all.shuffle.first(10)
+# レビュー テストレビューを20件作成
 study_times = [ 50, 100, 150, 200 ]
 rate_array = [ 3,  3.5,  4,  4.5,  5 ]
-target_materials.each do |target_material|
-  reviewer = User.all.shuffle.first
+20.times do
+  reviewer = User.all.sample
+  target_material = Material.all.sample
+
   Review.create!(
     user_id: reviewer.id,
     material_id: target_material.id,
     content: "テストレビュー",
     rate: rate_array.sample,
-    study_time: study_times.sample
+    study_time: study_times.sample,
+    created_at: rand(1.year.ago..Time.current)
   )
 end
 
