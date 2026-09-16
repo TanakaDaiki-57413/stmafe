@@ -44,7 +44,7 @@ gem "enum_help"
 
 gem "ransack"
 
-gem "aws-sdk-s3", require: false
+gem "brakeman"
 
 gem "dotenv-rails"
 group :production do
