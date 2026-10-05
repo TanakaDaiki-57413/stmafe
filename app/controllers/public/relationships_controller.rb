@@ -4,12 +4,12 @@ class Public::RelationshipsController < Public::ApplicationController
   before_action :set_users, only: [ :create, :destroy ]
   # フォロー一覧画面
   def followings
-    @followings = @user.followings
+    @followings = @user.followings.page(params[:page]).per(9)
   end
 
   # フォロワー一覧画面
   def followers
-    @followers = @user.followers
+    @followers = @user.followers.page(params[:page]).per(9)
   end
 
   # フォローする処理

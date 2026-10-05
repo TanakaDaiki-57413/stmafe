@@ -8,6 +8,7 @@ class Public::UsersController < Public::ApplicationController
     @users = @q.result(distinct: true).includes(:reviews, :followings, :followers)
                                       .status_valid
                                       .with_attached_profile_image
+                                      .page(params[:page]).per(9)
   end
 
   # ユーザー詳細画面

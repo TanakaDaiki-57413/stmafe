@@ -4,7 +4,7 @@ class Public::MaterialsController < Public::ApplicationController
   # 教材一覧画面
   def index
     @materials = @q.result(distinct: true).with_attached_cover_image
-                                          .page(params[:page])
+                                          .page(params[:page]).per(8)
     hit_tags?
     flash.now[:alert] = "検索結果がありませんでした" if @materials.blank?
   end
