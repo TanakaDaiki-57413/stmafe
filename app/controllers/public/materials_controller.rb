@@ -4,6 +4,7 @@ class Public::MaterialsController < Public::ApplicationController
   # 教材一覧画面
   def index
     @materials = @q.result(distinct: true).with_attached_cover_image
+                                          .page(params[:page]).per(8)
     hit_tags?
     flash.now[:alert] = "検索結果がありませんでした" if @materials.blank?
   end
@@ -12,7 +13,7 @@ class Public::MaterialsController < Public::ApplicationController
   def show
     @material = Material.find(params[:id])
     @q = @material.reviews.order(created_at: :desc).ransack(params[:q])
-    @reviews = @q.result(distinct: true).includes(:user)
+    @reviews = @q.result(distinct: true).includes(:user).page(params[:page]).per(4)
     @new_review = Review.new
   end
 

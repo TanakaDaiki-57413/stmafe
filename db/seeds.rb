@@ -104,6 +104,18 @@ test_user.requests.create(
   publisher: "テスト",
   isbn_number: "1111111111111"
 )
+20.times do
+  # 13桁の整数の範囲: 10^12 ～ (10^13 - 1)
+  isbn_num = rand(10**12...10**13).to_s
+  # リクエストデータ作成
+  test_user.requests.create(
+    title: "テスト",
+    author: "テスト",
+    publisher: "テスト",
+    isbn_number: isbn_num
+  )
+end
+
 
 # 管理者
 Admin.find_or_create_by!(email_address: ENV.fetch("ADMIN_EMAIL")) do |admin|

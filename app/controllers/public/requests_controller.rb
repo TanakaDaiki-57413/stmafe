@@ -17,7 +17,7 @@ class Public::RequestsController < Public::ApplicationController
 
   # リクエスト履歴一覧画面
   def index
-    @requests = current_user.requests
+    @requests = current_user.requests.page(params[:page]).per(10)
   end
 
   # リクエスト履歴詳細画面

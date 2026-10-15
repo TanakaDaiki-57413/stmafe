@@ -8,6 +8,7 @@ class Public::UsersController < Public::ApplicationController
     @users = @q.result(distinct: true).includes(:reviews, :followings, :followers)
                                       .status_valid
                                       .with_attached_profile_image
+                                      .page(params[:page]).per(9)
   end
 
   # ユーザー詳細画面
@@ -42,6 +43,7 @@ class Public::UsersController < Public::ApplicationController
     @user = User.find_by(public_uid: params[:user_public_uid])
     @bookmarks = Bookmark.includes(:material)
                           .where(user_id: @user.id)
+                          .page(params[:page]).per(8)
   end
 
   # レビュー一覧画面
@@ -50,7 +52,7 @@ class Public::UsersController < Public::ApplicationController
     @q = @user.reviews.order(created_at: :desc)
                       .ransack(params[:q])
 
-    @reviews = @q.result(distinct: true).includes(:material)
+    @reviews = @q.result(distinct: true).includes(:material).page(params[:page]).per(5)
   end
 
   # ユーザープロフィール編集内容の更新処理

@@ -6,9 +6,9 @@ class Public::SearchesController < Public::ApplicationController
     @keyword = params[:keyword]
     @model = params[:model]
     if @model == "user"
-      @search_result = User.status_valid.ransack(nickname_cont: params[:keyword]).result(distinct: true)
+      @search_result = User.status_valid.ransack(nickname_cont: params[:keyword]).result(distinct: true).page(params[:page]).per(9)
     elsif @model == "material"
-      @search_result = Material.ransack(title_cont: params[:keyword]).result(distinct: true)
+      @search_result = Material.ransack(title_cont: params[:keyword]).result(distinct: true).page(params[:page]).per(8)
     end
 
     if @search_result.blank?
