@@ -13,7 +13,7 @@ class Public::MaterialsController < Public::ApplicationController
   def show
     @material = Material.find(params[:id])
     @q = @material.reviews.order(created_at: :desc).ransack(params[:q])
-    @reviews = @q.result(distinct: true).includes(:user)
+    @reviews = @q.result(distinct: true).includes(:user).page(params[:page]).per(4)
     @new_review = Review.new
   end
 

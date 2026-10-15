@@ -51,7 +51,7 @@ class Public::UsersController < Public::ApplicationController
     @q = @user.reviews.order(created_at: :desc)
                       .ransack(params[:q])
 
-    @reviews = @q.result(distinct: true).includes(:material)
+    @reviews = @q.result(distinct: true).includes(:material).page(params[:page]).per(5)
   end
 
   # ユーザープロフィール編集内容の更新処理
