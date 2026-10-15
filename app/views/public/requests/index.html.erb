@@ -4,6 +4,7 @@
   <table class="table table-hover">
     <thead>
       <tr class="text-nowrap">
+        <th></th>
         <th>リクエスト教材名</th>
         <th>著者</th>
         <th>出版社</th>
@@ -14,8 +15,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @requests.each do |request| %>
+      <% @requests.each.with_index(1) do |request, index| %>
         <tr>
+          <td><%= (@requests.current_page - 1) * @requests.limit_value + index %>.</td>
           <td><%= request.title%></td>
           <td><%= request.author%></td>
           <td><%= request.publisher%></td>
@@ -27,4 +29,7 @@
       <% end %>
     </tbody>
   </table>
+  <div class="d-flex justify-content-center">
+    <%= paginate @requests %>
+  </div>
 </div>
