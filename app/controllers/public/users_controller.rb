@@ -43,6 +43,7 @@ class Public::UsersController < Public::ApplicationController
     @user = User.find_by(public_uid: params[:user_public_uid])
     @bookmarks = Bookmark.includes(:material)
                           .where(user_id: @user.id)
+                          .page(params[:page]).per(8)
   end
 
   # レビュー一覧画面
